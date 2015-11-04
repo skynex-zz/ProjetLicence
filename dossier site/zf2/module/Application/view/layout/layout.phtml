@@ -4,13 +4,20 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 		<title>Titre</title>
-	   
-		<link rel="stylesheet" type="text/css" media="all" href="public/css/styles.css">
-			  <script type="text/javascript" src="public/js/jquery-1.10.2.min.js"></script>
+		<?php 
+		echo $this->headLink()->prependStylesheet($this->basePath().'css/site.css');
+		echo $this->headScript()->appendFile($this->basePath().'js/jquery-1.10.2.min.js');
+		echo $this->headScript()->appendFile($this->basePath().'js/publication-index.js');
+		echo $this->headLink()->prependStylesheet($this->basePath().'css/styles.css');
+		echo $this->headLink()->prependStylesheet($this->basePath().'css/pop-up.css');
+		//<link rel="stylesheet" type="text/css" media="all" href="../../../../public/css/site.css">
+		//<script type="text/javascript" src="public/js/jquery-1.10.2.min.js"></script>
+		//<script type="text/javascript" src="public/js/publication-index.js"></script>
+		//<link rel="stylesheet" href="../../../../public/css/pop-up.css">
+		?>
+		
 
-		  <script type="text/javascript" src="public/js/publication-index.js"></script>
-
-		<link rel="stylesheet" href="../../../../public/css/pop-up.css">
+		 
 	</head>
 	<body>
 
