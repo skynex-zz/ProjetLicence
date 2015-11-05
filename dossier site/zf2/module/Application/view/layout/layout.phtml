@@ -1,49 +1,55 @@
+<!DOCTYPE html>
+
 <html lang="fr">
 	<head>
 		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		
-		<title>Titre</title>
+		<title>NOM PERSONNE</title>
 		<?php 
 		echo $this->headLink()->prependStylesheet($this->basePath().'css/site.css');
-		echo $this->headScript()->appendFile($this->basePath().'js/jquery-1.10.2.min.js');
-		echo $this->headScript()->appendFile($this->basePath().'js/publication-index.js');
 		echo $this->headLink()->prependStylesheet($this->basePath().'css/styles.css');
 		echo $this->headLink()->prependStylesheet($this->basePath().'css/pop-up.css');
-		//<link rel="stylesheet" type="text/css" media="all" href="../../../../public/css/site.css">
-		//<script type="text/javascript" src="public/js/jquery-1.10.2.min.js"></script>
-		//<script type="text/javascript" src="public/js/publication-index.js"></script>
-		//<link rel="stylesheet" href="../../../../public/css/pop-up.css">
-		?>
-		
-
-		 
+	?>
+	
 	</head>
 	<body>
-
-		<div class="wrap">
-			<img src="../../img/logo.png" alt="logo" style="width:20%; margin-left:-20%;padding-bottom:30px;margin-top:20px;">
-			<div id="language">
-				<a href="?r=site/index&locale=fr"><img src="../../img/flag-fr.png" /></a> 
-				<a href="?r=site/index&locale=en"><img src="../../img/flag-en.png" /></a>
+		<div class="site-content">
+			<div class="logo"></div>
+			<div class="icons-contener">
+					<div class="icon"><a href="?r=site/index&locale=fr"><img src="../../img/flag-fr.png" /></a></div>
+					<div class="icon"><a href="?r=site/index&locale=en"><img src="../../img/flag-en.png" /></a></div>
 			</div>
 			
-			<div class="container">
-				
+			<div class="menu-container">
+				<div class="menu-corner-right"></div>
+				<div class="menu-corner-left"></div>
+				<div class="menu-button-list">
+					<?php
+					/// appelle de service pour affichage des rubrique
+					//<div class="menu-item">NOM</div>
+					//<div class="menu-separator"></div> ....
+					?>
+				</div>				
 			</div>
+			<div class="text-contener">
+				<div class="text-content" style="position: relative; overflow: hidden;">
+			
+					<?php
+						///// content
+					?>
+			    </div>
+			</div>	
+			
+			
+			<div>	
+				<div class="footer-corner-left"></div>
+				<div class="footer-middle"></div>
+				<div class="footer-corner-right"></div>
+			</div>	
 		</div>
-	</br></br>
-		<footer class="footer">
-			<div class="container">
-				<p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-				<p class="pull-right"></p>
-			</div>
-		</footer>
-
-
 	</body>
 </html>
 
 
-  <script type="text/javascript" src="public/js/jquery.tablesorter.js"></script>  
-  <script type="text/javascript" src="public/js/effet.js"></script>
+ 
