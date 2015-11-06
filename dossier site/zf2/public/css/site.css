@@ -472,17 +472,15 @@ div.pager span.active {
     position: relative;
     height: 49px;
     left: 30px;
-    margin-right: 60px;
 
-    background-image: url(images/menu_bg.png);
+	background-image: url(images/menu_bg.png);
     background-repeat: repeat-x;
 }
 
 .menu-corner-left
 {
     position: absolute;
-
-    left: 0px;
+    float:left;
     width: 30px;
     height: 49px;
 
@@ -492,11 +490,10 @@ div.pager span.active {
 
 .menu-corner-right
 {
-   position: absolute;
-
+   position: relative;
     width: 30px;
     height: 49px;
-    right: 0px;
+    float:right;
 
     background-image: url(images/menu-corner-right.png);
     background-repeat: no-repeat;
@@ -569,34 +566,36 @@ div.pager span.active {
     background-repeat: repeat-y;
 }
 
-.footer-middle {
-    position: relative;
+.container {
+    width:90%;
+    text-align:center;
+}
+
+.footer-middle 
+{
+	margin:0 auto;
+	display: inline-block;
     height: 35px;
-    left: 30px;
-    margin-right: 60px;
+	width:93%;
     background-image: url("images/footer-middle.png");
     background-repeat: repeat-x;
 }
 
 .footer-corner-left
 {
-    position: absolute;
-    left: 0px;
+	float:left;
     width: 30px;
     height: 35px;
     background-image: url("images/footer-corner-left.png");
     background-repeat: no-repeat;
 }
-}
+
 
 .footer-corner-right
 {
-    position: absolute;
-
+	float:right;
     width: 30px;
     height: 35px;
-    right: 0px;
-
     background-image: url(images/footer-corner-right.png);
     background-repeat: no-repeat;
 }
@@ -986,10 +985,6 @@ html>body .gwt-DialogBox {
 
 .cw-DialogBox {
 }
-
-
-
-
 
 .onglet
 {

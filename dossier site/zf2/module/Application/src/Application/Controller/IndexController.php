@@ -11,11 +11,17 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Model\Rubrique;       
+use Application\Model\RubriqueModel;
 
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return new ViewModel();
+		$rubriqueModel = new RubriqueModel();
+		$premiereRub = $rubriqueModel->fetchFirst();
+        $data = $rubriqueModel->fetchAll();
+		$this->layout()->setVariable('listeRubrique',$data);
+        return array('premiereRub',$premiereRub);
     }
 }

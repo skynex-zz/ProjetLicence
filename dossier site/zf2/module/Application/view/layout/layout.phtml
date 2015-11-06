@@ -1,55 +1,71 @@
-<!DOCTYPE html>
-
-<html lang="fr">
-	<head>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<?php echo $this->doctype(); ?>
+ 
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+ 
+        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
 		
-		<title>NOM PERSONNE</title>
 		<?php 
-		echo $this->headLink()->prependStylesheet($this->basePath().'css/site.css');
-		echo $this->headLink()->prependStylesheet($this->basePath().'css/styles.css');
-		echo $this->headLink()->prependStylesheet($this->basePath().'css/pop-up.css');
+
+
 	?>
-	
-	</head>
-	<body>
-		<div class="site-content">
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') 
+						->prependStylesheet($this->basePath().'css/site.css')
+						->prependStylesheet($this->basePath().'css/pop-up.css');?>
+ 
+        <!-- Scripts -->
+        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                                      ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+                                      ->prependFile($this->basePath() . '/js/jquery.min.js') ?>
+ 
+    </head>
+    <body>
+        		<div class="site-content">
 			<div class="logo"></div>
 			<div class="icons-contener">
 					<div class="icon"><a href="?r=site/index&locale=fr"><img src="../../img/flag-fr.png" /></a></div>
 					<div class="icon"><a href="?r=site/index&locale=en"><img src="../../img/flag-en.png" /></a></div>
 			</div>
 			
-			<div class="menu-container">
-				<div class="menu-corner-right"></div>
 				<div class="menu-corner-left"></div>
-				<div class="menu-button-list">
-					<?php
-					/// appelle de service pour affichage des rubrique
-					//<div class="menu-item">NOM</div>
-					//<div class="menu-separator"></div> ....
-					?>
-				</div>				
-			</div>
+				<div class="menu-container">	
+					<div class="menu-button-list">
+						<?php
+						/// appelle de service pour affichage des rubrique a partir du controller
+						foreach($this->listeRubrique as $item)
+						{
+							echo "<div class='menu-item'><a href=".$this->url('laRubrique',array('id_menu' => $item['menu_id']))."/>".$item['titre_fr']." </a></div>
+							<div class='menu-separator'></div>";
+						}
+						
+						?>
+						
+					</div>									
+				</div>
+				<div class="menu-corner-right"></div>
+				
 			<div class="text-contener">
 				<div class="text-content" style="position: relative; overflow: hidden;">
 			
 					<?php
-						///// content
+						echo $this->content;
 					?>
 			    </div>
 			</div>	
 			
 			
-			<div>	
-				<div class="footer-corner-left"></div>
-				<div class="footer-middle"></div>
-				<div class="footer-corner-right"></div>
+			<div class="cont">
+			<div class="footer-corner-left"></div><div class="footer-middle"></div><div class="footer-corner-right"></div>
 			</div>	
 		</div>
 	</body>
+                
+        <?php echo $this->inlineScript() ?>
+    </body>
 </html>
-
-
- 
