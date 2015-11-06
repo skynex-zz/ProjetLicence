@@ -1,0 +1,15 @@
+<h1> Tests webservices REST </h1>
+<?php
+    foreach($dataAll as $rubrique) {
+        echo "<div style='background-color:yellow;margin-left:20px;padding:20px;display:inline-block'>
+        <a href=".$this->url('onerubrique', array('id' => $rubrique['menu_id'])).">".$rubrique['titre_fr']."</a></div>";
+    }
+?>
+<div style="border:2px solid black;">
+    <?php
+        foreach($dataAll as $rubrique) {
+            echo $rubrique['content_fr'];
+            break;
+        }
+    ?>
+</div>

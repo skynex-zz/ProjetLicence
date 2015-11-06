@@ -25,9 +25,17 @@ class RubriqueController extends AbstractActionController
     public function indexAction() 
     {        
         $rubriqueModel = new RubriqueModel();
-        $data = $rubriqueModel->fetchAll();
-        //var_dump($data);
-        //return array('data' => $data);
+        $dataAll = $rubriqueModel->fetchAll();
+        return array('dataAll' => $dataAll);
+    }
+    
+    public function myrubriqueAction()
+    {
+        $rubriqueModel = new RubriqueModel();
+        $dataAll = $rubriqueModel->fetchAll();
+        $idMenu = $this->getEvent()->getRouteMatch()->getParam('id'); //récupère id du menu correspondant
+        $rubrique = $rubriqueModel->findOne($idMenu);
+        return array('dataAll' => $dataAll, 'rubrique' => $rubrique);
     }
 	
     public function getAlbumTable() 

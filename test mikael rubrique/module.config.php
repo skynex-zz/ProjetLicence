@@ -18,10 +18,10 @@ return array(
     
          'router' => array(
          'routes' => array(
-             'album' => array(
+             'rubrique' => array(
                  'type'    => 'segment',
                  'options' => array(
-                     'route'    => '/rubrique[/:action][/:id]',
+                     'route'    => '/rubriques[/:action][/:id]',
                      'constraints' => array(
                          'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                          'id'     => '[0-9]+',
@@ -29,6 +29,19 @@ return array(
                      'defaults' => array(
                          'controller' => 'Rubrique\Controller\Rubrique',
                          'action'     => 'index',
+                     ),
+                 ),
+             ),
+             'onerubrique' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/rubrique[/:id]',
+                     'constraints' => array(
+                         'id'     => '[0-9]+',
+                     ),
+                     'defaults' => array(
+                         'controller' => 'Rubrique\Controller\Rubrique',
+                         'action'     => 'myrubrique',
                      ),
                  ),
              ),
