@@ -1,0 +1,1 @@
+echo "<div class='menu-item'><a href='".$this->url('publications').'">Publications</a></div>";?>
