@@ -10,6 +10,16 @@
 namespace Application;
 
 return array(
+	// route par default pour l'index
+    'controllers' => array(
+		'invokables' => array(
+			'Application\Controller\Index' => Controller\IndexController::class,
+			'Application\Controller\Rubrique' => Controller\RubriqueController::class,
+			'Application\Controller\Publication' => Controller\PublicationController::class,
+		),
+	),
+	// variable globale de langue
+    'langue' => 'fr',
     'router' => array(
         'routes' => array(
             'home' => array(
@@ -22,13 +32,28 @@ return array(
                     ),
                 ),
             ),
+			// route pour les rubriques
 			'laRubrique' => array(
                 'type' => 'segment',
                 'options' => array(
                     'route'    => '/rubrique[/:id_menu]',
-                    'defaults' => array(
+                    'constraints' => array(
+						'id_menu' => '[0-9]+',
+					),
+					'defaults' => array(
                         'controller' => 'Application\Controller\Rubrique',
-                        'action'     => 'rubriqueSelect',
+                        'action'     => 'rubriqueselect',
+                    ),
+                ),
+            ),
+			// route pour la page publication
+			'publications' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route'    => '/publication',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Publication',
+                        'action'     => 'afficherPublication',
                     ),
                 ),
             ),
@@ -81,11 +106,6 @@ return array(
                 'base_dir' => __DIR__ . '/../language',
                 'pattern'  => '%s.mo',
             ),
-        ),
-    ),
-    'controllers' => array(
-        'invokables' => array(
-            'Application\Controller\Index' => Controller\IndexController::class
         ),
     ),
     'view_manager' => array(

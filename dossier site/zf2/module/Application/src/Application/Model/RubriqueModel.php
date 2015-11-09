@@ -48,7 +48,6 @@ class RubriqueModel {
         $client = new Client();
         $response = $client->send($request); //envoie la requête au service REST
         $data = json_decode($response->getBody(), true); //json -> array php
-        
         return $data;
     }
     
