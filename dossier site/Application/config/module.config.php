@@ -38,10 +38,10 @@ return array(
 			'laRubrique' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route'    => '/rubrique/:id_menu',
+                    'route'    => '/rubrique/:langue/:id_menu',
                     'constraints' => array(
 						'id_menu' => '[0-9]+',
-						'langue' => '[a-zA-Z]',
+						'langue' => '[a-z]+',
 					),
 					'defaults' => array(
                         'controller' => 'Application\Controller\Rubrique',

@@ -30,4 +30,5 @@ class RubriqueController extends AbstractActionController
 		return new ViewModel(array('rubrique'=>$rubrique,'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
 		
     }
+	
 }

@@ -33,7 +33,7 @@
 						/// appelle de service pour affichage des rubrique a partir du controller
 						/// verification langue
 							echo $langue;	
-							echo $rubrique['menu_id'];
+							
 						foreach($this->listeRubrique as $item)
 						{							
 							if($rubrique['menu_id']==$item['menu_id']){echo "<div class='menu-item-selected'>";}
@@ -44,7 +44,9 @@
 							if($langue=='fr'){echo $item['titre_fr'];}
 							else{echo $item['titre_en'];}							
 							
-							echo " </a></div>
+							echo $item['menu_id'];
+							echo " </a></div>						
+							
 							<div class='menu-separator'></div>";
 						}
 						echo "<div class='menu-item'><a href='".$this->url('publications',array('langue' => $langue))."'>Publications</a></div>";?>
