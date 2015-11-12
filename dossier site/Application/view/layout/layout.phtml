@@ -22,8 +22,8 @@
         		<div class="site-content">
 			<div class="logo"></div>
 			<div class="icons-contener">
-					<div class="icon"><?php echo "<a href='".$this->url('laRubrique',array('langue' => 'fr','id_menu' => $rubrique['menu_id']))."'>";?><img src="../../img/flag-fr.png" /></a></div>
-					<div class="icon"><?php echo "<a href='".$this->url('laRubrique',array('langue' => 'en','id_menu' => $rubrique['menu_id']))."'>";?><img src="../../img/flag-en.png" /></a></div>
+					<div class="icon"><?php echo "<a href='".$this->url('laRubrique',array('langue' => 'fr','menu_id' => $this->menu_id))."'>";?><img src="../../img/flag-fr.png" /></a></div>
+					<div class="icon"><?php echo "<a href='".$this->url('laRubrique',array('langue' => 'en','menu_id' => $this->menu_id))."'>";?><img src="../../img/flag-en.png" /></a></div>
 			</div>
 			
 				<div class="menu-corner-left"></div>
@@ -32,24 +32,27 @@
 						<?php
 						/// appelle de service pour affichage des rubrique a partir du controller
 						/// verification langue
-							echo $langue;	
 							
 						foreach($this->listeRubrique as $item)
-						{							
-							if($rubrique['menu_id']==$item['menu_id']){echo "<div class='menu-item-selected'>";}
+						{			
+							if($item['actif']==1){
+							if($this->menu_id==$item['menu_id']){echo "<div class='menu-item-selected'>";}
 							else{echo "<div class='menu-item'>";}
 						
-							echo "<a href='".$this->url('laRubrique',array('langue' => $langue,'id_menu' => $item['menu_id']))."'>";
+							echo "<a href='".$this->url('laRubrique',array('langue' => $this->langue,'menu_id' => $item['menu_id']))."'>";
 							
-							if($langue=='fr'){echo $item['titre_fr'];}
+							if($this->langue=='fr'){echo $item['titre_fr'];}
 							else{echo $item['titre_en'];}							
 							
-							echo $item['menu_id'];
 							echo " </a></div>						
 							
 							<div class='menu-separator'></div>";
+							}
 						}
-						echo "<div class='menu-item'><a href='".$this->url('publications',array('langue' => $langue))."'>Publications</a></div>";?>
+						
+						if($this->menu_id==0){echo "<div class='menu-item-selected'>";}
+						else{echo "<div class='menu-item'>";}
+						echo "<a href='".$this->url('publications',array('langue' => 'fr'))."'>Publications</a></div>";?>
 						
 					</div>									
 				</div>

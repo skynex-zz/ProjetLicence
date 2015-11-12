@@ -18,13 +18,13 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-		$langue = 'fr';
 		$rubriqueModel = new RubriqueModel();
         $data = $rubriqueModel->fetchAll();
-		$this->layout()->setVariable('langue','fr');
 		$this->layout()->setVariable('listeRubrique',$data);
-		
+		$this->layout()->setVariable('langue','fr');
+		$this->layout()->setVariable('menu_id',$data[0]['menu_id']);
 		$this->layout()->setVariable('rubrique',$data[0]);
-        return new ViewModel(array('rubrique'=>$data[0],'langue'=>$langue));
+        return new ViewModel(array('rubrique'=>$data[0],'langue'=>'fr'));
     }
+	
 }

@@ -16,7 +16,6 @@ return array(
 			'Application\Controller\Index' => Controller\IndexController::class,
 			'Application\Controller\Rubrique' => Controller\RubriqueController::class,
 			'Application\Controller\Publication' => Controller\PublicationController::class,
-			'Application\Controller\Langue' => Controller\LangueController::class,
 		),
 	),
     'router' => array(
@@ -25,9 +24,6 @@ return array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route'    => '/',
-                    'constraints' => array(
-						'langue' => '[a-zA-Z]',
-					),
 					'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action'     => 'index',
@@ -38,9 +34,9 @@ return array(
 			'laRubrique' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route'    => '/rubrique/:langue/:id_menu',
+                    'route'    => '/rubrique/:langue[/:menu_id]',
                     'constraints' => array(
-						'id_menu' => '[0-9]+',
+						'menu_id' => '[0-9]+',
 						'langue' => '[a-z]+',
 					),
 					'defaults' => array(
@@ -53,9 +49,9 @@ return array(
 			'publications' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route'    => '/publication[/:langue]',
+                    'route'    => '/publication/:langue',
 					'constraints' => array(
-						'langue' => '[a-zA-Z]',
+						'langue' => '[a-z]+',
 					),
                     'defaults' => array(
                         'controller' => 'Application\Controller\Publication',
@@ -102,16 +98,6 @@ return array(
         ),
         'factories' => array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
-        ),
-    ),
-    'translator' => array(
-        'locale' => 'en_US',
-        'translation_file_patterns' => array(
-            array(
-                'type'     => 'gettext',
-                'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
-            ),
         ),
     ),
     'view_manager' => array(
