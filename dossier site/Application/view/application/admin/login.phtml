@@ -1,0 +1,16 @@
+<?php
+
+    
+    echo $this->escapeHtml("Connexion");
+
+    $form->setAttribute('action', $this->url('login', array('action' => 'login', 'langue' => $langue)));
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formCollection($form);
+    echo $this->form()->closeTag();
+    
+    if(isset($exception)) {
+        echo "<h2>".$exception."</h2>";
+    }
+
