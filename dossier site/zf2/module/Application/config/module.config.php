@@ -16,47 +16,118 @@ return array(
 			'Application\Controller\Index' => Controller\IndexController::class,
 			'Application\Controller\Rubrique' => Controller\RubriqueController::class,
 			'Application\Controller\Publication' => Controller\PublicationController::class,
+                        'Application\Controller\Admin' => Controller\AdminController::class,
 		),
 	),
-	// variable globale de langue
-    'langue' => 'fr',
     'router' => array(
         'routes' => array(
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route'    => '/',
-                    'defaults' => array(
+					'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action'     => 'index',
                     ),
                 ),
             ),
 			// route pour les rubriques
-			'laRubrique' => array(
+            'laRubrique' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route'    => '/rubrique[/:id_menu]',
+                    'route'    => '/rubrique/:langue[/:menu_id]',
                     'constraints' => array(
-						'id_menu' => '[0-9]+',
-					),
-					'defaults' => array(
+			'menu_id' => '[0-9]+',
+                        'langue' => '[a-z]+',
+                    ),
+                    'defaults' => array(
                         'controller' => 'Application\Controller\Rubrique',
                         'action'     => 'rubriqueselect',
                     ),
                 ),
             ),
 			// route pour la page publication
-			'publications' => array(
+            'publications' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route'    => '/publication',
+                    'route'    => '/publication/:langue',
+			'constraints' => array(
+                            'langue' => '[a-z]+',
+                        ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\Publication',
                         'action'     => 'afficherPublication',
                     ),
                 ),
             ),
+            //route connexion administrateur
+             'login' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/login/:langue',
+                     'constraints' => array(
+                            'langue' => '[a-z]+',
+                      ),
+                     'defaults' => array(
+                         'controller' => 'Application\Controller\Admin',
+                         'action'     => 'login',
+                     ),
+                 ),
+             ),
+              'admin' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/admin/:langue',
+                     'constraints' => array(
+                            'langue' => '[a-z]+',
+                      ),
+                     'defaults' => array(
+                         'controller' => 'Application\Controller\Admin',
+                         'action'     => 'index',
+                     ),
+                 ),
+             ),
+             'admrubrique' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/admin/:langue/rubrique/:id_menu',
+                     'constraints' => array(
+                         'id_menu'     => '[0-9]+',
+                         'langue' => '[a-z]+',
+                     ),
+                     'defaults' => array(
+                         'controller' => 'Application\Controller\Admin',
+                         'action'     => 'modifRubrique',
+                     ),
+                 ),
+             ),
+             'createrubrique' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/admin/:langue/createrubrique',
+                     'constraints' => array(
+                         'langue' => '[a-z]+',
+                     ),
+                     'defaults' => array(
+                         'controller' => 'Application\Controller\Admin',
+                         'action'     => 'createRubrique',
+                     ),
+                 ),
+             ),
+             'delrubrique' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/admin/:langue/deleterubrique/:id_menu',
+                     'constraints' => array(
+                         'id_menu'     => '[0-9]+',
+                         'langue' => '[a-z]+',
+                     ),
+                     'defaults' => array(
+                         'controller' => 'Application\Controller\Admin',
+                         'action'     => 'deleteRubrique',
+                     ),
+                 ),
+             ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -96,16 +167,6 @@ return array(
         ),
         'factories' => array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
-        ),
-    ),
-    'translator' => array(
-        'locale' => 'en_US',
-        'translation_file_patterns' => array(
-            array(
-                'type'     => 'gettext',
-                'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
-            ),
         ),
     ),
     'view_manager' => array(

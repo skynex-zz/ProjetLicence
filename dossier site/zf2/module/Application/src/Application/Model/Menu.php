@@ -1,5 +1,8 @@
- <?php
- class Rubrique
+<?php
+ 
+namespace Application\Model;
+ 
+ class Menu
  {
      public $id;
      public $titre_fr;
@@ -7,13 +10,13 @@
      public $actif;
      public $position;
 
-     public function exchangeArray($data)
+     public function __construct($id, $titre_fr, $titre_en, $actif, $position)
      {
-         $this->id     = (!empty($data['id'])) ? $data['id'] : null;
-         $this->titre_fr  = (!empty($data['titre_fr'])) ? $data['titre_fr'] : null;
-         $this->titre_en  = (!empty($data['titre_en'])) ? $data['titre_en'] : null;
-         $this->actif = (!empty($data['actif'])) ? $data['actif'] : null;
-         $this->position  = (!empty($data['position'])) ? $data['position'] : null;
+         $this->id        = isset($id) ? $id : null;
+         $this->titre_fr  = isset($titre_fr) ? $titre_fr : "Titre par défaut";
+         $this->titre_en  = isset($titre_en) ? $titre_en : "Default title";
+         $this->actif     = isset($actif) ? $actif : 1;
+         $this->position  = isset($position) ? $position : 1;
      }   
  
  }

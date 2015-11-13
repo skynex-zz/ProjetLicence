@@ -1,21 +1,14 @@
 <?php echo $this->doctype(); ?>
  
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
- 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
 		
-		<?php 
-		//$serviceLocator = $this->getServiceLocator();
-		//$config = $serviceLocator->get('config');
-		//$langue = $config['langue'];
-		?>
         <!-- Le styles -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
                         ->prependStylesheet($this->basePath() .'/css/style.css')
-                        ->prependStylesheet($this->basePath() .'/css/bootstrap.min.css') 
+                        ->prependStylesheet($this->basePath() .'/css/bootstrap.css') 
 						->prependStylesheet($this->basePath() .'/css/site.css')
 						->prependStylesheet($this->basePath() .'/css/pop-up.css');?>
  
@@ -26,11 +19,12 @@
  
     </head>
     <body>
+        <a class="btn btn-sm btn-primary" style='margin-top: 50px;' href=<?php echo $this->url('login', array('langue' => $this->langue, 'action' => 'login')) ?> />Se connecter</a> 
         		<div class="site-content">
 			<div class="logo"></div>
 			<div class="icons-contener">
-					<div class="icon"><a href="?r=site/index&locale=fr"><img src="../../img/flag-fr.png" /></a></div>
-					<div class="icon"><a href="?r=site/index&locale=en"><img src="../../img/flag-en.png" /></a></div>
+					<div class="icon"><?php echo "<a href='".$this->url('laRubrique',array('langue' => 'fr','menu_id' => $this->menu_id))."'>";?><img src="../../img/flag-fr.png" /></a></div>
+					<div class="icon"><?php echo "<a href='".$this->url('laRubrique',array('langue' => 'en','menu_id' => $this->menu_id))."'>";?><img src="../../img/flag-en.png" /></a></div>
 			</div>
 			
 				<div class="menu-corner-left"></div>
@@ -39,21 +33,41 @@
 						<?php
 						/// appelle de service pour affichage des rubrique a partir du controller
 						/// verification langue
-						
-						foreach($this->listeRubrique as $item)
-						{
-							echo "<div class='menu-item'><a href=".$this->url('laRubrique',array('id_menu' => $item['menu_id'])).">";
 							
-							//if($langue='fr'){
-								echo $item['titre_fr'];
-							/*else{ 
-								echo $item['titre_en'];}							
-							*/
-							echo " </a></div>
+						foreach($this->listeRubrique as $item)
+						{			
+							if($item['actif']==1){
+							if($this->menu_id==$item['menu_id']){echo "<div class='menu-item-selected'>";}
+							else{echo "<div class='menu-item'>";}
+						
+							echo "<a href='".$this->url('laRubrique',array('langue' => $this->langue,'menu_id' => $item['menu_id']))."'>";
+							
+							if($this->langue=='fr'){echo $item['titre_fr'];}
+							else{echo $item['titre_en'];}							
+							
+							echo " </a></div>						
+							
 							<div class='menu-separator'></div>";
+							}
 						}
 						
-						echo "<div class='menu-item'><a href='".$this->url('publications')."'>Publications</a></div>";?>
+						if($this->menu_id=='pbm') {
+                                                    echo "<div class='menu-item-selected'>";
+                                                }
+                                                else {
+                                                    echo "<div class='menu-item'>";
+                                                }
+						echo "<a href='".$this->url('publications',array('langue' => 'fr'))."'>Publications</a></div>";
+                                            
+                                                if($this->menu_id=='admin'){
+                                                    echo "<div class='menu-item-selected'>";
+                                                }
+						else{
+                                                    echo "<div class='menu-item'>";
+                                                }
+						echo "<a href='".$this->url('admin', array('action' => 'index', 'langue' => $langue))."'>Administration</a></div>";
+                                                
+                                                ?>
 						
 					</div>									
 				</div>

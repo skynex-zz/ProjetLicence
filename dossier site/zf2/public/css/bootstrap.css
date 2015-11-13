@@ -47,16 +47,16 @@ body {
   margin: 0;
 }
 
-a {
+.menu-item>a,.menu-item-selected>a  {
   background: transparent;
 }
 
-a:focus {
+.menu-item>a:focus,.menu-item-selected>a:focus {
   outline: thin dotted;
 }
 
-a:active,
-a:hover {
+.menu-item>a:active,
+.menu-item-selected>a:hover {
   outline: 0;
 }
 
@@ -320,13 +320,13 @@ textarea {
 }
 
 a {
-  color: #428bca;
+  color: #FFF;
   text-decoration: none;
 }
 
 a:hover,
 a:focus {
-  color: #2a6496;
+  color: #000;
   text-decoration: underline;
 }
 

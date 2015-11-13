@@ -22,11 +22,15 @@ class RubriqueController extends AbstractActionController
     {        
         $rubriqueModel = new RubriqueModel();
         $data = $rubriqueModel->fetchAll();
-		$this->layout()->setVariable('listeRubrique',$data);
-		
-		$data = $rubriqueModel->findOne($this->getEvent()->getRouteMatch()->getParam('id_menu'));
-		//var_dump($$this->getEvent()->getRouteMatch()->getParam('id_menu'));
-		return new ViewModel(array('rubrique'=>$data));
+	$this->layout()->setVariable('listeRubrique',$data);
+	$rubrique = $rubriqueModel->findOne($this->getEvent()->getRouteMatch()->getParam('menu_id'));
+	$this->layout()->setVariable('menu_id',$rubrique['menu_id']);
+	$this->layout()->setVariable('rubrique',$rubrique);
+	$this->layout()->setVariable('langue',$this->getEvent()->getRouteMatch()->getParam('langue'));
+	return new ViewModel(array('rubrique'=>$rubrique,'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
 		
     }
+	
+	
+	
 }

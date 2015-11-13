@@ -21,6 +21,10 @@ class IndexController extends AbstractActionController
 		$rubriqueModel = new RubriqueModel();
         $data = $rubriqueModel->fetchAll();
 		$this->layout()->setVariable('listeRubrique',$data);
-        return new ViewModel(array('premiereRub'=>$data[0]));
+		$this->layout()->setVariable('langue','fr');
+		$this->layout()->setVariable('menu_id',$data[0]['menu_id']);
+		$this->layout()->setVariable('rubrique',$data[0]);
+        return new ViewModel(array('rubrique'=>$data[0],'langue'=>'fr'));
     }
+	
 }
