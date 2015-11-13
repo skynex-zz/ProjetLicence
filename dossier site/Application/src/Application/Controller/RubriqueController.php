@@ -20,16 +20,14 @@ class RubriqueController extends AbstractActionController
 	
     public function rubriqueselectAction() 
     {        
-		$rubriqueModel = new RubriqueModel();
+        $rubriqueModel = new RubriqueModel();
         $data = $rubriqueModel->fetchAll();
-		$this->layout()->setVariable('listeRubrique',$data);
-		
-		$rubrique = $rubriqueModel->findOne($this->getEvent()->getRouteMatch()->getParam('menu_id'));
-		$this->layout()->setVariable('menu_id',$rubrique['menu_id']);
-		$this->layout()->setVariable('rubrique',$rubrique);
-		$this->layout()->setVariable('langue',$this->getEvent()->getRouteMatch()->getParam('langue'));
-		
-		return new ViewModel(array('rubrique'=>$rubrique,'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
+	$this->layout()->setVariable('listeRubrique',$data);
+	$rubrique = $rubriqueModel->findOne($this->getEvent()->getRouteMatch()->getParam('menu_id'));
+	$this->layout()->setVariable('menu_id',$rubrique['menu_id']);
+	$this->layout()->setVariable('rubrique',$rubrique);
+	$this->layout()->setVariable('langue',$this->getEvent()->getRouteMatch()->getParam('langue'));
+	return new ViewModel(array('rubrique'=>$rubrique,'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
 		
     }
 	

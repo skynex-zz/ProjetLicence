@@ -1,0 +1,31 @@
+<?php
+
+    //Importation script CKEditor   
+    echo $this->headScript()->prependFile($this->basePath('js/ckeditor/ckeditor.js'));
+
+    $this->headTitle('Création Rubrique');
+    
+    $form->setAttribute('action', $this->url('createrubrique', array('action' => 'createRubrique', 'langue' => $langue)));
+    $form->prepare();
+    
+    echo $this->form()->openTag($form);
+    
+    //CrÃ©ation du formulaire
+    echo $this->formRow($form->get('titre_fr'))."<br /> <br />"; 
+    echo $this->formRow($form->get('titre_en'))."<br /> <br />";
+    echo $this->formRow($form->get('actifradio'))."<br /> <br />";
+    echo $this->formRow($form->get('position'))."<br /> <br />";
+    echo $this->formRow($form->get('content_fr'))."<br /> <br />";
+    echo $this->formRow($form->get('content_en'))."<br /> <br />";
+    echo $this->formSubmit($form->get('submit'));
+    
+    echo $this->form()->closeTag();
+
+?>    
+    
+<script type="text/javascript">
+
+    CKEDITOR.replace('editor_fr');
+    CKEDITOR.replace('editor_en');
+
+</script>

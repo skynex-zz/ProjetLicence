@@ -19,6 +19,7 @@
  
     </head>
     <body>
+        <a class="btn btn-sm btn-primary" style='margin-top: 50px;' href=<?php echo $this->url('login', array('langue' => $this->langue, 'action' => 'login')) ?> />Se connecter</a> 
         		<div class="site-content">
 			<div class="logo"></div>
 			<div class="icons-contener">
@@ -50,9 +51,23 @@
 							}
 						}
 						
-						if($this->menu_id==0){echo "<div class='menu-item-selected'>";}
-						else{echo "<div class='menu-item'>";}
-						echo "<a href='".$this->url('publications',array('langue' => 'fr'))."'>Publications</a></div>";?>
+						if($this->menu_id=='pbm') {
+                                                    echo "<div class='menu-item-selected'>";
+                                                }
+                                                else {
+                                                    echo "<div class='menu-item'>";
+                                                }
+						echo "<a href='".$this->url('publications',array('langue' => 'fr'))."'>Publications</a></div>";
+                                            
+                                                if($this->menu_id=='admin'){
+                                                    echo "<div class='menu-item-selected'>";
+                                                }
+						else{
+                                                    echo "<div class='menu-item'>";
+                                                }
+						echo "<a href='".$this->url('admin', array('action' => 'index', 'langue' => $langue))."'>Administration</a></div>";
+                                                
+                                                ?>
 						
 					</div>									
 				</div>

@@ -55,7 +55,7 @@ class RubriqueModel {
      * Appel web service pour réupérer toutes les rubriques dans l'ordre de leur position
      * @return array
      */
-    public function fetchFirst() 
+    /*public function fetchFirst() 
     {
         $request = new Request();
         //ajoute des headers et modifie la requête
@@ -70,7 +70,7 @@ class RubriqueModel {
         $data = json_decode($response->getBody(), true); //json -> array php
         
         return $data;
-    }
+    }*/
 }
 
 ?>
