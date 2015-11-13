@@ -15,6 +15,8 @@ use Application\Model\Publication;
 use Application\Model\PublicationModel;
 use Application\Model\Rubrique;        
 use Application\Model\RubriqueModel;
+use Application\Model\Categorie;        
+use Application\Model\CategorieModel;
 
 class PublicationController extends AbstractActionController
 {
@@ -22,13 +24,19 @@ class PublicationController extends AbstractActionController
     public function afficherPublicationAction() 
     {   
 		$rubriqueModel = new RubriqueModel();
-        $data = $rubriqueModel->fetchAll();
-		$this->layout()->setVariable('listeRubrique',$data);
+        $dataRubrique = $rubriqueModel->fetchAll();
+		$this->layout()->setVariable('listeRubrique',$dataRubrique);
+		
 		$this->layout()->setVariable('langue',$this->getEvent()->getRouteMatch()->getParam('langue'));
-		$this->layout()->setVariable('menu_id',0);
+		$this->layout()->setVariable('menu_id','pbl');
+		
 		$publicationModel = new PublicationModel();
         $dataPubli = $publicationModel->fetchAll();		
-		return new ViewModel(array('listePubli'=> $dataPubli,'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
+		
+		$categorieModel = new CategorieModel();
+		$dataCateg = $categorieModel->fetchAll();
+		
+		return new ViewModel(array('listeCateg'=>$dataCateg,'listePubli'=> $dataPubli,'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
 		
     }
 }

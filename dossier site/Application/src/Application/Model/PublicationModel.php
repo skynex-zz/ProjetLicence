@@ -26,7 +26,7 @@ class PublicationModel {
         $client = new Client();
         $response = $client->send($request); //envoie la requête au service REST
         $data = json_decode($response->getBody(), true); //json -> array php
-        var_dump($data);
+   
         return $data;
     }
     public function fetchAllByDate() 
