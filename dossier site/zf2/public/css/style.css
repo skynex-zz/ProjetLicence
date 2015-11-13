@@ -35,3 +35,23 @@ div.container a.brand {
     margin-left: 0;
     padding: 8px 20px 12px 40px;
 }
+
+//---- BOUTON CONNEXION ADMIN ----//
+
+#lien {
+    margin-top: 100px;
+    background-color: yellow;
+}
+
+//---- FORMULAIRE MODIF RUBRIQUE ----//
+
+#form_modif {
+    border: 1px solid black;
+    padding-top: 1000px;
+    margin-top: 100px;
+}
+
+#form_modif label {
+    display: block;
+    width: 3000px;
+}
