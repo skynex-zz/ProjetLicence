@@ -33,23 +33,28 @@
 						<?php
 						/// appelle de service pour affichage des rubrique a partir du controller
 						/// verification langue
-							
-						foreach($this->listeRubrique as $item)
-						{			
-							if($item['actif']==1){
-							if($this->menu_id==$item['menu_id']){echo "<div class='menu-item-selected'>";}
-							else{echo "<div class='menu-item'>";}
-						
-							echo "<a href='".$this->url('laRubrique',array('langue' => $this->langue,'menu_id' => $item['menu_id']))."'>";
-							
-							if($this->langue=='fr'){echo $item['titre_fr'];}
-							else{echo $item['titre_en'];}							
-							
-							echo " </a></div>						
-							
-							<div class='menu-separator'></div>";
-							}
-						}
+                                                
+                                                if(isset($this->exception)) {
+                                                    echo $this->exception;
+                                                }
+                                                else {
+                                                    foreach($this->listeRubrique as $item)
+                                                    {			
+                                                            if($item['actif']==1) {
+                                                                if($this->menu_id==$item['menu_id']){echo "<div class='menu-item-selected'>";}
+                                                                else{echo "<div class='menu-item'>";}
+
+                                                                echo "<a href='".$this->url('laRubrique',array('langue' => $this->langue,'menu_id' => $item['menu_id']))."'>";
+
+                                                                if($this->langue=='fr'){echo $item['titre_fr'];}
+                                                                else{echo $item['titre_en'];}							
+
+                                                                echo " </a></div>						
+
+                                                                <div class='menu-separator'></div>";
+                                                            }
+                                                    }
+                                                }
 						
 						if($this->menu_id=='pbm') {
                                                     echo "<div class='menu-item-selected'>";
@@ -58,14 +63,16 @@
                                                     echo "<div class='menu-item'>";
                                                 }
 						echo "<a href='".$this->url('publications',array('langue' => 'fr'))."'>Publications</a></div>";
+                                                echo "<div class='menu-separator'></div>";
                                             
-                                                if($this->menu_id=='admin'){
+                                                if($this->menu_id=='admin') {
                                                     echo "<div class='menu-item-selected'>";
                                                 }
-						else{
+						else {
                                                     echo "<div class='menu-item'>";
                                                 }
 						echo "<a href='".$this->url('admin', array('action' => 'index', 'langue' => $langue))."'>Administration</a></div>";
+                                                echo "<div class='menu-separator'></div>";
                                                 
                                                 ?>
 						
