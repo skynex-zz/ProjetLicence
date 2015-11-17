@@ -28,7 +28,7 @@ namespace Application\Form;
                 'id' => 'titre_fr',
              ),
              'options' => array(
-                 'label' => 'Titre franÃ§ais',
+                 'label' => 'Titre français',
              ),
          ));
          $this->add(array(

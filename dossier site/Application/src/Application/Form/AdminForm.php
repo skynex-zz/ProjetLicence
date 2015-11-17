@@ -15,7 +15,7 @@ namespace Application\Form;
              'name' => 'login',
              'type' => 'Text',
              'options' => array(
-                 'label' => 'Login',
+                 'label' => 'Identifiant',
              ),
          ));
          $this->add(array(

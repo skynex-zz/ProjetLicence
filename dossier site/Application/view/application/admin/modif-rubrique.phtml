@@ -14,6 +14,7 @@
     echo $this->form()->openTag($form);
     
     //Récupération des inputs et attribution des valeurs par défaut
+    $bouton = $form->get('submit');
     $titreFr = $form->get('titre_fr');
     $titreFr->setValue($rubriqueToModif['titre_fr']);
     $titreEn = $form->get('titre_en');
@@ -30,6 +31,16 @@
     $textareaEn = $form->get('content_en');
     $textareaEn->setValue($rubriqueToModif['content_en']);
     
+    if($langue == 'en') {
+        $titreFr->setLabel('French title');
+        $titreEn->setLabel('English title');
+        $actifRadio->setLabel('Visible on the website ?');
+        $position->setLabel('Position');
+        $textareaFr->setLabel('French content');
+        $textareaEn->setLabel('English content');
+        $bouton->setValue('Submit');
+    }
+    
     //Création du formulaire
     echo $this->formRow($titreFr)."<br /> <br />";
     echo $this->formRow($titreEn)."<br /> <br />";
@@ -37,7 +48,7 @@
     echo $this->formRow($position)."<br /> <br />";
     echo $this->formRow($textareaFr)."<br /> <br />";
     echo $this->formRow($textareaEn)."<br /> <br />";
-    echo $this->formSubmit($form->get('submit'));
+    echo $this->formSubmit($bouton);
     
     echo $this->form()->closeTag();
 

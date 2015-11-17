@@ -1,15 +1,30 @@
 <?php
 
-    echo $this->escapeHtml("Connexion");
-
     $form->setAttribute('action', $this->url('login', array('action' => 'login', 'langue' => $langue)));
     $form->prepare();
 
+    //Affichage formulaire selon la langue choisie
     echo $this->form()->openTag($form);
-    echo $this->formCollection($form);
+    $login = $form->get('login');
+    $password = $form->get('password');
+    $bouton = $form->get('submit');
+    if($langue == 'en') {
+        $login->setLabel('Login');
+        $password->setLabel('Password');
+        $bouton->setValue('Validate');
+    }
+    echo $this->formRow($login)."<br /> <br />";
+    echo $this->formRow($password)."<br /> <br />";
+    echo $this->formSubmit($bouton)."<br /> <br />";
     echo $this->form()->closeTag();
+    //------- Fin affichage formulaire ------//
     
     if(isset($exception)) {
-        echo "<h2>".$exception."</h2>";
+        if($langue == 'fr') {
+            echo "<h2>Données incorrectes. Veuillez réessayer.</h2>";
+        }
+        else if($langue == 'en') {
+            echo "<h2>Incorrect datas. Please retry.</h2>";
+        }
     }
 

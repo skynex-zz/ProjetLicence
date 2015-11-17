@@ -14,9 +14,19 @@ use Application\Form\RubriqueForm;
 use Application\Model\RubriqueModel;
 use Application\Model\Menu;
 use Application\Model\LayoutExceptions;
+use Zend\Session\Container; //pour le token à envoyer dans une session pour pouvoir l'utiliser ailleurs
 
 class AdminController extends AbstractActionController
 {    
+    
+    public function checkSession() {
+        $session = new Container('user');
+        if(isset($session->token)) {
+            return $session->token;
+        }
+        return null;
+    }
+    
     public function loginAction() 
     {        
         $rubriqueModel = new RubriqueModel();
@@ -31,7 +41,7 @@ class AdminController extends AbstractActionController
         
         //peut-être mettre dans une classe avec une méthode statique comme pour LayoutExceptions
         $this->layout()->setVariable('listeRubrique', $listeRubrique);
-        $this->layout()->setVariable('menu_id', 0);
+        $this->layout()->setVariable('menu_id', 'login');
         $this->layout()->setVariable('langue', $this->getEvent()->getRouteMatch()->getParam('langue'));
         //---------------------------------------------------------------------------------------------------
         
@@ -46,27 +56,30 @@ class AdminController extends AbstractActionController
 
             if ($form->isValid()) {
                 $admin->exchangeArray($form->getData());
-                
-                //filtrage des données récupérées
-                /*$admin->login = filter_var($admin->login, FILTER_SANITIZE_STRING);
-                $admin->password = filter_var($admin->password, FILTER_SANITIZE_STRING);*/
-                
                 try {
                     $token = $adminModel->verifyUser($admin->login, $admin->password);
                 }
                 catch(\Exception $e) {
+                    $token = null;
                     return new ViewModel(array('form' => $form, 'listeRubrique' => $listeRubrique, 
                         'langue' => $this->getEvent()->getRouteMatch()->getParam('langue'), 'exception' => $e->getMessage()));
                 }
-                //Redirection vers l'interface d'administration
-                $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $this->getEvent()->getRouteMatch()->getParam('langue')));
+                //J'ai testé avec forward dispatch + envoyer token au layout plus redirection de différentes manières mais rien marche ==> Session peut-être
+                if($token != null) {
+                    $session = new Container('user');
+                    $session->token = $token;
+                    //Redirection vers l'interface d'administration
+                    $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $this->getEvent()->getRouteMatch()->getParam('langue')));
+                }
             }
         }
         return new ViewModel(array('form' => $form, 'listeRubrique' => $listeRubrique, 'langue' => $this->getEvent()->getRouteMatch()->getParam('langue')));
     }
     
-    public function indexAction() 
+    public function disconnectAction() 
     {
+        $session = new Container('user');
+        $session->token = null;
         $rubriqueModel = new RubriqueModel();
         $listeRubrique = null;
         
@@ -75,6 +88,34 @@ class AdminController extends AbstractActionController
         }
         catch(\Exception $e) {
             LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $this->getEvent()->getRouteMatch()->getParam('langue'), $e->getMessage());
+        }
+        
+        $this->layout()->setVariable('listeRubrique', $listeRubrique);
+        $this->layout()->setVariable('menu_id', 0);
+        $this->layout()->setVariable('langue', $this->getEvent()->getRouteMatch()->getParam('langue'));
+        $this->layout()->setVariable('token', $session->token);
+        
+        $this->redirect()->toRoute('home');
+    }
+    
+    public function indexAction() 
+    {   
+        $token = null;
+        if($this->checkSession() != null) {
+            $token = $this->checkSession();
+        }
+        /*else {
+            $this->redirect()->toRoute('home');
+        }*/
+        
+        $rubriqueModel = new RubriqueModel();
+        $listeRubrique = null;
+        
+        try {
+            $listeRubrique = $rubriqueModel->fetchAll();
+        }
+        catch(\Exception $e) {
+            LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $this->getEvent()->getRouteMatch()->getParam('langue'), $token, $e->getMessage());
             return new ViewModel(array('listeRubrique' => $listeRubrique, 'langue' => $this->getEvent()->getRouteMatch()->getParam('langue')));
         }
 
@@ -82,13 +123,16 @@ class AdminController extends AbstractActionController
         $this->layout()->setVariable('menu_id', 'admin');
         $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
         $this->layout()->setVariable('langue', $langue);
+        $this->layout()->setVariable('token', $token);
         return new ViewModel(array('listeRubrique' => $listeRubrique, 'langue' => $langue));
     }
     
     public function modifRubriqueAction() {
-        //Token en brut pour tester -- Voir Mr. Salva
-        $token = 'WU8nb/rCD6JgtiyxTW3ZP+s4n9Vg9liUllh5bZLoLQhAMMoCaHE72nYLQSsw12uhkgWJLDmgMmZVD+aIk6BsZw==';
-        //-----------------------------------------------------------------------
+        
+        $token = null;
+        if($this->checkSession() != null) {
+            $token = $this->checkSession();
+        }
         
         $rubriqueModel = new RubriqueModel();
         $adminModel = new AdminModel();
@@ -99,7 +143,7 @@ class AdminController extends AbstractActionController
             $listeRubrique = $rubriqueModel->fetchAll();
         }
         catch(\Exception $e) {
-            LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $this->getEvent()->getRouteMatch()->getParam('langue'), $e->getMessage());
+            LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $this->getEvent()->getRouteMatch()->getParam('langue'), $token, $e->getMessage());
         }
         
         $idMenu = $this->getEvent()->getRouteMatch()->getParam('id_menu'); //récupère id du menu correspondant
@@ -107,13 +151,14 @@ class AdminController extends AbstractActionController
             $rubriqueToModif = $rubriqueModel->findOne($idMenu);
         }
         catch (\Exception $e) {
-            LayoutExceptions::traiteExceptionsOneRubrique($this, $listeRubrique, 'admin', $this->getEvent()->getRouteMatch()->getParam('langue'), $e->getMessage());           
+            LayoutExceptions::traiteExceptionsOneRubrique($this, $listeRubrique, 'admin', $this->getEvent()->getRouteMatch()->getParam('langue'), $token, $e->getMessage());           
         }
         
 	$this->layout()->setVariable('listeRubrique', $listeRubrique);
         $this->layout()->setVariable('menu_id', 'admin');
         $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
         $this->layout()->setVariable('langue', $langue);
+        $this->layout()->setVariable('token', $token);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -141,9 +186,10 @@ class AdminController extends AbstractActionController
     
     public function createRubriqueAction() 
     {
-        //Token en brut pour tester -- Voir Mr. Salva
-        $token = 'WU8nb/rCD6JgtiyxTW3ZP+s4n9Vg9liUllh5bZLoLQhAMMoCaHE72nYLQSsw12uhkgWJLDmgMmZVD+aIk6BsZw==';
-        //-----------------------------------------------------------------------
+        $token = null;
+        if($this->checkSession() != null) {
+            $token = $this->checkSession();
+        }
         
         $rubriqueModel = new RubriqueModel();
         $adminModel = new AdminModel();
@@ -155,7 +201,7 @@ class AdminController extends AbstractActionController
             $listeRubrique = $rubriqueModel->fetchAll();
         }
         catch(\Exception $e) {
-            LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $this->getEvent()->getRouteMatch()->getParam('langue'), $e->getMessage());
+            LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $this->getEvent()->getRouteMatch()->getParam('langue'), $token, $e->getMessage());
         }
         
         $request = $this->getRequest();
@@ -183,14 +229,16 @@ class AdminController extends AbstractActionController
 	$this->layout()->setVariable('listeRubrique', $listeRubrique);
         $this->layout()->setVariable('menu_id', 'admin');
         $this->layout()->setVariable('langue', $langue);
+        $this->layout()->setVariable('token', $token);
         return new ViewModel(array('form' => $form, 'langue' => $langue));
     }
     
     public function deleteRubriqueAction() 
     {
-        //Token en brut pour tester -- Voir Mr. Salva
-        $token = 'WU8nb/rCD6JgtiyxTW3ZP+s4n9Vg9liUllh5bZLoLQhAMMoCaHE72nYLQSsw12uhkgWJLDmgMmZVD+aIk6BsZw==';
-        //-----------------------------------------------------------------------
+        $token = null;
+        if($this->checkSession() != null) {
+            $token = $this->checkSession();
+        }
         
         $rubriqueModel = new RubriqueModel();
         $adminModel = new AdminModel();
@@ -201,7 +249,7 @@ class AdminController extends AbstractActionController
             $listeRubrique = $rubriqueModel->fetchAll();
         }
         catch (\Exception $e) {
-            LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $this->getEvent()->getRouteMatch()->getParam('langue'), $e->getMessage());
+            LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $this->getEvent()->getRouteMatch()->getParam('langue'), $token, $e->getMessage());
         }
         
         try {
@@ -214,6 +262,7 @@ class AdminController extends AbstractActionController
 	$this->layout()->setVariable('listeRubrique', $listeRubrique);
         $this->layout()->setVariable('menu_id', 'admin');
         $this->layout()->setVariable('langue', $langue);
+        $this->layout()->setVariable('token', $token);
         $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue));
     }
 	

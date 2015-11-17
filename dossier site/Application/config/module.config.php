@@ -74,6 +74,19 @@ return array(
                      ),
                  ),
              ),
+            'disconnect' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/disconnect/:langue',
+                     'constraints' => array(
+                            'langue' => '[a-z]+',
+                      ),
+                     'defaults' => array(
+                         'controller' => 'Application\Controller\Admin',
+                         'action'     => 'disconnect',
+                     ),
+                 ),
+             ),
               'admin' => array(
                  'type'    => 'segment',
                  'options' => array(
