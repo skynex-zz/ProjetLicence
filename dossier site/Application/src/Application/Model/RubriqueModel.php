@@ -24,17 +24,16 @@ class RubriqueModel {
         //$request->setPost(new Parameters(array('someparam' => 'salut')));
         
         $client = new Client();
-        $response = $client->send($request); //envoie la requête au service REST
-        $retour = json_decode($response->getBody(), true); //json -> array php
-        
-        if($response->getStatusCode() == 400) {
-            throw new \Exception("Pas de rubriques dans la base de données.");
+        $response = $client->send($request); //envoie la requête au service REST        
+        $statut = $response->getStatusCode(); //récupération du statut de la Response
+
+        //Traitement selon statut
+        if($statut >= 200 && $statut <= 299) {
+            //var_dump(json_decode($response->getBody()));
+            return json_decode($response->getBody(), true);
         }
-        if($response->getStatusCode() == 200) {
-            return $retour;
-        }
-        else {
-            throw new \Exception("Erreur inconnue. Veuillez réessayer plus tard. Désolé pour ce désagrément.");
+        else if($statut >= 300) {
+            throw new \Exception();
         }
     }
     
@@ -55,17 +54,16 @@ class RubriqueModel {
         
         $client = new Client();
         $response = $client->send($request); //envoie la requête au service REST
-        $retour = json_decode($response->getBody(), true); //json -> array php
+        $statut = $response->getStatusCode(); //récupération du statut de la Response
         
-        if($response->getStatusCode() == 400) {
-            throw new \Exception("Cette rubrique n'existe pas.");
+        //Traitement selon statut
+        if($statut >= 200 && $statut <= 299) {
+            return json_decode($response->getBody(), true);
         }
-        if($response->getStatusCode() == 200) {
-            return $retour;
+        else if($statut >= 300) {
+            throw new \Exception();
         }
-        else {
-            throw new \Exception("Erreur inconnue. Veuillez réessayer plus tard. Désolé pour ce désagrément.");
-        }
+        
     }
     
     /**

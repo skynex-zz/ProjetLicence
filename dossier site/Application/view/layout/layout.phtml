@@ -19,25 +19,38 @@
  
     </head>
     <body>
-        <a class="btn btn-sm btn-primary" style='margin-top: 50px;' href=<?php echo $this->url('login', array('langue' => $this->langue, 'action' => 'login')) ?> />Se connecter</a> 
+        <a class="btn btn-sm btn-primary" style='margin-top: 50px;' href=<?php echo $this->url('login', array('langue' => $this->langue, 'action' => 'login')); ?> />Se connecter</a> 
         		<div class="site-content">
 			<div class="logo"></div>
 			<div class="icons-contener">
-					<div class="icon"><?php echo "<a href='".$this->url('laRubrique',array('langue' => 'fr','menu_id' => $this->menu_id))."'>";?><img src="../../img/flag-fr.png" /></a></div>
-					<div class="icon"><?php echo "<a href='".$this->url('laRubrique',array('langue' => 'en','menu_id' => $this->menu_id))."'>";?><img src="../../img/flag-en.png" /></a></div>
+                                        <?php 
+                                        if($this->menu_id == 'admin') {
+                                            echo "<div class='icon'><a href=".$this->url('admin',array('langue' => 'fr'))
+                                                    ."><img src='../../img/flag-fr.png'/></a></div>";
+                                            echo "<div class='icon'><a href=".$this->url('admin',array('langue' => 'en'))
+                                                    ."><img src='../../img/flag-en.png'/></a></div>";  
+                                        }
+                                        if($this->menu_id == 'pbm') {
+                                            echo "<div class='icon'><a href=".$this->url('publications',array('langue' => 'fr'))
+                                                    ."><img src='../../img/flag-fr.png'/></a></div>"; 
+                                            echo "<div class='icon'><a href=".$this->url('publications',array('langue' => 'en'))
+                                                    ."><img src='../../img/flag-en.png'/></a></div>";  
+                                        }
+                                        else if($this->menu_id != 'admin' && $this->menu_id != 'pbm') {
+                                            echo "<div class='icon'><a href=".$this->url('laRubrique',array('langue' => 'fr','menu_id' => $this->menu_id))."><img src='../../img/flag-fr.png' /></a></div>";
+                                            echo "<div class='icon'><a href=".$this->url('laRubrique',array('langue' => 'en','menu_id' => $this->menu_id))."><img src='../../img/flag-en.png' /></a></div>";
+                                        }
+                                        ?>
+                            
 			</div>
 			
 				<div class="menu-corner-left"></div>
 				<div class="menu-container">	
 					<div class="menu-button-list">
 						<?php
-						/// appelle de service pour affichage des rubrique a partir du controller
-						/// verification langue
-                                                
-                                                if(isset($this->exception)) {
-                                                    echo $this->exception;
-                                                }
-                                                else {
+                                                // appelle de service pour affichage des rubrique a partir du controller
+						// verification langue
+                                                if(!isset($this->exceptionAll)) {
                                                     foreach($this->listeRubrique as $item)
                                                     {			
                                                             if($item['actif']==1) {
@@ -62,7 +75,7 @@
                                                 else {
                                                     echo "<div class='menu-item'>";
                                                 }
-						echo "<a href='".$this->url('publications',array('langue' => 'fr'))."'>Publications</a></div>";
+						echo "<a href='".$this->url('publications',array('langue' => $this->langue))."'>Publications</a></div>";
                                                 echo "<div class='menu-separator'></div>";
                                             
                                                 if($this->menu_id=='admin') {
@@ -71,7 +84,7 @@
 						else {
                                                     echo "<div class='menu-item'>";
                                                 }
-						echo "<a href='".$this->url('admin', array('action' => 'index', 'langue' => $langue))."'>Administration</a></div>";
+						echo "<a href='".$this->url('admin', array('action' => 'index', 'langue' => $this->langue))."'>Administration</a></div>";
                                                 echo "<div class='menu-separator'></div>";
                                                 
                                                 ?>

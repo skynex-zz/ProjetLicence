@@ -1,10 +1,16 @@
 <?php
-if(isset($exception)) {
-    echo $exception;
-}
-else {
-    if($langue=='fr') {
+
+if($langue=='fr') {
+    if(isset($exception)) {
+        echo "Cette rubrique n'existe pas.";
+    }
+    else {
         echo $rubrique['content_fr'];
+    }
+}
+else if($langue=='en') {
+    if(isset($exception)) {
+        echo "This rubrique doesn't exist.";
     }
     else {
         echo $rubrique['content_en'];

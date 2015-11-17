@@ -5,6 +5,10 @@
 
     $this->headTitle('Création Rubrique');
     
+    if(isset($exception)) {
+        echo "<h2>Erreur lors de la création de la rubrique. Veuillez réessayer.</h2>";
+    }
+    
     $form->setAttribute('action', $this->url('createrubrique', array('action' => 'createRubrique', 'langue' => $langue)));
     $form->prepare();
     

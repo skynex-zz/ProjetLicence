@@ -25,13 +25,13 @@ return array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route'    => '/',
-					'defaults' => array(
+                    'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action'     => 'index',
                     ),
                 ),
             ),
-			// route pour les rubriques
+            // route pour les rubriques
             'laRubrique' => array(
                 'type' => 'segment',
                 'options' => array(

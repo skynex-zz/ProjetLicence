@@ -25,10 +25,17 @@ class PublicationModel {
         
         $client = new Client();
         $response = $client->send($request); //envoie la requête au service REST
-        $data = json_decode($response->getBody(), true); //json -> array php
-        var_dump($data);
-        return $data;
+        $statut = $response->getStatusCode();
+        
+        //Traitement selon statut
+        if($statut >= 200 && $statut <= 299) {
+            return json_decode($response->getBody(), true);
+        }
+        else if($statut >= 300) {
+            throw new \Exception();
+        }
     }
+    
     public function fetchAllByDate() 
     {
         $request = new Request();
@@ -42,9 +49,15 @@ class PublicationModel {
         
         $client = new Client();
         $response = $client->send($request); //envoie la requête au service REST
-        $data = json_decode($response->getBody(), true); //json -> array php
+        $statut = $response->getStatusCode();
         
-        return $data;
+        //Traitement selon statut
+        if($statut >= 200 && $statut <= 299) {
+            return json_decode($response->getBody(), true);
+        }
+        else if($statut >= 300) {
+            throw new \Exception();
+        }
     }
 }
 

@@ -2,59 +2,190 @@
 
     echo $this->headLink()->prependStylesheet($this->basePath('js/DataTables-1.10.10/media/css/jquery.dataTables.css'));    
     echo $this->headScript()->prependFile($this->basePath('js/DataTables-1.10.10/media/js/jquery.dataTables.js'));
-    
 ?>
 
-<div class="container theme-showcase">
+<?php 
+    //exception suppression rubrique
     
-    <!-- Tableau JS -->
-        <table id="table_id" class="display">
-            <thead>
-                <tr>
-                    <!--<th>Id rubrique</th>-->
-                    <th>Titre français</th>
-                    <th>Titre anglais</th>
-                    <th>Date de création</th>
-                    <th>Date de modification</th>
-                    <th>Visible</th>
-                    <th>Position</th>
-                    <th>Actions</th>
-                    <!--<th>Id menu</th>-->
-                </tr>
-            </thead>
-            <tbody>
-            <?php
-                foreach($listeRubrique as $rubrique) {
-                    echo "<tr>";
-                        //echo "<td>".$rubrique['ID']."</td>";
-                    echo "<td>".$rubrique['titre_fr']."</td>";
-                        echo "<td>".$rubrique['titre_en']."</td>";
-                        echo "<td>".$rubrique['date_creation']."</td>";
-                        echo "<td>".$rubrique['date_modification']."</td>";
-                        if($rubrique['actif'] == 1) {
-                            echo "<td>Oui</td>";
+        if($langue == 'fr') {
+            if(isset($exception)) {
+                echo "<h2>Erreur de suppression. Veuillez réessayer.</h2>";
+            }
+            else {
+                echo "<a id='lien_rubriques' class='btn btn-sm btn-primary'>Gestion des rubriques</a>";
+                echo "<a id='lien_publications' class='btn btn-sm btn-primary'>Gestion des publications</a>";
+            }
+        }
+        else if($langue == 'en') {
+             if(isset($exception)) {
+                echo "<h2>Deleting error. Please retry.</h2>";
+            }
+            else {
+                echo "<a id='lien_rubriques' class='btn btn-sm btn-primary'>Rubrics management</a>";
+                echo "<a id='lien_publications' class='btn btn-sm btn-primary'>Publications management</a>";
+            }
+        }
+?>
+
+<!----------------------------------------------- GESTION RUBRIQUES ---------------------------------------------------->
+
+<div id="gestion_rubriques">
+    <div class="container theme-showcase">
+
+        <!-- Tableau JS -->
+            <table id="table_rubriques" class="display">
+                <thead>
+                    <tr>
+                        <!--<th>Id rubrique</th>-->
+                        <?php 
+                        if($langue == 'fr') {
+                            echo "<th>Titre français</th>
+                                <th>Titre anglais</th>
+                                <th>Date de création</th>
+                                <th>Date de modification</th>
+                                <th>Visible</th>
+                                <th>Position</th>
+                                <th>Actions</th>";
                         }
-                        else if($rubrique['actif'] == 0) {
-                            echo "<td>Non</td>";
-                        }
-                        echo "<td>".$rubrique['position']."</td>";
-                        echo "<td><a href=".$this->url('delrubrique', array('action' => 'deleteRubrique', 'id_menu' => $rubrique['menu_id'], 'langue' => $langue)).">"
-                            . "<img src=".$this->basePath().'/img/delete.png'." alt='Supprimer cette rubrique' width=30 height=30 /> "
-                            . "Supprimer</a>";
-                        echo "<a href=".$this->url('admrubrique', array('action' => 'modifRubrique', 'id_menu' => $rubrique['menu_id'], 'langue' => $langue)).">"
-                            . "<img src=".$this->basePath().'/img/edit.png'." alt='Editer cette rubrique' width=30 height=30 /> "
-                            . "Editer</a>";
-                        //echo "<td>".$rubrique['menu_id']."</td>";
-                    echo "</tr>";
+                        else if($langue == 'en') {
+                            echo "<th>French title</th>
+                                <th>English title</th>
+                                <th>Creation date</th>
+                                <th>Updating date</th>
+                                <th>Visible</th>
+                                <th>Position</th>
+                                <th>Actions</th>";
+                        } 
+                         ?>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    foreach($listeRubrique as $rubrique) {
+                        echo "<tr>";
+                            //echo "<td>".$rubrique['ID']."</td>";
+                        echo "<td>".$rubrique['titre_fr']."</td>";
+                            echo "<td>".$rubrique['titre_en']."</td>";
+                            echo "<td>".$rubrique['date_creation']."</td>";
+                            echo "<td>".$rubrique['date_modification']."</td>";
+                            if($rubrique['actif'] == 1) {
+                                if($langue == 'fr') {
+                                    echo "<td>Oui</td>";
+                                }
+                                else if($langue =='en') {
+                                    echo "<td>Yes</td>";
+                                }
+                            }
+                            else if($rubrique['actif'] == 0) {
+                                if($langue == 'fr') {
+                                    echo "<td>Non</td>";
+                                }
+                                else if($langue =='en') {
+                                    echo "<td>No</td>";
+                                }
+                            }
+                            echo "<td>".$rubrique['position']."</td>";
+                            if($langue == 'fr') {
+                                echo "<td><a href=".$this->url('delrubrique', array('action' => 'deleteRubrique', 'id_menu' => $rubrique['menu_id'], 'langue' => $langue)).">"
+                                    . "<img src=".$this->basePath().'/img/delete.png'." alt='Supprimer cette rubrique' width=30 height=30 /> "
+                                    . "Supprimer</a>";
+                                echo "<a href=".$this->url('admrubrique', array('action' => 'modifRubrique', 'id_menu' => $rubrique['menu_id'], 'langue' => $langue)).">"
+                                    . "<img src=".$this->basePath().'/img/edit.png'." alt='Editer cette rubrique' width=30 height=30 /> "
+                                    . "Editer</a>";
+                            }
+                            else if($langue =='en') {
+                                echo "<td><a href=".$this->url('delrubrique', array('action' => 'deleteRubrique', 'id_menu' => $rubrique['menu_id'], 'langue' => $langue)).">"
+                                    . "<img src=".$this->basePath().'/img/delete.png'." alt='Supprimer cette rubrique' width=30 height=30 /> "
+                                    . "Delte</a>";
+                                echo "<a href=".$this->url('admrubrique', array('action' => 'modifRubrique', 'id_menu' => $rubrique['menu_id'], 'langue' => $langue)).">"
+                                    . "<img src=".$this->basePath().'/img/edit.png'." alt='Editer cette rubrique' width=30 height=30 /> "
+                                    . "Update</a>";
+                            }
+                            
+                            //echo "<td>".$rubrique['menu_id']."</td>";
+                        echo "</tr>";
+                    }
+                ?>
+                </tbody>
+            </table> 
+            <?php 
+                if($langue == 'fr') {
+                    echo "<a href=".$this->url('createrubrique', array('action' => 'createRubrique', 'langue' => $langue))
+                           ."><img src=".$this->basePath().'/img/add.png'." alt='Créer une rubrique' width='30' height='30'/>Créer une rubrique</a>";
                 }
+                else if($langue =='en') {
+                    echo "<a href=".$this->url('createrubrique', array('action' => 'createRubrique', 'langue' => $langue))
+                           ."><img src=".$this->basePath().'/img/add.png'." alt='Créer une rubrique' width='30' height='30'/>Create rubric</a>";                }
             ?>
-            </tbody>
-       </table> 
-       <a href=<?php echo $this->url('createrubrique', array('action' => 'createRubrique', 'langue' => $langue)) ?>><img src='<?php echo $this->basePath().'/img/add.png'; ?>' alt="Créer une rubrique" width="30" height="30"/>Créer une rubrique</a>
+    </div>
+</div>
+
+<!----------------------------------------------- GESTION PUBLICATIONS ---------------------------------------------------->
+
+<div id="gestion_publications">
+    <div class="container theme-showcase">
+
+        <!-- Tableau JS -->
+            <table id="table_publications" class="display">
+                <thead>
+                    <tr>
+                        <!--<th>Id rubrique</th>-->
+                        <th>Tiiiiiitre français</th>
+                        <th>Titre anglais</th>
+                        <th>Date de création</th>
+                        <th>Date de modification</th>
+                        <th>Visible</th>
+                        <th>Position</th>
+                        <th>Actions</th>
+                        <!--<th>Id menu</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    foreach($listeRubrique as $rubrique) {
+                        echo "<tr>";
+                            //echo "<td>".$rubrique['ID']."</td>";
+                        echo "<td>".$rubrique['titre_fr']."</td>";
+                            echo "<td>".$rubrique['titre_en']."</td>";
+                            echo "<td>".$rubrique['date_creation']."</td>";
+                            echo "<td>".$rubrique['date_modification']."</td>";
+                            if($rubrique['actif'] == 1) {
+                                echo "<td>Oui</td>";
+                            }
+                            else if($rubrique['actif'] == 0) {
+                                echo "<td>Non</td>";
+                            }
+                            echo "<td>".$rubrique['position']."</td>";
+                            echo "<td><a href=".$this->url('delrubrique', array('action' => 'deleteRubrique', 'id_menu' => $rubrique['menu_id'], 'langue' => $langue)).">"
+                                . "<img src=".$this->basePath().'/img/delete.png'." alt='Supprimer cette rubrique' width=30 height=30 /> "
+                                . "Supprimer</a>";
+                            echo "<a href=".$this->url('admrubrique', array('action' => 'modifRubrique', 'id_menu' => $rubrique['menu_id'], 'langue' => $langue)).">"
+                                . "<img src=".$this->basePath().'/img/edit.png'." alt='Editer cette rubrique' width=30 height=30 /> "
+                                . "Editer</a>";
+                            //echo "<td>".$rubrique['menu_id']."</td>";
+                        echo "</tr>";
+                    }
+                ?>
+                </tbody>
+           </table> 
+           <a href=<?php echo $this->url('createrubrique', array('action' => 'createRubrique', 'langue' => $langue)) ?>><img src='<?php echo $this->basePath().'/img/add.png'; ?>' alt="Créer une rubrique" width="30" height="30"/>Créer une rubrique</a>
+    </div>
 </div>
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#table_id').DataTable();
+        $('#table_rubriques').DataTable();
+        $('#table_publications').DataTable();
+        $('#gestion_publications').hide();
+        
+        $('#lien_rubriques').click(function(){
+            $('#gestion_publications').hide();
+            $('#gestion_rubriques').show();
+        });
+        
+        $('#lien_publications').click(function(){
+            $('#gestion_rubriques').hide();
+            $('#gestion_publications').show();
+        });
     });
 </script>

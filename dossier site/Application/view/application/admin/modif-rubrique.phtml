@@ -3,8 +3,11 @@
     //Importation script CKEditor   
     echo $this->headScript()->prependFile($this->basePath('js/ckeditor/ckeditor.js'));
 
-    $this->headTitle('Modification Rubrique');
-
+    //$this->headTitle('Modification Rubrique');
+    if(isset($exception)) {
+        echo "<h2>Erreur lors du remplissage des champs. Veuillez ressaisir les données.</h2>";
+    }
+    
     $form->setAttribute('action', $this->url('admrubrique', array('id_menu' => $rubriqueToModif['menu_id'], 'langue' => $langue, 'action' => 'modifRubrique')));
     $form->prepare();
     
