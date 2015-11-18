@@ -1,4 +1,4 @@
-html,
+﻿html,
 body {
     height: 100%;
 }
@@ -816,6 +816,11 @@ div.pager span.active {
 .publi-journal
 {
     font-weight: bold;
+}
+
+.publi-booktitle
+{
+	font-weight: bold;
 }
 
 .publi-editor
