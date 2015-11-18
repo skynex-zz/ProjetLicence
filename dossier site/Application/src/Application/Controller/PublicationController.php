@@ -15,23 +15,27 @@ use Application\Model\Publication;
 use Application\Model\PublicationModel;
 use Application\Model\Rubrique;        
 use Application\Model\RubriqueModel;
-use Application\Model\Categorie;
-use Application\Model\CategorieModel;
+use Application\Model\LayoutExceptions;
 
 class PublicationController extends AbstractActionController
 {
 
     public function afficherPublicationAction() 
     {   
-		$rubriqueModel = new RubriqueModel();
-		$categorieModel = new CategorieModel();
-        $publicationModel = new PublicationModel();
-		
-		$this->layout()->setVariable('listeRubrique',$rubriqueModel->fetchAll());
-		$this->layout()->setVariable('langue',$this->getEvent()->getRouteMatch()->getParam('langue'));
-		$this->layout()->setVariable('menu_id',0);
-				
-		return new ViewModel(array('listePubli'=> $publicationModel->fetchAll(),'listeCateg' => $categorieModel->fetchAll(), 'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
+	$rubriqueModel = new RubriqueModel();
+        $data = null;
+        //try {
+            $data = $rubriqueModel->fetchAll();
+        /*}
+        catch(\Exception $e) {
+            LayoutExceptions::traiteExceptionsAllRubriques($this, $data, 'pbm', $this->getEvent()->getRouteMatch()->getParam('langue'), $e->getMessage());
+        }*/
+	$this->layout()->setVariable('listeRubrique',$data);
+	$this->layout()->setVariable('langue',$this->getEvent()->getRouteMatch()->getParam('langue'));
+	$this->layout()->setVariable('menu_id','pbm');
+	$publicationModel = new PublicationModel();
+        $dataPubli = $publicationModel->fetchAll();		
+	return new ViewModel(array('listePubli'=> $dataPubli,'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
 		
     }
 }
