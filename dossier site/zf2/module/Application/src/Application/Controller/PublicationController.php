@@ -24,19 +24,14 @@ class PublicationController extends AbstractActionController
     public function afficherPublicationAction() 
     {   
 		$rubriqueModel = new RubriqueModel();
-        $dataRubrique = $rubriqueModel->fetchAll();
-		$this->layout()->setVariable('listeRubrique',$dataRubrique);
-		
-		$this->layout()->setVariable('langue',$this->getEvent()->getRouteMatch()->getParam('langue'));
-		$this->layout()->setVariable('menu_id','pbl');
-		
-		$publicationModel = new PublicationModel();
-        $dataPubli = $publicationModel->fetchAll();		
-		
 		$categorieModel = new CategorieModel();
-		$dataCateg = $categorieModel->fetchAll();
+        $publicationModel = new PublicationModel();
 		
-		return new ViewModel(array('listeCateg'=>$dataCateg,'listePubli'=> $dataPubli,'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
+		$this->layout()->setVariable('listeRubrique',$rubriqueModel->fetchAll());
+		$this->layout()->setVariable('langue',$this->getEvent()->getRouteMatch()->getParam('langue'));
+		$this->layout()->setVariable('menu_id',0);
+				
+		return new ViewModel(array('listePubli'=> $publicationModel->fetchAll(),'listeCateg' => $categorieModel->fetchAll(), 'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
 		
     }
 }
