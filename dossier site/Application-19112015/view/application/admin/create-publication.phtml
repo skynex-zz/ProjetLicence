@@ -1,0 +1,105 @@
+
+<script type="text/javascript">
+        $(function() {
+            $( "#datepicker" ).datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+        });
+</script>
+    
+<?php
+
+    //Importation script CKEditor   
+    echo $this->headScript()->prependFile($this->basePath('js/ckeditor/ckeditor.js'));
+    //Importation jquery-ui pour DatePicker
+    echo $this->headScript()->prependFile($this->basePath('js/jquery-ui-1.11.4.custom/jquery-ui.js'));
+    echo $this->headLink()->prependStylesheet($this->basePath('js/jquery-ui-1.11.4.custom/jquery-ui.css'));    
+
+
+    $this->headTitle('Création Rubrique');
+    
+    if(isset($exCreatePublication)) {
+        echo "<h2>Erreur lors de la création de la publication. Veuillez réessayer.</h2>";
+    }
+    
+    $form->setAttribute('action', $this->url('createpublication', array('action' => 'createPublication', 'langue' => $langue)));
+    $form->prepare();
+    
+    echo $this->form()->openTag($form);
+    
+    //Création du formulaire
+    $titre = $form->get('titre');
+    $reference = $form->get('reference');
+    $auteurs = $form->get('auteurs');
+    $date = $form->get('date');
+    $journal = $form->get('journal');
+    $abstract = $form->get('abstract');
+    $volume = $form->get('volume');
+    $nb = $form->get('number');
+    $pages = $form->get('pages');
+    $note = $form->get('note');
+    $keywords = $form->get('keywords');
+    $series = $form->get('series');
+    $localite = $form->get('localite');
+    $publisher = $form->get('publisher');
+    $editor = $form->get('editor');
+    $pdf = $form->get('pdf');
+    $dateDisplay = $form->get('date_display');
+    $categorie = $form->get('categorie_id');
+    $bouton = $form->get('submit');
+    
+    if($langue == 'en') {
+        $titre->setLabel('Title');
+        $reference->setLabel('Reference');
+        $auteurs->setLabel('Author(s)');
+        $date->setLabel('Date');
+        $journal->setLabel('Journal');
+        $abstract->setLabel('Abstract');
+        $volume->setLabel('Voulme');
+        $nb->setLabel('Number');
+        $pages->setLabel('Page number');
+        $note->setLabel('Note');
+        $keywords->setLabel('Keywords');
+        $series->setLabel('Series');
+        $localite->setLabel('Localite');
+        $publisher->setLabel('Publisher');
+        $editor->setLabel('Editor');
+        $pdf->setLabel('Upload PDF file');
+        $dateDisplay->setLabel('Date to display');
+        $categorie->setLabel('Category');
+        $bouton->setValue('Submit');
+    }
+    
+    echo $this->formRow($titre)."<br /> <br />";
+    echo $this->formRow($reference)."<br /> <br />";
+    echo $this->formRow($auteurs)."<br /> <br />";
+    if($listeCategories != null) {
+        $catList = array();
+        foreach($listeCategories as $cat) {
+            if($langue == 'fr') {
+                $catList[$cat['ID']] = $cat['name_fr'];
+            }
+            else if($langue = 'en') {
+                $catList[$cat['ID']] = $cat['name_en'];
+            }
+        }
+        $categorie->setValueOptions($catList);
+        echo $this->formRow($categorie)."<br /> <br />";
+    }
+    echo $this->formRow($date)."<br /> <br />";
+    echo $this->formRow($journal)."<br /> <br />";
+    echo $this->formRow($abstract)."<br /> <br />";
+    echo $this->formRow($volume)."<br /> <br />";
+    echo $this->formRow($nb)."<br /> <br />";
+    echo $this->formRow($pages)."<br /> <br />";
+    echo $this->formRow($note)."<br /> <br />";
+    echo $this->formRow($keywords)."<br /> <br />";
+    echo $this->formRow($series)."<br /> <br />";
+    echo $this->formRow($localite)."<br /> <br />";
+    echo $this->formRow($publisher)."<br /> <br />";
+    echo $this->formRow($editor)."<br /> <br />";
+    echo $this->formRow($pdf)."<br /> <br />";
+    echo $this->formRow($dateDisplay)."<br /> <br />";
+    echo $this->formSubmit($bouton);    
+    echo $this->form()->closeTag();
+?>

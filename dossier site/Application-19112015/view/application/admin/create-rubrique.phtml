@@ -1,0 +1,53 @@
+<?php
+
+    //Importation script CKEditor   
+    echo $this->headScript()->prependFile($this->basePath('js/ckeditor/ckeditor.js'));
+
+    $this->headTitle('Création Rubrique');
+    
+    if(isset($exception)) {
+        echo "<h2>Erreur lors de la création de la rubrique. Veuillez réessayer.</h2>";
+    }
+    
+    $form->setAttribute('action', $this->url('createrubrique', array('action' => 'createRubrique', 'langue' => $langue)));
+    $form->prepare();
+    
+    echo $this->form()->openTag($form);
+    
+    //Création du formulaire
+    $titreFr = $form->get('titre_fr');
+    $titreEn = $form->get('titre_en');
+    $actifRadio = $form->get('actifradio');
+    $position = $form->get('position');
+    $textareaFr = $form->get('content_fr');
+    $textareaEn = $form->get('content_en');
+    $bouton = $form->get('submit');
+    
+    if($langue == 'en') {
+        $titreFr->setLabel('French title');
+        $titreEn->setLabel('English title');
+        $actifRadio->setLabel('Visible on the website ?');
+        $position->setLabel('Position');
+        $textareaFr->setLabel('French content');
+        $textareaEn->setLabel('English content');
+        $bouton->setValue('Submit');
+    }
+    
+    echo $this->formRow($titreFr)."<br /> <br />";
+    echo $this->formRow($titreEn)."<br /> <br />";
+    echo $this->formRow($actifRadio)."<br /> <br />";
+    echo $this->formRow($position)."<br /> <br />";
+    echo $this->formRow($textareaFr)."<br /> <br />";
+    echo $this->formRow($textareaEn)."<br /> <br />";
+    echo $this->formSubmit($bouton);
+    
+    echo $this->form()->closeTag();
+
+?>    
+    
+<script type="text/javascript">
+
+    CKEDITOR.replace('editor_fr');
+    CKEDITOR.replace('editor_en');
+
+</script>
