@@ -50,13 +50,15 @@ return array(
             'publications' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route'    => '/publication/:langue',
+                    'route'    => '/publication/:langue/:trie',
 			'constraints' => array(
                             'langue' => '[a-z]+',
+							'trie' => '[a-z]+',
                         ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\Publication',
                         'action'     => 'afficherPublication',
+						'trie'		 => 'categ',
                     ),
                 ),
             ),

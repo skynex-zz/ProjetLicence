@@ -30,8 +30,15 @@ class PublicationController extends AbstractActionController
 		$this->layout()->setVariable('listeRubrique',$rubriqueModel->fetchAll());
 		$this->layout()->setVariable('langue',$this->getEvent()->getRouteMatch()->getParam('langue'));
 		$this->layout()->setVariable('menu_id',0);
-				
-		return new ViewModel(array('listePubli'=> $publicationModel->fetchAll(),'listeCateg' => $categorieModel->fetchAll(), 'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
+		
+		if($this->getEvent()->getRouteMatch()->getParam('trie')=='categ'){
+			$listeSup=$categorieModel->fetchAll();
+		}
+		elseif($this->getEvent()->getRouteMatch()->getParam('trie')=='date'){
+			$listeSup=$publicationModel->fetchAllByDate();
+		}
+		
+		return new ViewModel(array('trie'=>$this->getEvent()->getRouteMatch()->getParam('trie'),'listePubli'=> $publicationModel->fetchAll(),'listeSup' => $listeSup, 'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
 		
     }
 }
