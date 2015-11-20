@@ -38,6 +38,37 @@ class AdminModel {
         }       
     }
     
+     /********* Appels webservices de RUBRIQUES Admin *********/
+    
+     public function createRubrique($token, $rubrique, $menu) {
+        $request = new Request();
+        //ajoute des headers et modifie la requête
+        $request->getHeaders()->addHeaders(array('Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'));
+        $request->setUri('http://localhost/rest/web/index.php/admin/rubrique'); //URL du webservice en dehors du projet 
+        $request->setMethod('POST');
+        $request->setContent(json_encode(array(
+            'a' => $token,
+            'ID' => $menu->id,
+            'titre_fr' => $menu->titre_fr,
+            'titre_en' => $menu->titre_en,
+            'content_fr' => $rubrique->content_fr,
+            'content_en' => $rubrique->content_en,
+            'actif' => $menu->actif,
+            'position' => $menu->position,
+        )));
+        
+        $response = ClientRequest::sendRequest($request);
+        $statut = $response->getStatusCode();
+        
+        //Traitement selon statut
+        if($statut >= 200 && $statut <= 299) {
+            return json_decode($response->getBody(), true);
+        }
+        else if($statut >= 300) {
+            throw new \Exception();
+        }
+    }
+    
     public function modifRubrique($token, $rubrique, $menu) 
     {
         $request = new Request();
@@ -53,35 +84,6 @@ class AdminModel {
             'content_en' => $rubrique->content_en,
             'actif' => $menu->actif,
             'position' => $menu->position
-        )));
-        
-        $response = ClientRequest::sendRequest($request);
-        $statut = $response->getStatusCode();
-        
-        //Traitement selon statut
-        if($statut >= 200 && $statut <= 299) {
-            return json_decode($response->getBody(), true);
-        }
-        else if($statut >= 300) {
-            throw new \Exception();
-        }
-    }
-    
-    public function createRubrique($token, $rubrique, $menu) {
-        $request = new Request();
-        //ajoute des headers et modifie la requête
-        $request->getHeaders()->addHeaders(array('Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'));
-        $request->setUri('http://localhost/rest/web/index.php/admin/rubrique'); //URL du webservice en dehors du projet 
-        $request->setMethod('POST');
-        $request->setContent(json_encode(array(
-            'a' => $token,
-            'ID' => $menu->id,
-            'titre_fr' => $menu->titre_fr,
-            'titre_en' => $menu->titre_en,
-            'content_fr' => $rubrique->content_fr,
-            'content_en' => $rubrique->content_en,
-            'actif' => $menu->actif,
-            'position' => $menu->position,
         )));
         
         $response = ClientRequest::sendRequest($request);
@@ -115,20 +117,108 @@ class AdminModel {
             throw new \Exception();
         }
     }
-       
-    /*public function testToken($token) 
-    {
+    
+    /********* Appels webservices de PUBLICATIONS Admin *********/
+    
+    public function createPublication($token, $publication) {
         $request = new Request();
         //ajoute des headers et modifie la requête
         $request->getHeaders()->addHeaders(array('Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'));
-        $request->setUri('http://localhost/rest/web/index.php/admin/publications/asc'); //URL du webservice en dehors du projet 
-        $request->setMethod('GET');
+        $request->setUri('http://localhost/rest/web/index.php/admin/publication'); //URL du webservice en dehors du projet 
+        $request->setMethod('POST');
+        $request->setContent(json_encode(array(
+            'a' => $token,
+            'titre' => $publication->titre,
+            'auteurs' => $publication->auteurs,
+            'reference' => $publication->reference,
+            'date' => $publication->date,
+            'journal' => $publication->journal,            
+            'volume' => $publication->volume,
+            'number' => $publication->number,
+            'pages' => $publication->pages,
+            'note' => $publication->note,
+            'abstract' => $publication->abstract,
+            'keywords' => $publication->keywords,
+            'series' => $publication->series,
+            'localite' => $publication->localite,
+            'publisher' => $publication->publisher,
+            'editor' => $publication->editor,
+            'pdf' => $publication->pdf,
+            'date_display' => $publication->date_display,
+            'categorie_id' => $publication->categorie_id,
+        )));
+        
+        $response = ClientRequest::sendRequest($request); //envoie requête
+        $statut = $response->getStatusCode();
+        
+        //Traitement selon statut
+        if($statut >= 200 && $statut <= 299) {
+            return json_decode($response->getBody(), true);
+        }
+        else if($statut >= 300) {
+            throw new \Exception();
+        }
+    }
+       
+    public function modifPublication($token, $publication) {
+        $request = new Request();
+        //ajoute des headers et modifie la requête
+        $request->getHeaders()->addHeaders(array('Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'));
+        $request->setUri('http://localhost/rest/web/index.php/admin/publications/'.$publication->id); //URL du webservice en dehors du projet 
+        $request->setMethod('PUT');
+        $request->setContent(json_encode(array(
+            'a' => $token,
+            'titre' => $publication->titre,
+            'auteurs' => $publication->auteurs,
+            'reference' => $publication->reference,
+            'date' => $publication->date,
+            'journal' => $publication->journal,            
+            'volume' => $publication->volume,
+            'number' => $publication->number,
+            'pages' => $publication->pages,
+            'note' => $publication->note,
+            'abstract' => $publication->abstract,
+            'keywords' => $publication->keywords,
+            'series' => $publication->series,
+            'localite' => $publication->localite,
+            'publisher' => $publication->publisher,
+            'editor' => $publication->editor,
+            'pdf' => $publication->pdf,
+            'date_display' => $publication->date_display,
+            'categorie_id' => $publication->categorie_id,
+        )));
+        
+        $response = ClientRequest::sendRequest($request); //envoie requête
+        $statut = $response->getStatusCode();
+        
+        //Traitement selon statut
+        if($statut >= 200 && $statut <= 299) {
+            return json_decode($response->getBody(), true);
+        }
+        else if($statut >= 300) {
+            throw new \Exception();
+        }
+    }
+    
+    public function deletePublication($token, $idPublication) {
+        $request = new Request();
+        //ajoute des headers et modifie la requête
+        $request->getHeaders()->addHeaders(array('Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'));
+        $request->setUri('http://localhost/rest/web/index.php/admin/publications/'.$idPublication); //URL du webservice en dehors du projet 
+        $request->setMethod('DELETE');
         $request->setContent(json_encode(array('a' => $token)));
         
-        $client = new Client();
-        $response = $client->send($request); //envoie la requête au service REST
-        $data = $response->getBody(); //récupération du token
-    }*/
+        $response = ClientRequest::sendRequest($request); //envoie requête
+        $statut = $response->getStatusCode();
+        
+        //Traitement selon statut
+        if($statut >= 200 && $statut <= 299) {
+            return json_decode($response->getBody(), true);
+        }
+        else if($statut >= 300) {
+            throw new \Exception();
+        }
+    }
 
 }
 

@@ -3,18 +3,24 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;     
-use Application\Model\Admin;
-use Application\Form\AdminForm; 
-use Application\Model\AdminModel;
-
-//Tests avec Rubrique mais faut mettre tout ce qui concerne les rubriques dans RubriqueController je pense
-use Application\Model\Rubrique;
-use Application\Form\RubriqueForm; 
-use Application\Model\RubriqueModel;
-use Application\Model\Menu;
-use Application\Model\LayoutExceptions;
+use Zend\View\Model\ViewModel;
 use Zend\Session\Container; //pour le token à envoyer dans une session pour pouvoir l'utiliser ailleurs
+
+use Application\Model\Admin;
+use Application\Model\Rubrique;
+use Application\Model\Publication;
+use Application\Model\Menu;
+use Application\Model\AdminModel;
+use Application\Model\RubriqueModel;
+use Application\Model\PublicationModel;
+use Application\Model\CategorieModel;
+use Application\Model\LayoutExceptions;
+use Application\Model\ValidationUploadedFile;
+
+use Application\Form\AdminForm; 
+use Application\Form\RubriqueForm;
+use Application\Form\PublicationForm;
+
 
 class AdminController extends AbstractActionController
 {    
@@ -25,6 +31,17 @@ class AdminController extends AbstractActionController
             return $session->token;
         }
         return null;
+    }
+    
+    public function getCategories() {
+        $categorieModel = new CategorieModel();
+        try {
+            $listeCategories = $categorieModel->fetchAll();
+        }
+        catch(\Exception $e) {
+            return null;
+        }
+        return $listeCategories;
     }
     
     public function loginAction() 
@@ -108,23 +125,82 @@ class AdminController extends AbstractActionController
             $this->redirect()->toRoute('home');
         }*/
         
+        $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
         $rubriqueModel = new RubriqueModel();
+        $publicationModel = new PublicationModel();
         $listeRubrique = null;
+        $listePublications = null;
+        
+        try {
+            $listeRubrique = $rubriqueModel->fetchAll();
+        }
+        catch(\Exception $e) {
+            LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $langue, $token, $e->getMessage());
+            return new ViewModel(array('listeRubrique' => $listeRubrique, 'listePublications' => $listePublications, 'langue' => $langue, 'exRubriques' => $e->getMessage()));
+        }
+        try {
+            $listePublications = $publicationModel->fetchAll();
+        } 
+        catch (\Exception $e) {
+            return new ViewModel(array('listeRubrique' => $listeRubrique, 'listePublications' => $listePublications, 'langue' => $langue, 'exPublications' => $e->getMessage()));
+        }
+
+	$this->layout()->setVariable('listeRubrique', $listeRubrique);
+        $this->layout()->setVariable('menu_id', 'admin');
+        $this->layout()->setVariable('langue', $langue);
+        $this->layout()->setVariable('token', $token);
+        return new ViewModel(array('listeRubrique' => $listeRubrique, 'listePublications' => $listePublications, 'langue' => $langue));
+    }
+    
+    /****** GESTION RUBRIQUES ******/
+    
+    public function createRubriqueAction() 
+    {
+        $token = null;
+        if($this->checkSession() != null) {
+            $token = $this->checkSession();
+        }
+        
+        $rubriqueModel = new RubriqueModel();
+        $adminModel = new AdminModel();
+        $form = new RubriqueForm(); //formulaire de création de rubrique
+        $listeRubrique = null;
+        $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
         
         try {
             $listeRubrique = $rubriqueModel->fetchAll();
         }
         catch(\Exception $e) {
             LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $this->getEvent()->getRouteMatch()->getParam('langue'), $token, $e->getMessage());
-            return new ViewModel(array('listeRubrique' => $listeRubrique, 'langue' => $this->getEvent()->getRouteMatch()->getParam('langue')));
         }
+        
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $rubrique = new Rubrique();
+            $form->setInputFilter($rubrique->getInputFilter());
+            $form->setData($request->getPost());
 
+            if ($form->isValid()) {
+                $formDatas = $form->getData();
+                $rubrique->exchangeArray($formDatas);
+                $menu = new Menu(null, $formDatas['titre_fr'], $formDatas['titre_en'], $formDatas['actifradio'], $formDatas['position']);
+                
+                try {
+                    $adminModel->createRubrique($token, $rubrique, $menu);
+                }
+                catch(\Exception $e) {
+                    return new ViewModel(array('form' => $form, 'langue' => $langue, 'exception' => $e->getMessage()));
+                }
+                
+                $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue));
+            } 
+        }
+        
 	$this->layout()->setVariable('listeRubrique', $listeRubrique);
         $this->layout()->setVariable('menu_id', 'admin');
-        $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
         $this->layout()->setVariable('langue', $langue);
         $this->layout()->setVariable('token', $token);
-        return new ViewModel(array('listeRubrique' => $listeRubrique, 'langue' => $langue));
+        return new ViewModel(array('form' => $form, 'langue' => $langue));
     }
     
     public function modifRubriqueAction() {
@@ -184,55 +260,6 @@ class AdminController extends AbstractActionController
         return new ViewModel(array('form' => $form, 'rubriqueToModif' => $rubriqueToModif, 'langue' => $langue));
     }
     
-    public function createRubriqueAction() 
-    {
-        $token = null;
-        if($this->checkSession() != null) {
-            $token = $this->checkSession();
-        }
-        
-        $rubriqueModel = new RubriqueModel();
-        $adminModel = new AdminModel();
-        $form = new RubriqueForm(); //formulaire de création de rubrique
-        $listeRubrique = null;
-        $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
-        
-        try {
-            $listeRubrique = $rubriqueModel->fetchAll();
-        }
-        catch(\Exception $e) {
-            LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $this->getEvent()->getRouteMatch()->getParam('langue'), $token, $e->getMessage());
-        }
-        
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $rubrique = new Rubrique();
-            $form->setInputFilter($rubrique->getInputFilter());
-            $form->setData($request->getPost());
-
-            if ($form->isValid()) {
-                $formDatas = $form->getData();
-                $rubrique->exchangeArray($formDatas);
-                $menu = new Menu(null, $formDatas['titre_fr'], $formDatas['titre_en'], $formDatas['actifradio'], $formDatas['position']);
-                
-                try {
-                    $adminModel->createRubrique($token, $rubrique, $menu);
-                }
-                catch(\Exception $e) {
-                    return new ViewModel(array('form' => $form, 'langue' => $langue, 'exception' => $e->getMessage()));
-                }
-                
-                $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue));
-            } 
-        }
-        
-	$this->layout()->setVariable('listeRubrique', $listeRubrique);
-        $this->layout()->setVariable('menu_id', 'admin');
-        $this->layout()->setVariable('langue', $langue);
-        $this->layout()->setVariable('token', $token);
-        return new ViewModel(array('form' => $form, 'langue' => $langue));
-    }
-    
     public function deleteRubriqueAction() 
     {
         $token = null;
@@ -256,7 +283,170 @@ class AdminController extends AbstractActionController
             $adminModel->deleteRubrique($token, $this->getEvent()->getRouteMatch()->getParam('id_menu'));
         }
         catch (\Exception $e) {
-            $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue/*, 'exception' => $e->getMessage()*/));       
+            $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue, 'exSuppRubrique' => $e->getMessage()));       
+        }
+        
+	$this->layout()->setVariable('listeRubrique', $listeRubrique);
+        $this->layout()->setVariable('menu_id', 'admin');
+        $this->layout()->setVariable('langue', $langue);
+        $this->layout()->setVariable('token', $token);
+        $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue));
+    }
+    
+    /****** GESTION PUBLICATIONS ******/
+    
+    public function createPublicationAction() 
+    {
+        $token = null;
+        if($this->checkSession() != null) {
+            $token = $this->checkSession();
+        }
+        
+        $rubriqueModel = new RubriqueModel();
+        $adminModel = new AdminModel();
+        $form = new PublicationForm(); //formulaire de création de publication
+        $listeRubrique = null;
+        $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
+        
+        try {
+            $listeRubrique = $rubriqueModel->fetchAll();
+        }
+        catch(\Exception $e) {
+            LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $this->getEvent()->getRouteMatch()->getParam('langue'), $token, $e->getMessage());
+        }
+        
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $publication = new Publication();
+            $form->setInputFilter($publication->getInputFilter());
+            
+            $other = $request->getPost()->toArray();
+            $file = $this->params()->fromFiles('pdf');
+            $data = array_merge(
+                 $other,
+                 array('pdf' => $file['name'])
+             );
+            $form->setData($data);
+            
+            if ($form->isValid()) {
+                $publication->exchangeArray($form->getData());
+                $valid = new ValidationUploadedFile();
+                if($valid->moveFile($file)) {
+                    $publication->pdf = 'useruploads/files/'.$file['name'];
+                }
+                else {
+                    $publication->pdf = null;
+                }
+                try {
+                    $adminModel->createPublication($token, $publication);
+                }
+                catch(\Exception $e) {
+                    return new ViewModel(array('form' => $form, 'langue' => $langue, 'exCreatePublication' => $e->getMessage()));
+                }
+                $this->redirect()->toRoute('admin', array('langue' => $langue));
+            } 
+        }
+        
+	$this->layout()->setVariable('listeRubrique', $listeRubrique);
+        $this->layout()->setVariable('menu_id', 'admin');
+        $this->layout()->setVariable('langue', $langue);
+        $this->layout()->setVariable('token', $token);
+        return new ViewModel(array('form' => $form, 'langue' => $langue, 'listeCategories' => $this->getCategories()));
+    }
+    
+    public function modifPublicationAction() 
+    {        
+        $token = null;
+        if($this->checkSession() != null) {
+            $token = $this->checkSession();
+        }
+        
+        $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
+        $idPublication = $this->getEvent()->getRouteMatch()->getParam('id_publication'); //récupère id de la publication correspondante
+        $rubriqueModel = new RubriqueModel();
+        $adminModel = new AdminModel();
+        $publicationModel = new PublicationModel();
+        $form = new PublicationForm(); //formulaire de modification de rubrique
+        $listeRubrique = null;
+        
+        try {
+            $listeRubrique = $rubriqueModel->fetchAll();
+        }
+        catch(\Exception $e) {
+            LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $langue, $token, $e->getMessage());
+        }
+        try {
+            $publicationToModif = $publicationModel->findOne($token, $idPublication);
+        }
+        catch(\Exception $e) {
+            LayoutExceptions::traiteExceptionsOneRubrique($this, $listeRubrique, 'admin', $langue, $token, $e->getMessage());   
+        }
+        
+	$this->layout()->setVariable('listeRubrique', $listeRubrique);
+        $this->layout()->setVariable('menu_id', 'admin');
+        $this->layout()->setVariable('langue', $langue);
+        $this->layout()->setVariable('token', $token);
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $publicationModif = new Publication();
+            $form->setInputFilter($publicationModif->getInputFilter());
+            
+            $other = $request->getPost()->toArray();
+            $file = $this->params()->fromFiles('pdf');
+            $data = array_merge(
+                 $other,
+                 array('pdf' => $file['name'])
+             );
+            $form->setData($data);
+
+            if ($form->isValid()) {
+                $publicationModif->exchangeArray($form->getData());
+                $publicationModif->id = $idPublication;
+                $valid = new ValidationUploadedFile();
+                if($valid->moveFile($file)) {
+                    $publicationModif->pdf = 'useruploads/files/'.$file['name'];
+                }
+                else {
+                    $publicationModif->pdf = null;
+                }
+                
+                try {
+                    $adminModel->modifPublication($token, $publicationModif);
+                }
+                catch(\Exception $e) {
+                    return new ViewModel(array('form' => $form, 'publicationToModif' => $publicationToModif, 'listeCategories' => $this->getCategories(), 'langue' => $langue, 'exModifPublication' => $e->getMessage()));
+                }
+                $this->redirect()->toRoute('admin', array('langue' => $langue));
+            }
+        }
+        return new ViewModel(array('form' => $form, 'publicationToModif' => $publicationToModif, 'listeCategories' => $this->getCategories(), 'langue' => $langue));
+    }
+    
+    public function deletePublicationAction() 
+    {
+        $token = null;
+        if($this->checkSession() != null) {
+            $token = $this->checkSession();
+        }
+        
+        $rubriqueModel = new RubriqueModel();
+        $adminModel = new AdminModel();
+        $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
+        $listeRubrique = null;
+        
+        try {
+            $listeRubrique = $rubriqueModel->fetchAll();
+        }
+        catch (\Exception $e) {
+            LayoutExceptions::traiteExceptionsAllRubriques($this, $listeRubrique, 'admin', $langue, $token, $e->getMessage());
+        }
+        
+        try {
+            $adminModel->deletePublication($token, $this->getEvent()->getRouteMatch()->getParam('id_publication'));
+        }
+        catch (\Exception $e) {
+            $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue, 'exSuppPublication' => $e->getMessage()));       
         }
         
 	$this->layout()->setVariable('listeRubrique', $listeRubrique);

@@ -8,16 +8,7 @@ namespace Application\Form;
  {
      public function __construct($name = null)
      {
-         // we want to ignore the name passed
          parent::__construct('rubrique');
-         
-         //Textarea français
-         /*$textareaFr = new Element\Textarea('editor_fr');
-         $textareaFr->setLabel('Contenu français');*/
-         
-         //Textarea anglais
-         /*$textareaEn = new Element\Textarea('editor_en');
-         $textareaEn->setLabel('Contenu anglais');*/
          
         $this->setAttribute('id', 'form_modif');
           
@@ -28,7 +19,7 @@ namespace Application\Form;
                 'id' => 'titre_fr',
              ),
              'options' => array(
-                 'label' => 'Titre fran�ais',
+                 'label' => 'Titre français',
              ),
          ));
          $this->add(array(

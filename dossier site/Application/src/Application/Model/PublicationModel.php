@@ -9,13 +9,13 @@ use Zend\Stdlib\Parameters;
 class PublicationModel {
     
     /**
-     * Appel web service pour rÃ©cupÃ©rer toutes les rubriques
+     * Appel web service pour récupérer toutes les rubriques
      * @return array
      */
     public function fetchAll() 
     {
         $request = new Request();
-        //ajoute des headers et modifie la requÃªte
+        //ajoute des headers et modifie la requête
         $request->getHeaders()->addHeaders(array(
             'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
         ));
@@ -24,7 +24,7 @@ class PublicationModel {
         //$request->setPost(new Parameters(array('someparam' => 'salut')));
         
         $client = new Client();
-        $response = $client->send($request); //envoie la requÃªte au service REST
+        $response = $client->send($request); //envoie la requête au service REST
         $statut = $response->getStatusCode();
         
         //Traitement selon statut
@@ -57,6 +57,31 @@ class PublicationModel {
         }
         else if($statut >= 300) {
             throw new \Exception();
+        }
+    }
+    
+    public function findOne($token, $idPublication) 
+    {
+        $request = new Request();
+        //ajoute des headers et modifie la requête
+        $request->getHeaders()->addHeaders(array(
+            'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
+        ));
+        $request->setUri('http://localhost/rest/web/index.php/admin/publications/'.$idPublication); //URL du webservice en dehors du projet 
+        $request->setMethod('GET');
+        $request->setContent(json_encode(array('a' => $token)));
+        
+        $client = new Client();
+        $response = $client->send($request); //envoie la requête au service REST
+        $statut = $response->getStatusCode();
+        
+        //Traitement selon statut
+        if($statut >= 200 && $statut <= 299) {
+            return json_decode($response->getBody(), true);
+        }
+        else if($statut >= 300) {
+            //throw new \Exception();
+            var_dump($response);
         }
     }
 }

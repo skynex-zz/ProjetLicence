@@ -141,6 +141,47 @@ return array(
                      ),
                  ),
              ),
+            'admpublication' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/admin/:langue/publication/:id_publication',
+                     'constraints' => array(
+                         'id_publication' => '[0-9]+',
+                         'langue' => '[a-z]+',
+                     ),
+                     'defaults' => array(
+                         'controller' => 'Application\Controller\Admin',
+                         'action'     => 'modifPublication',
+                     ),
+                 ),
+             ),
+             'createpublication' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/admin/:langue/createpublication',
+                     'constraints' => array(
+                         'langue' => '[a-z]+',
+                     ),
+                     'defaults' => array(
+                         'controller' => 'Application\Controller\Admin',
+                         'action'     => 'createPublication',
+                     ),
+                 ),
+             ),
+             'delpublication' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/admin/:langue/deletepublication/:id_publication',
+                     'constraints' => array(
+                         'id_publication' => '[0-9]+',
+                         'langue' => '[a-z]+',
+                     ),
+                     'defaults' => array(
+                         'controller' => 'Application\Controller\Admin',
+                         'action'     => 'deletePublication',
+                     ),
+                 ),
+             ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them

@@ -33,7 +33,7 @@ class RubriqueController extends AbstractActionController
             $rubrique = $rubriqueModel->findOne($this->getEvent()->getRouteMatch()->getParam('menu_id'));
         } catch (\Exception $e) {
             LayoutExceptions::traiteExceptionsOneRubrique($this, $data, $this->getEvent()->getRouteMatch()->getParam('menu_id'), 
-                        $this->getEvent()->getRouteMatch()->getParam('langue'), $toke, $e->getMessage());
+                        $this->getEvent()->getRouteMatch()->getParam('langue'), $token, $e->getMessage());
             return new ViewModel(array('rubrique'=>null,'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue'),
                         $this->getEvent()->getRouteMatch()->getParam('langue'), 'exception' => $e->getMessage()));
         }
