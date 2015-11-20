@@ -818,6 +818,11 @@ div.pager span.active {
     font-weight: bold;
 }
 
+.publi-booktitle
+{
+	font-weight: bold;
+}
+
 .publi-editor
 {
     
@@ -1017,7 +1022,6 @@ border-radius:40px;
 padding:5px;
 display:none;
 }
-
 .admin_btn {
     margin: 35px;
     padding: 35px;
