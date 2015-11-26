@@ -2,10 +2,10 @@
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Client :  127.0.0.1
--- Généré le :  Jeu 26 Novembre 2015 à 09:47
--- Version du serveur :  5.6.17
--- Version de PHP :  5.5.12
+-- Host: 127.0.0.1
+-- Generation Time: Nov 26, 2015 at 04:23 PM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `webchercheur`
+-- Database: `webchercheur`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `publication`
+-- Table structure for table `publication`
 --
 
 CREATE TABLE IF NOT EXISTS `publication` (
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `publication` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=261 ;
 
 --
--- Contenu de la table `publication`
+-- Dumping data for table `publication`
 --
 
 INSERT INTO `publication` (`ID`, `reference`, `auteurs`, `titre`, `date`, `journal`, `volume`, `number`, `pages`, `note`, `abstract`, `keywords`, `series`, `localite`, `publisher`, `editor`, `pdf`, `date_display`, `categorie_id`, `doi`, `url`, `institution`, `howpublished`, `urldate`, `isbn`, `chapter`, `booktitle`, `type`) VALUES
@@ -128,16 +128,6 @@ INSERT INTO `publication` (`ID`, `reference`, `auteurs`, `titre`, `date`, `journ
 (258, 'zhong', 'Jiagui Zhong and Jianjun Huang and Bin Liang', 'Android Permission Re-delegation Detection and Test Case Generation', '2012-01-01', 'Computer Science Service System (CSSS), 2012 International Conference on', '', '', '871 -874', '', '', '', '', '', '', '', NULL, '2015-11-25', 2, '10.1109/CSSS.2012.222', '', '', '', '', '', '', NULL, NULL),
 (259, 'grace', 'Grace, Michael and Zhou, Yajin and Wang, Zhi and Jiang, Xuxian', 'Systematic Detection of Capability Leaks in Stock {Android} Smartphones', '2012-01-01', 'Proceedings of the 19th Network and Distributed System Security Symposium (NDSS)', '', '', '', '', '', '', '', '', '', '', NULL, '2015-11-25', 2, '', '', '', '', '', '', '', NULL, NULL),
 (260, 'Azim13', 'Azim, Tanzirul and Neamtiu, Iulian', 'Targeted and Depth-first Exploration for Systematic Testing of Android Apps', '2013-01-01', 'Proceedings of the 2013 ACM SIGPLAN International Conference on Object Oriented Programming Systems Languages \\&\\#38; Applications', '', '', '641--660', '', '', 'code coverage, dynamic analysis, google android, greybox testing, gui testing, systematic exploration, taint analysis, test case generation', 'OOPSLA ''13', 'New York, NY, USA', 'ACM', '', NULL, '2015-11-25', 2, '10.1145/2509136.2509549', 'http://doi.acm.org/10.1145/2509136.2509549', '', '', '', '978-1-4503-2374-1', '', NULL, NULL);
-
---
--- Contraintes pour les tables exportées
---
-
---
--- Contraintes pour la table `publication`
---
-ALTER TABLE `publication`
-  ADD CONSTRAINT `publication_ibfk_1` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`ID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
