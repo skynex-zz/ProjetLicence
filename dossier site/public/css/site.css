@@ -94,6 +94,7 @@ body {
 
 /****/
 
+
 #gestion-table {
 	max-width : inherit;
 	overflow-x : scroll;
@@ -517,7 +518,7 @@ div.pager span.active {
     padding-right: 8px;
     text-align: center;
     font-size: 15px;
-    color: #FEFEFE;
+    color: #FFF;
     cursor: pointer;
     background-image: url(images/menu_bg.png);
     background-repeat: repeat-x;
@@ -560,37 +561,6 @@ div.pager span.active {
     text-align:center;
 }
 
-
-/*
-.footer-middle 
-{
-	margin:0 auto;
-	display: inline-block;
-    height: 35px;
-	width:93%;
-    background-image: url("images/footer-middle.png");
-    background-repeat: repeat-x;
-}
-
-.footer-corner-left
-{
-	float:left;
-    width: 30px;
-    height: 35px;
-    background-image: url("images/footer-corner-left.png");
-    background-repeat: no-repeat;
-}
-
-
-.footer-corner-right
-{
-	float:right;
-    width: 30px;
-    height: 35px;
-    background-image: url(images/footer-corner-right.png);
-    background-repeat: no-repeat;
-}
-*/
 .bottom-panel
 {
     width: 100%;
@@ -968,12 +938,8 @@ border-radius:40px;
 padding:5px;
 display:none;
 }
-.admin_btn {
-    margin: 35px;
-    padding: 35px;
-    background-color: silver;
-}
 
+/*****************************POP UP publications *************/
 
 #fade { /*--Masque opaque noir de fond--*/
 	display: none; /*--masqué par défaut--*/
@@ -1025,4 +991,5 @@ position: absolute;
 *html .popup_block {
 position: absolute;
 }
+/***********************************/
 
