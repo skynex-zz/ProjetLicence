@@ -1,0 +1,13 @@
+<?php
+
+if(isset($exception)) {
+    echo "Pas de rubriques à part les publications.";
+}
+else {
+    if($langue=='fr') {
+        echo $rubrique['content_fr'];
+    }
+    else{
+        echo $rubrique['content_en'];
+    }
+}
