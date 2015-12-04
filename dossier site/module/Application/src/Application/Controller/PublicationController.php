@@ -10,35 +10,38 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Application\Model\Publication;        
-use Application\Model\PublicationModel;
-use Application\Model\Rubrique;        
+use Zend\View\Model\ViewModel;       
+use Application\Model\PublicationModel;      
 use Application\Model\RubriqueModel;
-use Application\Model\Categorie;
 use Application\Model\CategorieModel;
+use Application\Model\VerifUser;
+use Application\Model\SendLayout;
 
 class PublicationController extends AbstractActionController
 {
 
     public function afficherPublicationAction() 
     {   
-		$rubriqueModel = new RubriqueModel();
-		$categorieModel = new CategorieModel();
+        //Vérification token
+        $token = VerifUser::tokenAction();
+        $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
+        
+	$rubriqueModel = new RubriqueModel();
+	$categorieModel = new CategorieModel();
         $publicationModel = new PublicationModel();
 		
-		$this->layout()->setVariable('listeRubrique',$rubriqueModel->fetchAll());
-		$this->layout()->setVariable('langue',$this->getEvent()->getRouteMatch()->getParam('langue'));
-		$this->layout()->setVariable('menu_id',0);
-		
-		if($this->getEvent()->getRouteMatch()->getParam('trie')=='categ'){
-			$listeSup=$categorieModel->fetchAll();
-		}
-		elseif($this->getEvent()->getRouteMatch()->getParam('trie')=='date'){
-			$listeSup=$publicationModel->fetchAllByDate();
-		}
-		
-		return new ViewModel(array('trie'=>$this->getEvent()->getRouteMatch()->getParam('trie'),'listePubli'=> $publicationModel->fetchAll(),'listeSup' => $listeSup, 'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
+	//try catch du fetchAll des rubriques
+        $listeRubriques = SendLayout::fetchAllRubriques($this, 'pbm', $langue, $token);
+        
+	if($this->getEvent()->getRouteMatch()->getParam('trie')=='categ'){
+            $listeSup = $categorieModel->fetchAll();
+	}
+	elseif($this->getEvent()->getRouteMatch()->getParam('trie')=='date'){
+            $listeSup = $publicationModel->fetchAllByDate();
+	}
+	
+        SendLayout::sendGeneral($this, $listeRubriques, 'pbm', $langue, $token);
+	return new ViewModel(array('trie'=>$this->getEvent()->getRouteMatch()->getParam('trie'),'listePubli'=> $publicationModel->fetchAll(),'listeSup' => $listeSup, 'langue'=>$langue));
 		
     }
 }

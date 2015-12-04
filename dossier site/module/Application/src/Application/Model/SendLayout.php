@@ -24,6 +24,12 @@ class SendLayout {
         $controller->layout()->setVariable('exceptionOneR', $exception);
     }
     
+    public static function traiteExceptionsOnePublication($controller, $liste, $idMenu, $idPubli, $langue, $token, $exception = null) {
+        SendLayout::sendGeneral($controller, $liste, $idMenu, $langue, $token);
+        $controller->layout()->setVariable('id_publication', $idPubli);
+        $controller->layout()->setVariable('exceptionOneP', $exception);
+    }
+    
     public static function fetchAllRubriques($controller, $idMenu, $langue, $token) {
         $listeRubrique = null;
         $rubriqueModel = new RubriqueModel();

@@ -30,7 +30,7 @@ namespace Application\Model;
 		return $var;
 	}*/
 	public function nettoyageStringDefault($varold){
-		$var = filter_var($varold, FILTER_SANITIZE_STRING); //supprime caractères avec code ASCII>127
+		$var = filter_var($varold, FILTER_SANITIZE_STRING);
                 if($var != false) {
                     return $var;
                 }

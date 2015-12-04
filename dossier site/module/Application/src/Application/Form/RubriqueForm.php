@@ -19,7 +19,7 @@ namespace Application\Form;
                 'id' => 'titre_fr',
              ),
              'options' => array(
-                 'label' => 'Titre français',
+                 'label' => 'Titre français*',
              ),
          ));
          $this->add(array(
@@ -29,7 +29,7 @@ namespace Application\Form;
                 'id' => 'titre_en',
              ),
              'options' => array(
-                 'label' => 'Titre anglais',
+                 'label' => 'Titre anglais*',
              ),
          ));
          $this->add(array(
@@ -37,6 +37,7 @@ namespace Application\Form;
              'type' => 'Number',
              'attributes' => array(
                 'id' => 'position',
+                'min' => '1',
              ),
              'options' => array(
                  'label' => 'Position dans le menu',
@@ -46,7 +47,7 @@ namespace Application\Form;
             'type' => 'Zend\Form\Element\Radio',
             'name' => 'actifradio',
             'options' => array(
-                'label' => 'Visible sur le site ?',
+                'label' => 'Visible sur le site ?*',
                 'value_options' => array(
                     array(
                         'value' => 0,

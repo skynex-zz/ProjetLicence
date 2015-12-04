@@ -10,10 +10,15 @@ namespace Application\Form;
      {
          // we want to ignore the name passed
          parent::__construct('admin');
+         
+         $this->setAttribute('id', 'admin_login_form');
 
          $this->add(array(
              'name' => 'login',
              'type' => 'Text',
+             'attributes' => array(
+                'id' => 'login',
+             ),
              'options' => array(
                  'label' => 'Identifiant',
              ),
@@ -21,6 +26,9 @@ namespace Application\Form;
          $this->add(array(
              'name' => 'password',
              'type' => 'Password',
+             'attributes' => array(
+                'id' => 'password',
+             ),
              'options' => array(
                  'label' => 'Mot de passe',
              ),

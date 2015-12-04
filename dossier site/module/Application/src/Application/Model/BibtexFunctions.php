@@ -216,14 +216,17 @@ class BibtexFunctions
     {
         if (file_exists($filename)) {
             if (($this->content = @file_get_contents($filename)) === false) {
-                return PEAR::raiseError('Could not open file '.$filename);
+                //return PEAR::raiseError('Could not open file '.$filename);
+                return false;
             } else {
                 $this->_pos    = 0;
                 $this->_oldpos = 0;
-                return true;
+                //return true;
+                return $this->content;
             }
         } else {
-            return PEAR::raiseError('Could not find file '.$filename);
+            //return PEAR::raiseError('Could not find file '.$filename);*
+            return false;
         }
     }
 

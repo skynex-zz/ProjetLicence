@@ -44,6 +44,7 @@ class AdminPublicationController extends AbstractActionController
         $adminModel = new AdminModel();
         $form = new PublicationForm(); //formulaire de création de publication
         $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
+        $msgSuccess = null; $errorExt = null;
         
         $listeRubriques = SendLayout::fetchAllRubriques($this, 'crpubli', $langue, $token);
         
@@ -63,22 +64,31 @@ class AdminPublicationController extends AbstractActionController
             if ($form->isValid()) {
                 $publication->exchangeArray($form->getData());
                 $valid = new ValidationUploadedFile();
-                if($valid->validatorsFile($file, 'pdf') != false) {
-                    $valid->moveFile($file);
-                    $publication->pdf = 'useruploads/files/'.$file['name'];
+                if($file['name'] != '') {
+                    if($valid->validatorsFile($file, 'pdf') == true) {
+                        $valid->moveFile($file);
+                        $publication->pdf = 'useruploads/files/'.$file['name'];
+                    }
+                    else {
+                        $publication->pdf = null;
+                        $errorExt = 'error extension';
+                    }
                 }
                 else {
                     $publication->pdf = null;
-                    $errorExt = 'error extension';
                 }
                 try {
                     $adminModel->createPublication($token, $publication);
                 }
                 catch(\Exception $e) {
-                    return new ViewModel(array('form' => $form, 'langue' => $langue, 'exCreatePublication' => $e->getMessage()));
+                    echo "exception";
+                    //return new ViewModel(array('form' => $form, 'langue' => $langue, 'exCreatePublication' => $e->getMessage()));
                 }
-                $this->redirect()->toRoute('admin', array('langue' => $langue));
-            } 
+                if(!isset($errorExt)) {
+                    $msgSuccess = 'creationpublication';
+                    $this->redirect()->toRoute('admin', array('langue' => $langue), array('query' => array('successCrP' => $msgSuccess)));
+                }
+            }
         }
         //Envoi des variables au layout
         SendLayout::sendGeneral($this, $listeRubriques, 'crpubli', $langue, $token);
@@ -97,6 +107,9 @@ class AdminPublicationController extends AbstractActionController
         $adminModel = new AdminModel();
         $form = new BibtexPublicationForm(); //formulaire de création de publication
         $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
+        $nonPublis = array(); $nonPublis = null;
+        $errorExt = null;
+        $msgSuccess = null; $errorLecture = null;
         
         $listeRubriques = SendLayout::fetchAllRubriques($this, 'crbibtex', $langue, $token);
         
@@ -112,18 +125,31 @@ class AdminPublicationController extends AbstractActionController
             
             if ($form->isValid()) {
                 $valid = new ValidationUploadedFile();
-                if($valid->validatorsFile($file, 'bib') != false) {
+                if($valid->validatorsFile($file, 'bib') == true) {
                     $valid->moveFile($file);
-                    $publis = BibtexManagement::parsing($file['name']);
-                    /*foreach($publis as $pub) {
-                        try {
-                            $adminModel->createPublication($token, $pub);
+                    if(($publis = BibtexManagement::parsing($file['name'])) != false) {
+                        foreach($publis as $pub) {
+                            if(gettype($pub) == 'string') {
+                                $nonPublis[] = $pub;
+                            }
+                            else {
+                                try {
+                                    $adminModel->createPublication($token, $pub);
+                                }
+                                catch(\Exception $e) {
+                                    //return new ViewModel(array('form' => $form, 'langue' => $langue, 'exCreatePublication' => $e->getMessage()));
+                                    $nonPublis[] = $pub->reference;
+                                }
+                            }
                         }
-                        catch(\Exception $e) {
-                            return new ViewModel(array('form' => $form, 'langue' => $langue, 'exCreatePublication' => $e->getMessage()));
+                        if(!isset($nonPublis)) {
+                            $msgSuccess = 'creationpublication';
+                            $this->redirect()->toRoute('admin', array('langue' => $langue), array('query' => array('successCrP' => $msgSuccess)));
                         }
                     }
-                    $this->redirect()->toRoute('admin', array('langue' => $langue))*/;
+                    else {
+                        $errorLecture = 'errorLecture';
+                    }
                 }
                 else {
                     $errorExt = 'error extension';
@@ -133,30 +159,35 @@ class AdminPublicationController extends AbstractActionController
         //Envoi des variables au layout
         SendLayout::sendGeneral($this, $listeRubriques, 'crbibtex', $langue, $token);
         
-        if(!isset($errorExt)) {
+        /*if(!isset($errorExt)) {
             return new ViewModel(array('form' => $form, 'langue' => $langue));
-        }
-        return new ViewModel(array('form' => $form, 'langue' => $langue, 'errorMsgExtension' => 'L\'extension du fichier doit être bib.'));
+        }*/
+        return new ViewModel(array('form' => $form, 'langue' => $langue, 'errorMsgExtension' => $errorExt, 'errorBibtex' => $nonPublis, 'errorLecture' => $errorLecture));
     }
     
     public function modifPublicationAction() 
     {        
         $token = VerifUser::tokenAction();
-        if($token == null) $this->redirect()->toRoute('home');
+        if($token == null) {
+            $this->redirect()->toRoute('home');
+        }
         
         $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
         $idPublication = $this->getEvent()->getRouteMatch()->getParam('id_publication'); //récupère id de la publication correspondante
+        
         $adminModel = new AdminModel();
         $publicationModel = new PublicationModel();
         $form = new PublicationForm(); //formulaire de modification de rubrique
+        $publicationToModif = null;
+        $msgSuccess = null; $errorExt = null;
         
         $listeRubriques = SendLayout::fetchAllRubriques($this, 'modifpubli', $langue, $token);
+        
         try {
             $publicationToModif = $publicationModel->findOne($token, $idPublication);
         }
         catch(\Exception $e) {
-            //LayoutExceptions::traiteExceptionsOneRubrique($this, $listeRubrique, 'admin', $langue, $token, $e->getMessage());
-            return 0;
+            SendLayout::traiteExceptionsOnePublication($this, $listeRubriques, 'modifpubli', $idPublication, $langue, $token, $e->getMessage());
         }
 
         $request = $this->getRequest();
@@ -176,33 +207,39 @@ class AdminPublicationController extends AbstractActionController
                 $publicationModif->exchangeArray($form->getData());
                 $publicationModif->id = $idPublication;
                 $valid = new ValidationUploadedFile();
-                if($valid->moveFile($file, 'pdf')) {
-                    $publicationModif->pdf = 'useruploads/files/'.$file['name'];
+                if($file['name'] != '') {
+                    if($valid->validatorsFile($file, 'pdf') == true) {
+                        $valid->moveFile($file);
+                        $publicationModif->pdf = 'useruploads/files/'.$file['name'];
+                    }
+                    else {
+                        $publicationModif->pdf = null;
+                        $errorExt = 'error extension';
+                    }
                 }
                 else {
                     $publicationModif->pdf = null;
                 }
-                
                 try {
                     $adminModel->modifPublication($token, $publicationModif);
                 }
                 catch(\Exception $e) {
                     return new ViewModel(array('form' => $form, 'publicationToModif' => $publicationToModif, 'listeCategories' => $this->getCategories(), 'langue' => $langue, 'exModifPublication' => $e->getMessage()));
                 }
-                $this->redirect()->toRoute('admin', array('langue' => $langue));
+                if(!isset($errorExt)) {
+                    $msgSuccess = 'modifpublication';
+                    $this->redirect()->toRoute('admin', array('langue' => $langue), array('query' => array('successMdfP' => $msgSuccess)));
+                }
             }
         }
-        
-        $this->layout()->setVariable('listeRubrique', $listeRubriques);
-        $this->layout()->setVariable('menu_id', 'modifpubli');
-        $this->layout()->setVariable('id_publication', $idPublication);
-        $this->layout()->setVariable('langue', $langue);
-        $this->layout()->setVariable('token', $token);
         //Envoi des variables au layout
-        //SendLayout::sendGeneral($this, $listeRubriques, 'modifpubli', $langue, $token);
-        //$this->layout()->setVariable('id_publication', $idPublication);
+        SendLayout::sendGeneral($this, $listeRubriques, 'modifpubli', $langue, $token);
+        $this->layout()->setVariable('id_publication', $idPublication);
         
-        return new ViewModel(array('form' => $form, 'publicationToModif' => $publicationToModif, 'listeCategories' => $this->getCategories(), 'langue' => $langue));
+        if(!isset($errorExt)) {
+            return new ViewModel(array('form' => $form, 'langue' => $langue, 'publicationToModif' => $publicationToModif, 'listeCategories' => $this->getCategories()));
+        }
+        return new ViewModel(array('form' => $form, 'publicationToModif' => $publicationToModif, 'listeCategories' => $this->getCategories(), 'errorMsgExtension' => 'L\'extension du fichier doit être pdf.', 'langue' => $langue));
     }
     
     public function deletePublicationAction() 
@@ -214,6 +251,7 @@ class AdminPublicationController extends AbstractActionController
         $adminModel = new AdminModel();
         $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
         $listeRubrique = null;
+        $msgSuccess = null;
         
         try {
             $listeRubrique = $rubriqueModel->fetchAll();
@@ -233,7 +271,8 @@ class AdminPublicationController extends AbstractActionController
         $this->layout()->setVariable('menu_id', 'admin');
         $this->layout()->setVariable('langue', $langue);
         $this->layout()->setVariable('token', $token);
-        $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue));
+        $msgSuccess = 'deletepublication';
+        $this->redirect()->toRoute('admin', array('langue' => $langue), array('query' => array('successDltP' => $msgSuccess)));
     }
 	
 }

@@ -11,15 +11,5 @@ class ClientRequest {
         $response = $client->send($request); //envoie la requête au service REST
         return $response;
     }
-	
-	public static function checkStatus($status) {
-		//Traitement selon statut
-        if($statut >= 200 && $statut <= 299) {
-            return substr($response->getBody(), 1);
-        }
-        else if($statut >= 300) {
-            throw new \Exception();
-        } 
-	}
     
 }

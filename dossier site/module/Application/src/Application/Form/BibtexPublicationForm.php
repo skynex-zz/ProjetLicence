@@ -10,7 +10,7 @@ class BibtexPublicationForm extends Form
      {
         parent::__construct('bibtex');
          
-        $this->setAttribute('id', 'form_modif');
+        $this->setAttribute('id', 'form_bibtex');
           
         $this->add(array(
             'name' => 'bibtex',

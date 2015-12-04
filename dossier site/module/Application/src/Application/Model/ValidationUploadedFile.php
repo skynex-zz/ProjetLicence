@@ -11,7 +11,7 @@ class ValidationUploadedFile {
         $validator = new Extension(array($ext));
         //$validator->setMessage('L\'extension du fichier doit être bib.', Extension::FALSE_EXTENSION);
         if($validator->isValid($file)) {
-            return $validator;
+            return true;
         }
         return false;
     }
@@ -19,7 +19,8 @@ class ValidationUploadedFile {
     public function moveFile($file) {
         $adapter = new Http();
         $adapter->setDestination(dirname(__DIR__).'./../../../../public/useruploads/files');
-        $adapter->receive($file['name']);
+        $bool = $adapter->receive($file['name']);
+        return $bool;
     } 
     
 }

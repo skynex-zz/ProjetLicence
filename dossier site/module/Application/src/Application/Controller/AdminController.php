@@ -43,16 +43,15 @@ class AdminController extends AbstractActionController
                 }
                 catch(\Exception $e) {
                     $token = null;
+                    SendLayout::sendGeneral($this, $listeRubrique, 'login', $langue, $token);
                     return new ViewModel(array('form' => $form, 'listeRubrique' => $listeRubrique, 
                         'langue' => $this->getEvent()->getRouteMatch()->getParam('langue'), 'exception' => $e->getMessage()));
                 }
-                //J'ai testé avec forward dispatch + envoyer token au layout plus redirection de différentes manières mais rien marche ==> Session peut-être
-                if($token !== false) {
-                    $session = new Container('user');
-                    $session->token = $token;
-                    //Redirection vers l'interface d'administration
-                    $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue));
-                }
+                $session = new Container('user');
+                $session->token = $token;
+                //Redirection vers l'interface d'administration
+                $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue));
+                //echo $token;
             }
         }
         SendLayout::sendGeneral($this, $listeRubrique, 'login', $langue, $token);
@@ -88,6 +87,21 @@ class AdminController extends AbstractActionController
         $token = VerifUser::tokenAction();
         if($token == null) $this->redirect()->toRoute('home');
         
+        $successTab = array();
+        if(!empty($this->getRequest()->getQuery('successCrR', false))) $successCrRub = $this->getRequest()->getQuery('successCrR', false);
+        else $successCrRub = null;
+        if(!empty($this->getRequest()->getQuery('successCrP', false))) $successCrPubli = $this->getRequest()->getQuery('successCrP', false);
+        else $successCrPubli = null;
+        if(!empty($this->getRequest()->getQuery('successMdfR', false))) $successModifRub = $this->getRequest()->getQuery('successMdfR', false);
+        else $successModifRub = null;
+        if(!empty($this->getRequest()->getQuery('successMdfP', false))) $successModifPubli = $this->getRequest()->getQuery('successMdfP', false);
+        else $successModifPubli = null;
+        if(!empty($this->getRequest()->getQuery('successDltR', false))) $successDeleteRub = $this->getRequest()->getQuery('successDltR', false);
+        else $successDeleteRub = null;
+        if(!empty($this->getRequest()->getQuery('successDltP', false))) $successDeletePubli = $this->getRequest()->getQuery('successDltP', false);
+        else $successDeletePubli = null;
+        array_push($successTab, $successCrRub, $successCrPubli, $successModifRub, $successModifPubli, $successDeleteRub, $successDeletePubli);
+        
         $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
         $rubriqueModel = new RubriqueModel();
         $publicationModel = new PublicationModel();
@@ -109,7 +123,7 @@ class AdminController extends AbstractActionController
         }
         
         SendLayout::sendGeneral($this, $listeRubrique, 'admin', $langue, $token);
-        return new ViewModel(array('listeRubrique' => $listeRubrique, 'listePublications' => $listePublications, 'langue' => $langue));
+        return new ViewModel(array('listeRubrique' => $listeRubrique, 'listePublications' => $listePublications, 'langue' => $langue, 'successTab' => $successTab));
     }
 	
 }

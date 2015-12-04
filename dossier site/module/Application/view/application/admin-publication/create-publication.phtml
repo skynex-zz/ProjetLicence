@@ -14,8 +14,27 @@
         
         $(document).ready(function() {
             choixCategorie($("#categorie").val());
+            $("#oblige > div > label").each(function() {
+                $(this).text($(this).text() + '*');
+            });
+            $("#oblige > div").each(function() {
+                if($(this).css('display') === 'block') {
+                    $(this).find('input').prop('required', true);
+                }
+                else {
+                    $(this).find('input').prop('required', false);
+                }
+            });
             $("#categorie").change(function() {
                 choixCategorie($(this).val());
+                $("#oblige > div").each(function() {
+                    if($(this).css('display') === 'block') {
+                        $(this).find('input').prop('required', true);
+                    }
+                    else {
+                        $(this).find('input').prop('required', false);
+                    }
+                });
             });
         });
         
@@ -31,16 +50,30 @@
     //GÈnÈrer le formulaire selon la catÈgorie choisie
     echo $this->headScript()->prependFile($this->basePath('js/form_categ.js'));
     
-
-
+    
     $this->headTitle('Cr√©ation Publication');
+    
+    if($langue == 'fr') {
+        echo "<p class='info_form'><img src=".$this->basePath().'/img/icon_information.png'." alt='Information' width=20 height=20 />Les champs pr√©c√©d√©s du signe * sont obligatoires.</p>";
+    }
+    elseif($langue == 'en') {
+        echo "<p class='info_form'><img src=".$this->basePath().'/img/icon_information.png'." alt='Information' width=20 height=20 />Fields preceded of the * symbol are mandatory.</p>";
+    }
     
     if(isset($exCreatePublication)) {
         if($langue == 'fr') {
-            echo "<p class='erreur_form'>Erreur lors de la cr√©ation de la publication. Veuillez r√©essayer.</p>";
+            echo "<p class='erreur_form'><img src=".$this->basePath().'/img/icon_error.png'." alt='Error' width=20 height=20 />Erreur lors de la cr√©ation de la publication. Veuillez r√©essayer.</p>";
         }
         elseif($langue == 'en') {
-            echo "<p class='erreur_form'>Error during publication creation. Please retry</p>";
+            echo "<p class='erreur_form'><img src=".$this->basePath().'/img/icon_error.png'." alt='Error' width=20 height=20 />Error during publication creation. Please retry</p>";
+        }
+    }
+    if(isset($errorMsgExtension)) {
+        if($langue == 'fr') {
+            echo "<p class='erreur_form'><img src=".$this->basePath().'/img/icon_error.png'." alt='Error' width=20 height=20 />".$errorMsgExtension."</p>";
+        }
+        elseif($langue == 'en') {
+            echo "<p class='erreur_form'><img src=".$this->basePath().'/img/icon_error.png'." alt='Error' width=20 height=20 />The extension file must be pdf.</p>";
         }
     }
     
@@ -102,10 +135,10 @@
     
     echo $this->form()->openTag($form);
     
-    echo "<div id='accordion'>";
+    echo "<div id='accordion' style='margin-top:25px'>";
     
-    echo "<h3>Champs communs obligatoires</h3>";
-    echo "<div>";
+    echo "<h3>Champs obligatoires</h3>";
+    echo "<div id='oblige'>";
         echo "<div id='titre_bloc'>".$this->formRow($titre)."</div>";
         echo "<div id='reference_bloc'>".$this->formRow($reference)."</div>";
         echo "<div id='auteurs_bloc'>".$this->formRow($auteurs)."</div>";
@@ -123,52 +156,40 @@
             echo "<div id='categorie_bloc'>".$this->formRow($categorie)."</div>";
         }
         echo "<div id='date_bloc'>".$this->formRow($date)."</div>";
+        echo "<div id='journal_bloc'>".$this->formRow($journal)."</div>";
+        echo "<div id='editor_bloc'>".$this->formRow($editor)."</div>";
+        echo "<div id='type_bloc'>".$this->formRow($type)."</div>";
+        echo "<div id='institution_bloc'>".$this->formRow($institution)."</div>";
+        echo "<div id='booktitle_bloc'>".$this->formRow($booktitle)."</div>";
     echo "</div>"; //fin div deroulante 'Champs communs obligatoires'
     
-    echo "<h3>Champs 3</h3>";
-    echo "<div>";
+    echo "<h3>Champs optionnels</h3>";
+    echo "<div id='opt'>";
         echo "<div id='series_bloc'>".$this->formRow($series)."</div>";
         echo "<div id='localite_bloc'>".$this->formRow($localite)."</div>";
         echo "<div id='publisher_bloc'>".$this->formRow($publisher)."</div>";
-        echo "<div id='editor_bloc'>".$this->formRow($editor)."</div>";
         echo "<div id='doi_bloc'>".$this->formRow($doi)."</div>";
         echo "<div id='url_bloc'>".$this->formRow($url)."</div>";
         echo "<div id='datedisplay_bloc'>".$this->formRow($dateDisplay)."</div>";
-        echo "<div id='institution_bloc'>".$this->formRow($institution)."</div>";
         echo "<div id='howpublished_bloc'>".$this->formRow($howpublished)."</div>";
         echo "<div id='urldate_bloc'>".$this->formRow($urldate)."</div>";
-    echo "</div>"; //fin div deroulante 'Champs 3'
-    
-     echo "<h3>Champs spÈcifiques</h3>";
-    echo "<div>";
-        echo "<div id='journal_bloc'>".$this->formRow($journal)."</div>";
         echo "<div id='volume_bloc'>".$this->formRow($volume)."</div>";
         echo "<div id='nb_bloc'>".$this->formRow($nb)."</div>";
         echo "<div id='pages_bloc'>".$this->formRow($pages)."</div>";
         echo "<div id='isbn_bloc'>".$this->formRow($isbn)."</div>";
         echo "<div id='chapter_bloc'>".$this->formRow($chapter)."</div>";
-        echo "<div id='booktitle_bloc'>".$this->formRow($booktitle)."</div>";
-        echo "<div id='type_bloc'>".$this->formRow($type)."</div>";
-    echo "</div>"; //fin div deroulante 'Champs spÈcifiques'
+        echo "<div id='keywords_bloc'>".$this->formRow($keywords)."</div>";
+    echo "</div>"; //fin div deroulante 'Champs optionnels'
     
-     echo "<h3>Note, abstract et keywords</h3>";
+     echo "<h3>Note & abstract</h3>";
     echo "<div>";
         echo "<div id='note_bloc'>".$this->formRow($note)."</div>";
         echo "<div id='abstract_bloc'>".$this->formRow($abstract)."</div>";
-        echo "<div id='keywords_bloc'>".$this->formRow($keywords)."</div>";
-    echo "</div>"; //fin div deroulante 'Note, abstract et keywords'
+    echo "</div>"; //fin div deroulante 'Note & abstract'
     
     echo "<h3>Importer fichier PDF</h3>";
     echo "<div>";
         echo "<div id='pdf_bloc'>".$this->formRow($pdf)."</div>";
-        if(isset($errorMsgExtension)) {
-            if($langue == 'fr') {
-                echo $errorMsgExtension;
-            }
-            elseif($langue == 'en') {
-                echo "The extension file must be pdf.";
-            }
-        }
     echo "</div>"; //fin div deroulante 'Importer fichier PDF'
     echo "</div>"; //fin div avec id=accordion
     

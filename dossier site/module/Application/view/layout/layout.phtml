@@ -1,4 +1,4 @@
-<?php echo $this->doctype(); ?>
+<?php echo $this->doctype();?>
  
 <html>
     <head>
@@ -33,8 +33,8 @@
         ?> 
         		<div class="site-content">
 			<div class="logo"></div>
-			<div class="icons-contener">
-                                        <?php 
+			<div class="icons-contener">                  
+                                        <?php
                                         if($this->menu_id == 'admin') {
                                             echo "<div class='icon'><a href=".$this->url('admin',array('langue' => 'fr'))
                                                     ."><img src='../../img/flag-fr.png'/></a></div>";
@@ -43,49 +43,49 @@
                                         }
                                         else if($this->menu_id == 'pbm') {
                                             echo "<div class='icon'><a href=".$this->url('publications',array('langue' => 'fr'))
-                                                    ."><img src='../../img/flag-fr.png'/></a></div>"; 
+                                                    ."><img src='".$this->basePath()."/img/flag-fr.png'/></a></div>"; 
                                             echo "<div class='icon'><a href=".$this->url('publications',array('langue' => 'en'))
-                                                    ."><img src='../../img/flag-en.png'/></a></div>";  
+                                                    ."><img src='".$this->basePath()."/img/flag-en.png'/></a></div>";  
                                         }
                                         else if($this->menu_id == 'login') {
                                             echo "<div class='icon'><a href=".$this->url('login',array('langue' => 'fr'))
-                                                    ."><img src='../../img/flag-fr.png'/></a></div>"; 
+                                                    ."><img src='".$this->basePath()."/img/flag-fr.png'/></a></div>"; 
                                             echo "<div class='icon'><a href=".$this->url('login',array('langue' => 'en'))
-                                                    ."><img src='../../img/flag-en.png'/></a></div>";  
+                                                    ."><img src='".$this->basePath()."/img/flag-en.png'/></a></div>";  
                                         }
                                         else if($this->menu_id == 'crrub') {
                                             echo "<div class='icon'><a href=".$this->url('createrubrique',array('langue' => 'fr'))
-                                                    ."><img src='../../img/flag-fr.png'/></a></div>"; 
+                                                    ."><img src='".$this->basePath()."/img/flag-fr.png'/></a></div>"; 
                                             echo "<div class='icon'><a href=".$this->url('createrubrique',array('langue' => 'en'))
-                                                    ."><img src='../../img/flag-en.png'/></a></div>";  
+                                                    ."><img src='".$this->basePath()."/img/flag-en.png'/></a></div>";  
                                         }
                                         else if($this->menu_id == 'modifrub') {
                                             echo "<div class='icon'><a href=".$this->url('admrubrique',array('langue' => 'fr', 'id_menu' => $this->id_menu))
-                                                    ."><img src='../../img/flag-fr.png'/></a></div>"; 
+                                                    ."><img src='".$this->basePath()."/img/flag-fr.png'/></a></div>"; 
                                             echo "<div class='icon'><a href=".$this->url('admrubrique',array('langue' => 'en', 'id_menu' => $this->id_menu))
-                                                    ."><img src='../../img/flag-en.png'/></a></div>";  
+                                                    ."><img src='".$this->basePath()."/img/flag-en.png'/></a></div>";  
                                         }
                                         else if($this->menu_id == 'crpubli') {
                                             echo "<div class='icon'><a href=".$this->url('createpublication',array('langue' => 'fr'))
-                                                    ."><img src='../../img/flag-fr.png'/></a></div>"; 
+                                                    ."><img src='".$this->basePath()."/img/flag-fr.png'/></a></div>"; 
                                             echo "<div class='icon'><a href=".$this->url('createpublication',array('langue' => 'en'))
-                                                    ."><img src='../../img/flag-en.png'/></a></div>";  
+                                                    ."><img src='".$this->basePath()."/img/flag-en.png'/></a></div>";  
                                         }
                                         else if($this->menu_id == 'crbibtex') {
                                             echo "<div class='icon'><a href=".$this->url('bibtexpublication',array('langue' => 'fr'))
-                                                    ."><img src='../../img/flag-fr.png'/></a></div>"; 
+                                                    ."><img src='".$this->basePath()."/img/flag-fr.png'/></a></div>"; 
                                             echo "<div class='icon'><a href=".$this->url('bibtexpublication',array('langue' => 'en'))
-                                                    ."><img src='../../img/flag-en.png'/></a></div>";  
+                                                    ."><img src='".$this->basePath()."/img/flag-en.png'/></a></div>";  
                                         }
-                                        /*else if($this->menu_id == 'modifpubli') {
-                                            echo "<div class='icon'><a href=".$this->url('admpublication',array('langue' => 'fr', 'id_publication ' => $this->id_publication))
-                                                    ."><img src='../../img/flag-fr.png'/></a></div>"; 
-                                            echo "<div class='icon'><a href=".$this->url('admpublication',array('langue' => 'en', 'id_publication ' => $this->id_publication))
-                                                    ."><img src='../../img/flag-en.png'/></a></div>";  
-                                        }*/
+                                        else if($this->menu_id == 'modifpubli') {
+                                            echo "<div class='icon'><a href=".$this->url('admpublication',array('langue' => 'fr', 'id_publication' => $this->id_publication))
+                                                    ."><img src='".$this->basePath()."/img/flag-fr.png'/></a></div>"; 
+                                            echo "<div class='icon'><a href=".$this->url('admpublication',array('langue' => 'en', 'id_publication' => $this->id_publication))
+                                                    ."><img src='".$this->basePath()."/img/flag-en.png'/></a></div>";  
+                                        }
                                         else {
-                                            echo "<div class='icon'><a href=".$this->url('laRubrique',array('langue' => 'fr','menu_id' => $this->menu_id))."><img src='../../img/flag-fr.png' /></a></div>";
-                                            echo "<div class='icon'><a href=".$this->url('laRubrique',array('langue' => 'en','menu_id' => $this->menu_id))."><img src='../../img/flag-en.png' /></a></div>";
+                                            echo "<div class='icon'><a href=".$this->url('laRubrique',array('langue' => 'fr','menu_id' => $this->menu_id))."><img src='".$this->basePath()."/img/flag-fr.png' /></a></div>";
+                                            echo "<div class='icon'><a href=".$this->url('laRubrique',array('langue' => 'en','menu_id' => $this->menu_id))."><img src='".$this->basePath()."/img/flag-en.png' /></a></div>";
                                         }
                                         ?>
                             

@@ -38,58 +38,46 @@ use Zend\InputFilter\InputFilterInterface;
              $inputFilter->add(array(
                  'name'     => 'titre_fr',
                  'required' => true,
-                 'validators' => array(
-                    array(
-                      'name' =>'NotEmpty', 
-                        'options' => array(
-                            'messages' => array(
-                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Le titre ne peut pas etre vide' 
-                            ),
-                        ),
-                     ),
-                ),
-                 /*'filters'  => array(
+                 'allow_empty' => false,
+                 'filters'  => array(
                      array('name' => 'StripTags'),
                      array('name' => 'StringTrim'),
-                 ),*/
+                     array('name' => 'StripNewlines'),
+                 ),
              ));
              $inputFilter->add(array(
                  'name'     => 'titre_en',
                  'required' => true,
-                 'validators' => array(
-                    array(
-                      'name' =>'NotEmpty', 
-                        'options' => array(
-                            'messages' => array(
-                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Le titre ne peut pas etre vide' 
-                            ),
-                        ),
-                     ),
-                ),
+                 'allow_empty' => false,
+                 'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                     array('name' => 'StripNewlines'),
+                 ),
              ));
              $inputFilter->add(array(
                  'name'     => 'position',
-                 'required' => true,
+                 'required' => false,
+                 'validators'  => array(
+                     array(
+                        'name' => 'Zend\Validator\GreaterThan',
+                        'options' => array(
+                            'min' => 0,
+                            'inclusive' => false,
+                        ),
+                    ),
+                )
              ));
              $inputFilter->add(array(
                  'name'     => 'actifradio',
-                 'required' => true,
              ));
              $inputFilter->add(array(
                  'name'     => 'content_fr',
-                 'required' => true,
-                 /*'filters'  => array(
-                     array('name' => 'StripTags'),
-                     array('name' => 'StringTrim'),
-                 ),*/
+                 'required' => false,
              ));
              $inputFilter->add(array(
                  'name'     => 'content_en',
-                 'required' => true,
-                 /*'filters'  => array(
-                     array('name' => 'StripTags'),
-                     array('name' => 'StringTrim'),
-                 ),*/
+                 'required' => false,
              ));
 
              $this->inputFilter = $inputFilter;

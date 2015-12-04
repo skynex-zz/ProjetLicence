@@ -3,52 +3,37 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Application\Model\Rubrique;       
+use Zend\View\Model\ViewModel;      
 use Application\Model\RubriqueModel;
 use Application\Model\LayoutExceptions;
-use Zend\Session\Container;
+use Application\Model\VerifUser;
+use Application\Model\SendLayout;
 
 class RubriqueController extends AbstractActionController
 {
-    public function checkSession() {
-        $session = new Container('user');
-        if(isset($session->token)) {
-            return $session->token;
-        }
-        return null;
-    }
     
     public function rubriqueselectAction() 
     {    
-        $token = null;
-        if($this->checkSession() != null) {
-            $token = $this->checkSession();
-        }
+        //Vérification token
+        $token = VerifUser::tokenAction();
+        $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
         
         $rubriqueModel = new RubriqueModel();
         $data = null;
         $rubrique = null;
-        try {
-            $data = $rubriqueModel->fetchAll();
-        }
-        catch(\Exception $e) {
-            LayoutExceptions::traiteExceptionsAllRubriques($this, $data, 0, $this->getEvent()->getRouteMatch()->getParam('langue'), $token, $e->getMessage());
-        }
+        //try catch du fetchAll des rubriques
+        $listeRubriques = SendLayout::fetchAllRubriques($this, 0, $langue, $token);
         
         try {
             $rubrique = $rubriqueModel->findOne($this->getEvent()->getRouteMatch()->getParam('menu_id'));
         } catch (\Exception $e) {
-            LayoutExceptions::traiteExceptionsOneRubrique($this, $data, $this->getEvent()->getRouteMatch()->getParam('menu_id'), 
+            SendLayout::traiteExceptionsOneRubrique($this, $data, $this->getEvent()->getRouteMatch()->getParam('menu_id'), 
                         $this->getEvent()->getRouteMatch()->getParam('langue'), $token, $e->getMessage());
             return new ViewModel(array('rubrique'=>null,'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue'),
                         $this->getEvent()->getRouteMatch()->getParam('langue'), 'exception' => $e->getMessage()));
         }
-
-	$this->layout()->setVariable('listeRubrique', $data);
-	$this->layout()->setVariable('menu_id', $rubrique['menu_id']);
-	$this->layout()->setVariable('langue', $this->getEvent()->getRouteMatch()->getParam('langue'));
-        $this->layout()->setVariable('token', $token);
+        
+        SendLayout::sendGeneral($this, $listeRubriques, $rubrique['menu_id'], $langue, $token);
 	return new ViewModel(array('rubrique'=>$rubrique,'langue'=>$this->getEvent()->getRouteMatch()->getParam('langue')));
 		
     }

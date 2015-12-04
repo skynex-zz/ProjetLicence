@@ -29,6 +29,7 @@ class AdminRubriqueController extends AbstractActionController
         $adminModel = new AdminModel();
         $form = new RubriqueForm(); //formulaire de création de rubrique
         $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
+        $msgSuccess = null;
         
         //try catch du fetchAll des rubriques
         $listeRubriques = SendLayout::fetchAllRubriques($this, 'crrub', $langue, $token);
@@ -41,34 +42,22 @@ class AdminRubriqueController extends AbstractActionController
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                $filter = new Filter();
                 $formDatas = $form->getData();
                 $rubrique->exchangeArray($formDatas);
-                
-                $filtrage = $filter->filterCreateRubrique($formDatas['titre_fr'], $formDatas['titre_en'], $formDatas['position']); //filtrage données
-                if($filtrage !== false) {
-                    $menu = new Menu(null, $filtrage[0], $filtrage[1], $formDatas['actifradio'], $filtrage[2]);
-                    //$menu = new Menu(null, $formDatas['titre_fr'], $formDatas['titre_en'], $formDatas['actifradio'], $formDatas['position']);
-                    try {
-                        $adminModel->createRubrique($token, $rubrique, $menu);
-                    }
-                    catch(\Exception $e) {
-                        return new ViewModel(array('form' => $form, 'langue' => $langue, 'exception' => $e->getMessage()));
-                    }
-                    $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue));
+                $menu = new Menu(null, $formDatas['titre_fr'], $formDatas['titre_en'], $formDatas['actifradio'], $formDatas['position']);
+                try {
+                    $adminModel->createRubrique($token, $rubrique, $menu);
                 }
-                else {
-                    $errorFiltre = 'error filtrage';
+                catch(\Exception $e) {
+                    return new ViewModel(array('form' => $form, 'langue' => $langue, 'exception' => $e->getMessage()));
                 }
+                $msgSuccess = 'creationrubrique';
+                $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue), array('query' => array('successCrR' => $msgSuccess)));
             } 
         }
         //Envoi des variables au layout
         SendLayout::sendGeneral($this, $listeRubriques, 'crrub', $langue, $token);
-        
-        if(isset($errorFiltre)) {
-            return new ViewModel(array('form' => $form, 'langue' => $langue, 'errorFiltre' => $errorFiltre));
-        }
-        return new ViewModel(array('form' => $form, 'langue' => $langue)); 
+        return new ViewModel(array('form' => $form, 'langue' => $langue, 'msgSuccess' => $msgSuccess)); 
     }
     
     public function modifRubriqueAction() {
@@ -80,6 +69,7 @@ class AdminRubriqueController extends AbstractActionController
         $form = new RubriqueForm(); //formulaire de modification de rubrique
         $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
         $idMenu = $this->getEvent()->getRouteMatch()->getParam('id_menu'); //récupère id du menu correspondant
+        $msgSuccess = null;
         
         //try catch du fetchAll des rubriques
         $listeRubriques = SendLayout::fetchAllRubriques($this, 'modifrub', $langue, $token);
@@ -102,7 +92,8 @@ class AdminRubriqueController extends AbstractActionController
                 catch(\Exception $e) {
                     return new ViewModel(array('form' => $form, 'rubriqueToModif' => $rubriqueToModif, 'langue' => $langue, 'exception' => $e->getMessage()));
                 }
-                $this->redirect()->toRoute('admin', array('langue' => $langue));
+                $msgSuccess = 'modifrubrique';
+                $this->redirect()->toRoute('admin', array('langue' => $langue), array('query' => array('successMdfR' => $msgSuccess)));
             }
         }
         //Envoi des variables au layout
@@ -119,6 +110,7 @@ class AdminRubriqueController extends AbstractActionController
         
         $adminModel = new AdminModel();
         $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
+        $msgSuccess = null;
         
         //try catch du fetchAll des rubriques
         $listeRubriques = SendLayout::fetchAllRubriques($this, 'admin', $langue, $token);
@@ -132,7 +124,8 @@ class AdminRubriqueController extends AbstractActionController
         //Envoi des variables au layout
         SendLayout::sendGeneral($this, $listeRubriques, 'admin', $langue, $token);
         
-        $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue));
+        $msgSuccess = 'deleterubrique';
+        $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue), array('query' => array('successDltR' => $msgSuccess)));
     }
 	
 }

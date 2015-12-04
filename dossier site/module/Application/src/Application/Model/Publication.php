@@ -83,7 +83,7 @@ use Zend\InputFilter\InputFilterInterface;
              $inputFilter->add(array(
                  'name'     => 'titre',
                  'required' => true,
-                 'validators' => array(
+                 /*'validators' => array(
                     array(
                       'name' =>'NotEmpty', 
                         'options' => array(
@@ -92,91 +92,155 @@ use Zend\InputFilter\InputFilterInterface;
                             ),
                         ),
                      ),
-                ),
-                 /*'filters'  => array(
+                ),*/
+                'filters'  => array(
                      array('name' => 'StripTags'),
                      array('name' => 'StringTrim'),
-                 ),*/
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
              $inputFilter->add(array(
                  'name'     => 'reference',
                  'required' => true,
+                 'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                     array('name' => 'StripNewlines'),
+                 ),
              ));
              $inputFilter->add(array(
                  'name'     => 'auteurs',
                  'required' => true,
+                 'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                     array('name' => 'StripNewlines'),
+                 ),
+                 
              ));
              $inputFilter->add(array(
                  'name'     => 'date',
                  'required' => true,
+                 'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                     array('name' => 'StripNewlines'),
+                 ),
+                 'validators'  => array(
+                     array(
+                        'name' => 'Zend\Validator\Date',
+                    ),
+                )
              ));
              $inputFilter->add(array(
                  'name'     => 'journal',
                  'required' => false,
-                 /*'filters'  => array(
+                 'filters'  => array(
                      array('name' => 'StripTags'),
                      array('name' => 'StringTrim'),
-                 ),*/
+                     array('name' => 'StripNewlines'),
+                 ),
              ));
              $inputFilter->add(array(
                  'name'     => 'abstract',
                  'required' => false,
+                 'filters'  => array(
+                     array('name' => 'StripTags'),
+                 ),
              ));
              $inputFilter->add(array(
                  'name'     => 'volume',
                  'required' => false,
+                 'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                     array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'number',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'pages',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
             ));
             $inputFilter->add(array(
                  'name'     => 'note',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'keywords',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'series',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'localite',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'publisher',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'editor',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             //$validatorExt = new \Zend\Validator\File\Extension('pdf');
             $inputFilter->add(array(
                  'name'     => 'pdf',
                  'required' => false,
-                 /*'validators' => array(
-                    array(
-                      'name' =>'Extension', 
-                        'options' => array(
-                            'messages' => array(
-                                \Zend\Validator\File\Extension::FALSE_EXTENSION => 'L\'extension du fichier doit être .pdf',                                                             
-                            ),
-                            'extension' => 'pdf',
-                        ),
-                     ),
-                ),*/
              ));
             $inputFilter->add(array(
                  'name'     => 'date_display',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'categorie_id',
@@ -185,38 +249,88 @@ use Zend\InputFilter\InputFilterInterface;
             $inputFilter->add(array(
                  'name'     => 'doi',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'url',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'institution',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'howpublished',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'urldate',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'isbn',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
+                 'validators'  => array(
+                     array(
+                        'name' => 'Zend\Validator\Isbn',
+                    ),
+                )
              ));
             $inputFilter->add(array(
                  'name'     => 'chapter',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'booktitle',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             $inputFilter->add(array(
                  'name'     => 'type',
                  'required' => false,
+                'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                    array('name' => 'StripNewlines'),
+                 ),
              ));
             
              $this->inputFilter = $inputFilter;
