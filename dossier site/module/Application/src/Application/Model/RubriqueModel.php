@@ -29,7 +29,6 @@ class RubriqueModel {
 
         //Traitement selon statut
         if($statut >= 200 && $statut <= 299) {
-            //var_dump(json_decode($response->getBody()));
             return json_decode($response->getBody(), true);
         }
         else if($statut >= 300) {
@@ -65,27 +64,6 @@ class RubriqueModel {
         }
         
     }
-    
-    /**
-     * Appel web service pour réupérer toutes les rubriques dans l'ordre de leur position
-     * @return array
-     */
-    /*public function fetchFirst() 
-    {
-        $request = new Request();
-        //ajoute des headers et modifie la requête
-        $request->getHeaders()->addHeaders(array(
-            'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
-        ));
-        $request->setUri('http://localhost/rest/web/index.php/rubriques/first'); //URL du webservice en dehors du projet 
-        $request->setMethod('GET');
-        
-        $client = new Client();
-        $response = $client->send($request); //envoie la requête au service REST
-        $data = json_decode($response->getBody(), true); //json -> array php
-        
-        return $data;
-    }*/
 }
 
 ?>

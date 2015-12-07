@@ -3,18 +3,24 @@
 		<tr>
 			<td height='40px' align='left' style='vertical-align:top;'>
 				<table class='publication-filter-panel' cellpadding='0' cellspacing='0'>
-					<tbody>
-						<tr>
+					<tbody>";
+					if((isset($excP))||(isset($excC))){
+						if($langue=='fr'){echo "<tr><td width='50%' align='center' style='vertical-align:top;'> Aucune Publications</tr></td>";}
+						elseif($langue=='en'){echo "<tr><td width='50%' align='center' style='vertical-align:top;'> No Publications</tr></td>";}
+					}else{
+						echo "<tr>
 							<td width='50%' align='center' style='vertical-align:top;'>
-								<div class='ibtn' style='position: relative, overflow: hidden;'>
-									<a href=".$this->url('publications', array('langue' => $this->langue, 'trie' => 'categ'))."><img class='float-left' src='".$this->basePath().'/img/icon-sort.png'."'/></a>
-									<div class='ibtn-lbl'></div>
+								<div class='ibtn' style='position: relative, overflow: hidden;'>";
+									if($langue=='fr'){echo "<a href=".$this->url('publications', array('langue' => $this->langue, 'trie' => 'categ'))."><img class='float-left' src='".$this->basePath().'/img/icon-sort-fr.png'."'/></a>";}
+									elseif($langue=='en'){echo "<a href=".$this->url('publications', array('langue' => $this->langue, 'trie' => 'categ'))."><img class='float-left' src='".$this->basePath().'/img/icon-sort-en.png'."'/></a>";}		
+									echo "<div class='ibtn-lbl'></div>
 								</div>
 							</td>
 							<td width='50%' align='center' style='vertical-align:top;'>
-								<div class='ibtn' style='position: relative, overflow: hidden;'>
-									<a href='".$this->url('publications', array('langue' => $this->langue, 'trie' => 'date'))."'><img class='float-left' src='".$this->basePath().'/img/icon-sort-date.png'."'/></a>
-									<div class='ibtn-lbl'></div>
+								<div class='ibtn' style='position: relative, overflow: hidden;'>";
+									if($langue=='fr'){echo "<a href='".$this->url('publications', array('langue' => $this->langue, 'trie' => 'date'))."'><img class='float-left' src='".$this->basePath().'/img/icon-sort-date-fr.png'."'/></a>";}
+									elseif($langue=='en'){echo "<a href='".$this->url('publications', array('langue' => $this->langue, 'trie' => 'date'))."'><img class='float-left' src='".$this->basePath().'/img/icon-sort-date-en.png'."'/></a>";}
+									echo "<div class='ibtn-lbl'></div>
 								</div>
 							</td>
 						</tr>
@@ -69,7 +75,7 @@
 									<tbody>";
 										
 										
-										
+									
 										//debut tableau des publications
 										foreach($listePubli as $item){
 										$afficher = false;
@@ -92,47 +98,32 @@
 																<div class='gwt-HTML' style='white-space:normal';>
 																	<div><p>";
 																		foreach($item as $key=>$value){
-																			if(($item['categorie_id']=='1')&&(($key=='reference')||($key=='auteurs')||($key=='titre')||($key=='journal')||($key=='date')||($key=='editor')||($key=='series')||($key=='volume')||($key=='number')||($key=='pages')||($key=='note')||($key=='doi')||($key=='url'))){
+															
 																			
-																				if($key=='reference'){echo "<span class='publi-".$key."'> [".$value."] </span>";}
-																				elseif(($key!='abstract')&&($key!='note')){echo "<span class='publi-".$key."'>  ".$value."  </span>";}
-																				
-																				
-																			}elseif((($item['categorie_id']=='4')||($item['categorie_id']=='3'))&&(($key=='reference')||($key=='auteurs')||($key=='titre')||($key=='type')||($key=='institution')||($key=='date')||($key=='note')||($key=='location')||($key=='pages')||($key=='url'))){
-																				
-																				if($key=='reference'){echo "<span class='publi-".$key."'> [".$value."] </span>";}
-																				elseif(($key!='abstract')&&($key!='note')){echo "<span class='publi-".$key."'>  ".$value."  </span>";}
-																				
-																			}elseif(($item['categorie_id']=='5')&&(($key=='reference')||($key=='auteurs')||($key=='titre')||($key=='date')||($key=='howpublished')||($key=='note')||($key=='location')||($key=='url')||($key=='urldate'))){
+																			if($key=='reference'){echo "<span class='publi-".$key."'> [".$value."] </span>";}
 																			
-																				if($key=='reference'){echo "<span class='publi-".$key."'> [".$value."] </span>";}
-																				elseif(($key!='abstract')&&($key!='note')){echo "<span class='publi-".$key."'>  ".$value."  </span>";}
-																				
-																			}elseif(($item['categorie_id']=='2')&&(($key=='reference')||($key=='auteurs')||($key=='editor')||($key=='titre')||($key=='booktitle')||($key=='date')||($key=='volume')||($key=='series')||($key=='number')||($key=='note')||($key=='publisher')||($key=='location')||($key=='isbn')||($key=='pages')||($key=='doi')||($key=='url'))){
-																			
-																				if($key=='reference'){echo "<span class='publi-".$key."'> [".$value."] </span>";}
-																				elseif(($key!='abstract')&&($key!='note')){echo "<span class='publi-".$key."'>  ".$value."  </span>";}
-																			
-																																
-																			}elseif(($item['categorie_id']=='6')&&(($key=='reference')||($key=='auteurs')||($key=='titre')||($key=='booktitle')||($key=='date')||($key=='editor')||($key=='volume')||($key=='series')||($key=='number')||($key=='note')||($key=='publisher')||($key=='location')||($key=='isbn')||($key=='chapter')||($key=='pages')||($key=='doi')||($key=='url'))){
-																				
-																				if($key=='reference'){echo "<span class='publi-".$key."'> [".$value."] </span>";}
-																				elseif(($key!='abstract')&&($key!='note')){echo "<span class='publi-".$key."'>  ".$value."  </span>";}
-																			
+																			elseif(($key=='note')&&($value!='')&&($value!=null)){
+																				echo "<br><span class='publi-".$key."'> ".$value." </span>";
 																			}
-																			
-																			if($item['abstract']==""){
-																					$contenue = $item['note'];
-																					$keyCont = 'note';}
-																			else{
-																				$contenue = $item['abstract'];
-																				$keyCont = 'abstract';}
+																			elseif(($value!="")&&($value!=null)&&($key!='date')&&($key!='keywords')&&($key!='ID')&&($key!='abstract')&&($key!='categorie_id')&&($key!='date_display')){
+																				if(($key!='journal')||($key!='booktitle')){
+																				echo "<span class='publi-".$key."'> In ".$value.",  </span>";
+																				}
+																				else{
+																					echo "<span class='publi-".$key."'>  ".$value.",  </span>";
+																				}
+																			}
+											
 																		}
+																		if(($item['date_display']!='')&&($item['date_display']!=null)){echo "<span class='publi-date_display'>  ".$item['date_display'].",  </span>";}					
 																		
+																		if(($item['abstract']!="")&&($item['abstract']!=null)){
 																		?>
 																		
-																		</p><a class='btn btn-xs btn-info' id='<?php echo $item['ID'] ?>'  onClick="affichage(<?php echo $item['ID'] ?>)">[En voir plus]</a><?php
-																		echo "<span id='publi".$item['ID']."'"; ?>  style="display:none" <?php echo "class='publi-".$keyCont."'>".$contenue."</span>";
+																			</p><a class='btn btn-xs btn-info' id='<?php echo $item['ID'] ?>'  onClick="affichage(<?php echo $item['ID'] ?>)">[En voir plus]</a><?php
+																			echo "<span id='publi".$item['ID']."'"; ?>  style="display:none" <?php echo "class='publi-abstract'>".$item['abstract']."</span>";
+																			
+																		}
 																		echo "<br><span class='publi-keywords'>".$item['keywords']."</span>";
 																	echo "</div>
 																</div>
@@ -143,7 +134,7 @@
 																<table cellpadding='0' cellspacing='0'>
 																	<tbody>
 																		<tr>";
-																			if($item['pdf']!=""){
+																			if(($item['pdf']!="")&&(file_exists($this->basePath().'/'.$item['pdf']))){
 																				echo "<td align='left' style='vertical-align:top;'><a href='".$this->basePath().'/'.$item['pdf']."'><img class='cursor-pointer' src='".$this->basePath().'/img/icon-pdf.png'."'/></a></td>";
 																			}
 																			echo "<td align='left' style='vertical-align:top;'><a href='#' data-width='500' data-rel='popup1' class='poplight' data-idcateg=".json_encode($item['categorie_id'])." data-element='".json_encode($item)."'><img class='cursor-pointer' src='".$this->basePath().'/img/icon-tex.png'."'/></a></td>
@@ -162,7 +153,7 @@
 								</table>
 							</td>									
 						</tbody>
-					</table>";}
+					</table>";}}
 				//fin affichage differentes categories
 				echo "</div>
 			</td>
@@ -200,15 +191,12 @@ $(document).ready(function() {
 			var arrayitem = $(this).data('element');
 			//recuperation de la categorie_id pour type de bibtex
 			var idcategorie = $(this).data('idcateg');
-			alert(idcategorie);
 			$('body').append("<div class='popup_block'>");
 			
 			
 			jQuery.each(arrayitem, function(i, val) {
 				
 				if(i=='reference'){
-					console.debug(i);
-					console.debug(idcategorie);
 					if(idcategorie=='1'){
 						$('.popup_block').append("@article:{"+val+",<br>");
 					}
@@ -228,27 +216,18 @@ $(document).ready(function() {
 						$('.popup_block').append("@inbook:{"+val+",<br>");	
 					}	
 				}
-				
-				if((idcategorie=='1')&&((i=='reference')||(i=='auteurs')||(i=='titre')||(i=='journal')||(i=='date')||(i=='editor')||(i=='series')||(i=='volume')||(i=='number')||(i=='pages')||(i=='note')||(i=='doi')||(i=='url')))
-				{if((val!="")&&(val!=null)){
-				$('.popup_block').append(i+"  : {"+val +"},<br>");
-				}}
-				else if(((idcategorie=='4')||(idcategorie=='3'))&&((i=='reference')||(i=='auteurs')||(i=='titre')||(i=='type')||(i=='institution')||(i=='date')||(i=='note')||(i=='location')||(i=='pages')||(i=='url')))
-				{if((val!="")&&(val!=null)){
-				$('.popup_block').append(i+"  : {"+val +"},<br>");
-				}}
-				else if((idcategorie=='5')&&((i=='reference')||(i=='auteurs')||(i=='titre')||(i=='date')||(i=='howpublished')||(i=='note')||(i=='location')||(i=='url')||(i=='urldate')))
-				{if((val!="")&&(val!=null)){
-				$('.popup_block').append(i+"  : {"+val +"},<br>");
-				}}
-				else if((idcategorie=='2')&&((i=='reference')||(i=='auteurs')||(i=='editor')||(i=='titre')||(i=='booktitle')||(i=='date')||(i=='volume')||(i=='series')||(i=='number')||(i=='note')||(i=='publisher')||(i=='location')||(i=='isbn')||(i=='pages')||(i=='doi')||(i=='url')))
-				{if((val!="")&&(val!=null)){
-				$('.popup_block').append(i+"  : {"+val +"},<br>");
-				}}
-				else if((idcategorie=='6')&&((i=='reference')||(i=='auteurs')||(i=='titre')||(i=='booktitle')||(i=='date')||(i=='editor')||(i=='volume')||(i=='series')||(i=='number')||(i=='note')||(i=='publisher')||(i=='location')||(i=='isbn')||(i=='chapter')||(i=='pages')||(i=='doi')||(i=='url')))
-				{if((val!="")&&(val!=null)){
-				$('.popup_block').append(i+"  : {"+val +"},<br>");
-				}}
+				if((val!="")&&(val!=null)){
+					if((idcategorie=='1')&&((i=='auteurs')||(i=='titre')||(i=='journal')||(i=='date')||(i=='editor')||(i=='series')||(i=='volume')||(i=='number')||(i=='pages')||(i=='note')||(i=='doi')||(i=='url')))
+						{$('.popup_block').append(i+"  : {"+val +"},<br>");}
+					else if(((idcategorie=='4')||(idcategorie=='3'))&&((i=='auteurs')||(i=='titre')||(i=='type')||(i=='institution')||(i=='date')||(i=='note')||(i=='location')||(i=='pages')||(i=='url')))
+						{$('.popup_block').append(i+"  : {"+val +"},<br>");}
+					else if((idcategorie=='5')&&((i=='auteurs')||(i=='titre')||(i=='date')||(i=='howpublished')||(i=='note')||(i=='location')||(i=='url')||(i=='urldate')))
+						{$('.popup_block').append(i+"  : {"+val +"},<br>");}
+					else if((idcategorie=='2')&&((i=='auteurs')||(i=='editor')||(i=='titre')||(i=='booktitle')||(i=='date')||(i=='volume')||(i=='series')||(i=='number')||(i=='note')||(i=='publisher')||(i=='location')||(i=='isbn')||(i=='pages')||(i=='doi')||(i=='url')))
+						{$('.popup_block').append(i+"  : {"+val +"},<br>");}
+					else if((idcategorie=='6')&&((i=='auteurs')||(i=='titre')||(i=='booktitle')||(i=='date')||(i=='editor')||(i=='volume')||(i=='series')||(i=='number')||(i=='note')||(i=='publisher')||(i=='location')||(i=='isbn')||(i=='chapter')||(i=='pages')||(i=='doi')||(i=='url')))
+						{$('.popup_block').append(i+"  : {"+val +"},<br>");}
+				}
 				
 			});
 			

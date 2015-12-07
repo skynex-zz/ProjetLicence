@@ -15,23 +15,27 @@ class IndexController extends AbstractActionController
     {
         VerifUser::setTokenToDisconnect();
         
-	$rubriqueModel = new RubriqueModel();
+		$rubriqueModel = new RubriqueModel();
         $data = null;
         try {
             $data = $rubriqueModel->fetchAll();
         } catch (Exception $e) {
             LayoutExceptions::traiteExceptionsAllRubriques($this, $data, 'pbm', 'fr', $e->getMessage());
-            //$this->redirect()->toRoute('publications', array('action' => 'afficherPublication', 'langue' => 'fr'));
-            /*$this->layout()->setVariable('listeRubrique', $data);
-            $this->layout()->setVariable('menu_id', 'pbm');
-            $this->layout()->setVariable('langue', 'fr');
-            $this->layout()->setVariable('exception', $e->getMessage());*/
             return new ViewModel(array('rubrique' => null, 'langue' => 'fr', 'exception' => $e->getMessage()));
         }
-	$this->layout()->setVariable('listeRubrique',$data);
-	$this->layout()->setVariable('langue','fr');
-	$this->layout()->setVariable('menu_id',$data[0]['menu_id']);
-        return new ViewModel(array('rubrique'=>$data[0],'langue'=>'fr'));
-    }
 	
+		//envoie des variables a la vue
+		$this->layout()->setVariable('listeRubrique',$data);
+		$this->layout()->setVariable('langue','fr');
+		$this->layout()->setVariable('menu_id',$data[0]['menu_id']);
+		
+		//gestion d'erreur avec ErreurHandler -> voir module.php
+		if(!empty($this->getRequest()->getQuery('erreur',false))){
+			return new ViewModel(array('langue'=>'fr','erreur' =>$this->getRequest()->getQuery('erreur',false)));
+		}
+		else{
+		// affichage de la vue
+		return new ViewModel(array('rubrique'=>$data[0],'langue'=>'fr'));
+		}
+	}
 }
