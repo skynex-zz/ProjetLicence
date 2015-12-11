@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>App1</title>
+
+    <!-- Références WinJS -->
+    <link href="WinJS/css/ui-dark.css" rel="stylesheet" />
+    <script src="WinJS/js/base.js"></script>
+    <script src="WinJS/js/ui.js"></script>
+
+    <!-- Références App1 -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/default.js"></script>
+
+    <!-- JS Dialogue avec WebServices-->
+    <!--<script src="/js/adminModel.js"></script>-->
+</head>
+<body>
+    <div id='formulaire'>
+        <label class='win-label'>Login</label> <input type='text' id='login' name='login' /> <br />
+        <label class='win-label'>Password</label> <input type='password' id='password' name='password' /> <br />
+        <button id='bouton_connexion' class='win-button' name='btn_conn'>Se connecter</button>
+    </div>
+
+
+    <div id="dialog_error_connexion" data-win-control="WinJS.UI.ContentDialog" data-win-options="{
+                    title: 'Erreur',
+                    primaryCommandText: 'Fermer'
+               }">
+        Données invalides. Veuillez réessayer.
+    </div>
+</body>
+</html>

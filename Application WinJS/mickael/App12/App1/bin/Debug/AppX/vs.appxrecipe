@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>LICENCE</Machine>
+    <WindowsUser>licenceweb</WindowsUser>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetOsVersion>10.0</TargetOsVersion>
+    <TargetOsDescription>Windows 10.0</TargetOsDescription>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <PackageIdentityName>272b1321-855e-4452-ac31-3aac3a569226</PackageIdentityName>
+    <IntermediateOutputPath>C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\bld\Debug\</IntermediateOutputPath>
+    <RegisteredManifestChecksum>DDEA7418B6C134CAA37670DB577786EE0D31A0B5868468A75562351D41BC1DA4</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>272b1321-855e-4452-ac31-3aac3a569226_1.0.0.0_neutral__qhvhqcestafz8</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>272b1321-855e-4452-ac31-3aac3a569226_qhvhqcestafz8!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>272b1321-855e-4452-ac31-3aac3a569226</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=licenceweb</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+    <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-12-09T12:49:11.690</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\connexion.html">
+      <PackagePath>connexion.html</PackagePath>
+      <Modified>2015-12-09T18:25:23.002</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\default.html">
+      <PackagePath>default.html</PackagePath>
+      <Modified>2015-12-09T12:43:26.562</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\images\LockScreenLogo.scale-200.png">
+      <PackagePath>images\LockScreenLogo.scale-200.png</PackagePath>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\images\SplashScreen.scale-200.png">
+      <PackagePath>images\SplashScreen.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\images\Square150x150Logo.scale-200.png">
+      <PackagePath>images\Square150x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\images\Square44x44Logo.scale-200.png">
+      <PackagePath>images\Square44x44Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\images\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <PackagePath>images\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\images\StoreLogo.png">
+      <PackagePath>images\StoreLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\images\Wide310x150Logo.scale-200.png">
+      <PackagePath>images\Wide310x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\js\default.js">
+      <PackagePath>js\default.js</PackagePath>
+      <Modified>2015-12-09T13:22:47.113</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\js\adminModel.js">
+      <PackagePath>js\adminModel.js</PackagePath>
+      <Modified>2015-12-09T13:24:26.105</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\WinJS\js\en-US\ui.strings.js">
+      <PackagePath>WinJS\js\en-US\ui.strings.js</PackagePath>
+      <Modified>2015-10-10T20:09:40.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\WinJS\js\base.js">
+      <PackagePath>WinJS\js\base.js</PackagePath>
+      <Modified>2015-10-10T20:09:40.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\WinJS\js\ui.js">
+      <PackagePath>WinJS\js\ui.js</PackagePath>
+      <Modified>2015-10-10T20:09:40.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\css\default.css">
+      <PackagePath>css\default.css</PackagePath>
+      <Modified>2015-12-09T08:40:18.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\WinJS\css\ui-dark.css">
+      <PackagePath>WinJS\css\ui-dark.css</PackagePath>
+      <Modified>2015-10-10T20:09:40.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\WinJS\css\ui-light.css">
+      <PackagePath>WinJS\css\ui-light.css</PackagePath>
+      <Modified>2015-10-10T20:09:40.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\WinJS\fonts\Symbols.ttf">
+      <PackagePath>WinJS\fonts\Symbols.ttf</PackagePath>
+      <Modified>2015-10-10T20:09:40.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App12\App1\bin\Debug\ReverseMap\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2015-12-09T12:49:11.518</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>
