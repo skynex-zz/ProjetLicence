@@ -28,7 +28,7 @@
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\default.html">
       <PackagePath>default.html</PackagePath>
-      <Modified>2015-12-10T11:30:27.245</Modified>
+      <Modified>2015-12-15T11:36:22.977</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\images\LockScreenLogo.scale-200.png">
       <PackagePath>images\LockScreenLogo.scale-200.png</PackagePath>
@@ -66,7 +66,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\js\default.js">
       <PackagePath>js\default.js</PackagePath>
-      <Modified>2015-12-10T11:37:01.402</Modified>
+      <Modified>2015-12-15T11:38:23.163</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\js\script.js">
       <PackagePath>js\script.js</PackagePath>

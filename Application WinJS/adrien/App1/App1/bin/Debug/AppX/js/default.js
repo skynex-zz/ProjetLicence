@@ -11,46 +11,11 @@
 			if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {
 
 			    // TODO: cette application vient d'être lancée. Initialisez votre application ici.
-
-                //var items = [];
-                //items = recupPublications();
-                //console.log(items);
-
-
-			    var beginAdress = "http://localhost/rest/web/index.php/";
-
-			    var options = {
-			        url: beginAdress + "publications",
-			        type: "GET",
-			        headers: { "Content-Type": "application/json;charset=utf-8" }
-			    };
-			    WinJS.xhr(options).done(
-
-                    function success(request) {
-                        var res = request.response;
-                        var tabPublications = JSON.parse(res);
-                        var item, items = [];
-                        console.log(request);
-
-                        //console.log(tabPublications);
-                        tabPublications.forEach(function (publication) {
-                            //vidage
-                            var attribut = "";
-                            for (attribut in publication) {
-                                if (publication[attribut] == "") {
-                                    delete publication[attribut];
-                                }
-                            }
-                            items.push(publication);
-                        });
-                        console.log(items);
-                        return items;
-                    });
-
-
-			    WinJS.Namespace.define("Sample.ListView", {
-			        data: new WinJS.Binding.List(items)
-			    });
+			   
+                var items = [];
+                items = recupPublications();
+                    console.log(items);
+                
 			    WinJS.UI.processAll();
 
 			} else {
@@ -69,32 +34,41 @@
 	app.start();
 })();
 
-function recupPublications() {
-    var beginAdress = "http://localhost/rest/web/index.php/";
+    function recupPublications() {
+        var beginAdress = "http://localhost/rest/web/index.php/";
 
-    var options = {
-        url: beginAdress + "publications",
-        type: "GET",
-        headers: { "Content-Type": "application/json;charset=utf-8" }
-    };
-    WinJS.xhr(options).done(
+        var options = {
+            url: beginAdress + "publications",
+            type: "GET",
+            headers: { "Content-Type": "application/json;charset=utf-8" }
+        };
+        return WinJS.xhr(options).then(
 
-        function success(request) {
-            var res = request.response;
-            var tabPublications = JSON.parse(res);
-            var item, items = [];
+            function (request) {
 
+                var tabPublications = JSON.parse(request.response);
+                var items = [];
 
-            //console.log(tabPublications);
-            tabPublications.forEach(function (publication) {
-                //vidage
-                for (attribut in publication) {
-                    if (publication[attribut] == "") {
-                        delete publication[attribut];
+                //console.log(tabPublications);
+                tabPublications.forEach(function (publication) {
+                    //vidage
+                    for (attribut in publication) {
+                        if (publication[attribut] == "") {
+                            delete publication[attribut];
+                        }
                     }
-                }
-                items.push(publication);
-            });
-            return items;
-        });
-}
+                    items.push(publication);
+                });
+                console.log(items);
+                //var list = new WinJS.Binding.List(items);
+                //WinJS.Namespace.define("Sample.ListView", { data: new WinJS.Binding.List(items) });
+                var list = new WinJS.Binding.List(items);
+                var listview = document.getElementById("listView");
+                listview.winControl.itemDataSource = list.dataSource;
+            },
+        function (error) { console.log(error); },
+        function (progress) {}
+
+            );
+    }
+    
