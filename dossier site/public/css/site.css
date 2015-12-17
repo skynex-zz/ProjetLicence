@@ -67,6 +67,7 @@ body {
         color: #777;
     }*/
 }
+
 /**Admin**/
 #accordion div div label {
     width: 150px;
@@ -91,52 +92,7 @@ body {
     margin-left: 20px;
 }
 
-#submitPublication {
-    margin-top: 25px;
-    margin-bottom: 25px;
-    padding: 10px;
-}
-
-#submitRubrique, #submitBibtex {
-    margin-bottom: 25px;
-    padding: 10px;
-}
-
-#submitbutton {
-    padding: 10px;
-}
-
-#admin_login_form label {
-    width: 150px;
-}
-
-#success_admin {
-    color: green;
-    font-weight: bold;
-    padding: 5px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-center {
-    padding-top: 30px;
-    padding-bottom: 30px;
-}
-
-.erreur_form {
-    padding-top: 20px;
-    padding-bottom: 10px;
-    color: red;
-}
-
-.info_form {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    color: blue;
-}
-
-/*****************************************************/
+/****/
 
 
 #gestion-table {
@@ -175,6 +131,10 @@ margin: 35px;
 /*height: 500px;
 overflow: scroll;*/
 background: gainsboro;
+}
+
+.volume, .number, .pages, .note, .abstract, .keywords, .series, .localite, .publisher, .editor, .date_display, .categorie_id, .titreen, .contenten, .dateCreation, .dateModification {
+	display:none;
 }
 
 #check {
@@ -345,6 +305,8 @@ width:90%;
 text-align:center;
 }
 
+
+
 .navbar-inverse .navbar-nav > li > a {
   color: white;
 }
@@ -360,6 +322,8 @@ text-align:center;
 .navbar-inverse .navbar-brand {
   color: white;
 }
+
+
 
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
@@ -378,10 +342,13 @@ text-align:center;
 body
 {    
     font-family: Tahoma, Geneva, sans-serif;
+
     background-image: url(images/bg_page.png);
     background-repeat: repeat-x;
     background-color: #FFF;
+
     font-size: 14px;
+
     text-align: center;
 }
 
@@ -446,6 +413,7 @@ div.pager span.active {
 {
     width: 50px;
     height: 25px;
+
     background-image: url(images/flag-en.png);
     background-repeat: no-repeat;
     background-position: center;
@@ -461,6 +429,7 @@ div.pager span.active {
 {
     width: 50px;
     height: 25px;
+
     background-image: url(images/flag-fr.png);
     background-repeat: no-repeat;
     background-position: center;
@@ -470,6 +439,7 @@ div.pager span.active {
 {
     width: 50px;
     height: 25px;
+
     background-image: url(images/icon-home.png);
     background-repeat: no-repeat;
     background-position: center;
@@ -478,17 +448,22 @@ div.pager span.active {
 .icon-text
 {
     width: 50px;
+
     text-align: center;
     font-size: 13px;
+
     color: #001e3b;
 }
 
 .site-content 
 {
+    
     width: 90%;
     min-width: 750px;
+
     margin: auto;
     margin-bottom: 30px;
+
     text-align: left;
 }
 
@@ -499,10 +474,6 @@ div.pager span.active {
     background-color:white;
 	border-radius:0px 0px 30px 30px;
     width: 100%;
-}
-
-.menu-container{
-	width:auto;
 }
 
 .menu-container{
@@ -518,15 +489,13 @@ div.pager span.active {
     background-repeat: no-repeat;
 	width: 30px;
 	height: 49px;
-	
-	}
+}
 .menu-corner-left{
 	float:left;
 	background-image: url(images/menu-corner-left.png);
     background-repeat: no-repeat;
 	width: 30px;
 	height: 49px;
-	margin-left:auto;
 }
 
 .menu-separator
@@ -567,6 +536,7 @@ div.pager span.active {
     text-align: center;
     font-size: 15px;
     color: #FFF;
+
     background-image: url(images/menu_bg_active.png);
     background-repeat: repeat-x;
 }
@@ -577,8 +547,11 @@ div.pager span.active {
 {
     float: right;
     bottom: 0px;
+
     width: 25px;
+    
     border-top: 1px solid #b1cbe4;
+
     background-image: url(images/text-border-right.png);
     background-repeat: repeat-y;
 }
@@ -592,7 +565,9 @@ div.pager span.active {
 {
     width: 100%;
     height: 22px;
+
     right: 30px;
+    
     font-size: 12px;
 }
 
@@ -600,8 +575,11 @@ div.pager span.active {
 {
     width: 92px;
     height: 22px;
+
     float: right;
+
     text-align: center;
+
     background-image: url(images/bg-signInOut-tab.png);
     background-repeat: no-repeat;
 }
@@ -609,6 +587,7 @@ div.pager span.active {
 .auth-label
 {
     margin-top: 2px;
+
     color: #888;
     cursor: pointer;
 }
@@ -616,7 +595,9 @@ div.pager span.active {
 .admin-menu
 {
     text-align: left;
+
     height: 24px;
+
     background-image: url(images/bg-admin-menu.png);
     background-repeat: repeat-x;
 }
@@ -626,7 +607,9 @@ div.pager span.active {
     float: left;
     margin-top: 3px;
     margin-left: 10px;
+
     color: #34699F;
+
     cursor: pointer;
 }
 
@@ -660,6 +643,7 @@ div.pager span.active {
 {
     width: 170px;
     height: 22px;
+
     margin: auto;
     padding-top: 4px;
     font-size: 12px;
@@ -669,6 +653,7 @@ div.pager span.active {
 {
     float: left;
     margin-left: 4px;
+
     cursor: pointer;
 }
 
@@ -677,6 +662,7 @@ div.pager span.active {
     width: 340px;
     height: 161px;
     margin: auto;
+
     background-image: url(images/bg-login.png);
     background-repeat: no-repeat;
 }
@@ -729,6 +715,7 @@ div.pager span.active {
 .publications-items
 {
     width: 90%;
+
     margin-top: 3px;
 }
 
@@ -782,7 +769,12 @@ div.pager span.active {
 .publi-volume {}
 .publi-number {}	
 .publi-pages{} 	
-.publi-note{} 	
+.publi-note{
+	border: 1px dashed #ddd;
+    background-color: #f9f9f9;
+    padding: 2px;
+    display: inline-block;
+    width: 99%;} 	
 .publi-abstract{
 	border: 1px dashed #ddd;
     background-color: #f9f9f9;
