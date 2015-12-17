@@ -1,0 +1,21 @@
+<?php
+
+if($langue=='fr') {
+    if(isset($exception)) {
+        echo "Cette rubrique n'existe pas.";
+    }
+    else {
+        echo $rubrique['content_fr'];
+    }
+}
+else if($langue=='en') {
+    if(isset($exception)) {
+        echo "This rubrique doesn't exist.";
+    }
+    else {
+        echo $rubrique['content_en'];
+    }
+}
+else {
+    echo "<h2>La langue doit etre <b>fr</b> ou <b>en</b>.</h2>";
+}
