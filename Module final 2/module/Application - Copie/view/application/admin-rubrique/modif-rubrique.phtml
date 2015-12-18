@@ -1,0 +1,73 @@
+<?php
+
+    //Importation script CKEditor   
+    echo $this->headScript()->prependFile($this->basePath('js/ckeditor/ckeditor.js'));
+
+    if($langue == 'fr') {
+        echo "<p class='info_form'><img src=".$this->basePath().'/img/icon_information.png'." alt='Information' width=20 height=20 />Les champs pr√©c√©d√©s du signe * sont obligatoires.</p>";
+    }
+    elseif($langue == 'en') {
+        echo "<p class='info_form'><img src=".$this->basePath().'/img/icon_information.png'." alt='Information' width=20 height=20 />Fields preceded of the * symbol are mandatory.</p>";
+    }
+    
+    if(isset($exception)) {
+        if($langue == 'fr') {
+            echo "<p class='erreur_form'><img src=".$this->basePath().'/img/icon_error.png'." alt='Error' width=20 height=20 />Erreur lors du remplissage des champs. Veuillez ressaisir les donn√©es.</p>";
+        }
+        elseif($langue == 'en') {
+            echo "<p class='erreur_form'><img src=".$this->basePath().'/img/icon_error.png'." alt='Error' width=20 height=20 />Some errors in the fields. Please retry.</p>";
+        }
+    }
+    
+    $form->setAttribute('action', $this->url('admrubrique', array('id_menu' => $rubriqueToModif['menu_id'], 'langue' => $langue, 'action' => 'modifRubrique')));
+    $form->prepare();
+    
+    echo $this->form()->openTag($form);
+    
+    //RÈcupÈration des inputs et attribution des valeurs par dÈfaut
+    $bouton = $form->get('submit');
+    $titreFr = $form->get('titre_fr');
+    $titreFr->setValue($rubriqueToModif['titre_fr']);
+    $titreEn = $form->get('titre_en');
+    $titreEn->setValue($rubriqueToModif['titre_en']);
+    
+    $actifRadio = $form->get('actifradio');
+    $actifRadio->setCheckedValue($rubriqueToModif['actif']);
+    $actifRadio->setChecked(true);
+    
+    $position = $form->get('position');
+    $position->setValue($rubriqueToModif['position']);
+    $textareaFr = $form->get('content_fr');
+    $textareaFr->setValue($rubriqueToModif['content_fr']);
+    $textareaEn = $form->get('content_en');
+    $textareaEn->setValue($rubriqueToModif['content_en']);
+    
+    if($langue == 'en') {
+        $titreFr->setLabel('French title*');
+        $titreEn->setLabel('English title*');
+        $actifRadio->setLabel('Visible on the website ?*');
+        $position->setLabel('Position*');
+        $textareaFr->setLabel('French content*');
+        $textareaEn->setLabel('English content*');
+        $bouton->setValue('Submit');
+    }
+    
+    //CrÈation du formulaire
+    echo $this->formRow($titreFr)."<br /> <br />";
+    echo $this->formRow($titreEn)."<br /> <br />";
+    echo $this->formRow($actifRadio)."<br /> <br />";
+    echo $this->formRow($position)."<br /> <br />";
+    echo $this->formRow($textareaFr)."<br /> <br />";
+    echo $this->formRow($textareaEn)."<br /> <br />";
+    echo $this->formSubmit($bouton);
+    
+    echo $this->form()->closeTag();
+
+?>
+
+<script type="text/javascript">
+    
+    CKEDITOR.replace('editor_fr');
+    CKEDITOR.replace('editor_en');
+    
+</script>

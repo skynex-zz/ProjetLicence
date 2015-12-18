@@ -1,0 +1,292 @@
+<?php
+// gestion d'erreur si la page n'existe pas 
+if(isset($msgError)) {
+	if($langue=='fr'){echo "<h2>Cette page n'existe pas.</h2>";}
+	elseif($langue=='en') {echo "<h2>This page doesn't exist.</h2>";}
+}
+else {
+
+ echo "<table cellspacing='0' cellpadding='0'>
+	<tbody>
+		<tr>
+			<td height='40px' align='left' style='vertical-align:top;'>
+				<table class='publication-filter-panel' cellpadding='0' cellspacing='0'>
+					<tbody>";
+					//gestion d'erreur si aucun publication
+					if((isset($excP))||(isset($excC))){
+						if($langue=='fr'){echo "<tr><td width='50%' align='center' style='vertical-align:top;'> Aucune Publications</tr></td>";}
+						elseif($langue=='en'){echo "<tr><td width='50%' align='center' style='vertical-align:top;'> No Publications</tr></td>";}
+					}else{
+						//affichage des images en fonction de la langues
+						echo "<tr>
+							<td width='50%' align='center' style='vertical-align:top;'>
+								<div class='ibtn' style='position: relative, overflow: hidden;'>";
+									if($langue=='fr'){echo "<a href=".$this->url('publications', array('langue' => $this->langue, 'trie' => 'categ'))."><img class='float-left' src='".$this->basePath().'/img/icon-sort-fr.png'."'/></a>";}
+									elseif($langue=='en'){echo "<a href=".$this->url('publications', array('langue' => $this->langue, 'trie' => 'categ'))."><img class='float-left' src='".$this->basePath().'/img/icon-sort-en.png'."'/></a>";}		
+									echo "<div class='ibtn-lbl'></div>
+								</div>
+							</td>
+							<td width='50%' align='center' style='vertical-align:top;'>
+								<div class='ibtn' style='position: relative, overflow: hidden;'>";
+									if($langue=='fr'){echo "<a href='".$this->url('publications', array('langue' => $this->langue, 'trie' => 'date'))."'><img class='float-left' src='".$this->basePath().'/img/icon-sort-date-fr.png'."'/></a>";}
+									elseif($langue=='en'){echo "<a href='".$this->url('publications', array('langue' => $this->langue, 'trie' => 'date'))."'><img class='float-left' src='".$this->basePath().'/img/icon-sort-date-en.png'."'/></a>";}
+									echo "<div class='ibtn-lbl'></div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td align='left' style='vertical-align:top;'>
+				<div class='publication-contener' style='position: relative; overflow: hidden;'>
+				";
+				
+				//debut tableau par CATEGORIE
+				foreach($listeSup as $menu){
+				if($trie=='categ')
+				{
+					if($langue=='fr'){$affiche=$menu['name_en'];}
+					else{$affiche=$menu['name_en'];}
+				}
+				//debut tableau par DATE
+				elseif($trie=='date')
+				{
+					$dateSuiv = explode("-", $menu['date']);
+					if(!isset($yearPrec)){
+						$yearPrec = $dateSuiv[0];
+						$affiche = $yearPrec;
+					}
+					elseif($dateSuiv[0]<$yearPrec)
+					{
+						$yearPrec = $dateSuiv[0];
+						$affiche = $yearPrec;
+					}	
+					else
+					{
+						continue;
+					}											
+				}
+				echo "
+					<table cellspacing='0' cellpadding='0' style='width:100%'>
+						<tbody>
+							<tr>
+								<td align='left' style='vertical-align:top;'>
+									<div class='publications-section-title'>";
+									// affiche correspond a la derniere annee trouver 
+									echo $affiche;		
+										
+									echo "</div>
+								</td>
+							</tr>
+							<td align='left' style='vertical-align:top;'>
+								<table class='publication-items' cellspacing='0' cellpadding='0' style='width:100%;'>
+									<tbody>";
+										
+										
+									
+										//debut tableau des publications
+										foreach($listePubli as $item){
+										$afficher = false;
+										// verification de l'attribut categorie id si trie categ ou annee si trie annee
+										if($trie=='date'){
+											$datePubli = explode("-", $item['date']);
+											if($yearPrec==$datePubli[0]){
+												$afficher=true;
+												}
+										}
+										elseif(($trie=='categ')&&($item['categorie_id']==$menu['ID'])){$afficher=true;}
+										if($afficher==true){
+										
+										echo "<tr>
+											<td align='left' style='vertical-align: top;'>
+												<table class='publications-item' cellpadding='0' cellspacing='0'>
+													<tbody>
+														<tr>
+															<td align='left' style='vertical-align:top;'>
+																<div class='gwt-HTML' style='white-space:normal';>
+																	<div><p>";
+																	$listattr = array('auteurs','titre','booktitle','editor','series','volume','number','pages','chapter','type','publisher','localite','institution','isbn','journal','doi','howpublished','urldate','url'); 
+																	foreach ($listattr as $attr){		
+																		foreach($item as $key=>$value){
+																			if((($key!=null)&&($key!='')&&($value!='')&&($value!=null))&&($attr==$key)){
+																				if($key=='reference'){echo "<span class='publi-".$key."'> [".$value."] </span>";}
+																					
+																					if(($key=='journal')||($key=='booktitle')){
+																					echo "<span class='publi-".$key."'> In ".$value.",  </span>";
+																					}
+																					else{
+																						echo "<span class='publi-".$key."'>  ".$value.",  </span>";
+																					}
+																				}
+																			}
+																		}
+																	
+																	
+																		if(($item['date_display']!='')&&($item['date_display']!=null)){echo "<span class='publi-date_display'>  ".$item['date_display'].",  </span>";}					
+																		
+																		if((($item['abstract']!="")&&($item['abstract']!=null))||(($item['note']!="")&&($item['note']!=null))){
+																			?></p><a class='btn btn-xs btn-info' id='<?php echo $item['ID'] ?>'  onClick="affichage(<?php echo $item['ID'] ?>)">[En voir plus]</a>
+																			<br>
+																			<?php
+																			if(($item['abstract']!="")&&($item['abstract']!=null)){
+																				echo "<span id='publi".$item['ID']."'"; ?>  style="display:none" <?php echo "class='publi-abstract'>".$item['abstract']."</span>";	
+																			}
+																			elseif(($item['note']!="")&&($item['note']!=null)){
+																				echo "<span id='publi".$item['ID']."'"; ?>  style="display:none" <?php echo "class='publi-note'>".$item['note']."</span>";
+																			}
+																		}
+																		echo "<br><span class='publi-keywords'>".$item['keywords']."</span>";
+																	echo "</div>
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td align='left' style='vertical-align: top;'>
+																<table cellpadding='0' cellspacing='0'>
+																	<tbody>
+																		<tr>";
+																			if(($item['pdf']!="")&&(file_exists($this->basePath().'/'.$item['pdf']))){
+																				echo "<td align='left' style='vertical-align:top;'><a href='".$this->basePath().'/'.$item['pdf']."'><img class='cursor-pointer' src='".$this->basePath().'/img/icon-pdf.png'."'/></a></td>";
+																			}
+																			echo "<td align='left' style='vertical-align:top;'><a href='#' data-width='500' data-rel='popup1' class='poplight' data-idcateg=".json_encode($item['categorie_id'])." data-element='".json_encode($item)."'><img class='cursor-pointer' src='".$this->basePath().'/img/icon-tex.png'."'/></a></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>";}}
+									
+									//fin affichage publication
+									echo "</tbody>
+								</table>
+							</td>									
+						</tbody>
+					</table>";}}
+				//fin affichage differentes categories
+				echo "</div>
+			</td>
+		</tr>							
+	</tbody>	
+</table>";
+
+					}
+
+ ?>
+<script type="text/javascript">
+$(document).ready(function() {
+	jQuery(function($){
+						   		   
+		//Lorsque vous cliquez sur un lien de la classe poplight
+		$('a.poplight').on('click', function() {
+			var popID = $(this).data('rel'); //Trouver la pop-up correspondante
+			var popWidth = $(this).data('width'); //Trouver la largeur
+
+			//Faire apparaitre la pop-up et ajouter le bouton de fermeture
+			$('#' + popID).fadeIn().css({ 'width': popWidth}).prepend("<a href='#' class='close'><img src='../../css/images/close.png' class='btn_close' title='Close Window' alt='Close' /></a>");
+			
+			//Récupération du margin, qui permettra de centrer la fenêtre - on ajuste de 80px en conformité avec le CSS
+			var popMargTop = ($('#' + popID).height() + 200) / 2;
+			var popMargLeft = ($('#' + popID).width() + 200) / 2;
+			
+			//Apply Margin to Popup
+			$('#' + popID).css({ 
+				'margin-top' : -popMargTop,
+				'margin-left' : -popMargLeft
+			});
+			
+			//Apparition du fond - .css({'filter' : 'alpha(opacity=80)'}) pour corriger les bogues d'anciennes versions de IE
+			$('body').append('<div id="fade"></div>');
+			$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
+			
+			//recuperation des elements de la publication (json)
+			var arrayitem = $(this).data('element');
+			//recuperation de la categorie_id pour type de bibtex
+			var idcategorie = $(this).data('idcateg');
+			$('body').append("<div class='popup_block'>");
+				
+			var liste1 ={auteurs:'author',titre:'title',journal:'journaltitle',date:'date',editor:'editor',series:'series',volume:'volume',number:'number',pages:'pages',note:'note',doi:'doi',url:'url'};
+			var liste43 ={auteurs:'author',titre:'title',journal:'journaltitle',date:'date',editor:'editor',series:'series',volume:'volume',number:'number',pages:'pages',note:'note',doi:'doi',url:'url'};
+			var liste5 ={auteurs:'author',titre:'title',date:'date',howpublished:'howpublished',note:'note',location:'location',url:'url',urldate:'urldate'};
+			var liste2 ={auteurs:'author',editor:'editor',titre:'title',booktitle:'booktitle',date:'date',volume:'volume',series:'series',number:'number',note:'note',publisher:'publisher',location:'location',isbn:'isbn',pages:'pages',doi:'doi',url:'url'};
+			var liste6 ={auteurs:'author',titre:'title',booktitle:'booktitle',date:'date',editor:'editor',volume:'volume',series:'series',number:'number',note:'note',publisher:'publisher',location:'location',isbn:'isbn',chapter:'chapter',pages:'pages',doi:'doi',url:'url'};
+			var nom = null;
+			if (idcategorie=='1'){var liste = liste1;}
+			else if (idcategorie=='2'){var liste = liste2;}
+			else if ((idcategorie=='3')||(idcategorie=='4')){var liste = liste43;}
+			else if (idcategorie=='5'){var liste = liste5;}
+			else if (idcategorie=='6'){var liste = liste6;}
+		
+			jQuery.each(arrayitem, function(i, val) {
+				
+				if(i=='reference'){
+					if(idcategorie=='1'){
+						$('.popup_block').append("@article:{"+val+",<br>");
+					}
+					else if(idcategorie=='2'){
+						$('.popup_block').append("@inproceedings:{"+val+",<br>");
+					}
+					else if(idcategorie=='3'){
+						$('.popup_block').append("@report:{"+val+",<br>");
+					}
+					else if(idcategorie=='4'){
+						$('.popup_block').append("@thesis:{"+val+",<br>");
+					}
+					else if(idcategorie=='5'){
+						$('.popup_block').append("@misc:{"+val+",<br>");
+					}	
+					else if(idcategorie=='6'){
+						$('.popup_block').append("@inbook:{"+val+",<br>");	
+					}	
+				}
+				else{
+					
+					jQuery.each(liste, function(listItem, attribut) {
+						//alert(i +  "   " + attribut);
+						if(attribut == i){nom = listItem;}
+						
+					});
+						if((val!="")&&(val!=null)&&(nom != null)){
+							
+							{$('.popup_block').append(nom+"  : {"+val +"},<br>");}
+					}
+					nom = null;
+					
+				}
+			});
+			
+			$('.popup_block').append("}");
+			
+			return false;		
+		});
+		
+		
+		//Close Popups and Fade Layer
+		$('body').on('click', 'a.close, #fade', function() { //Au clic sur le body...
+			$('#fade , .popup_block').fadeOut(function() {
+				$('#fade, a.close').remove();
+					$('.popup_block, a.close').remove();
+		}); //...ils disparaissent ensemble
+			
+			return false;
+		});
+
+	
+	});
+});
+</script>
+<script> function affichage(elements){
+	if(document.getElementById('publi'+elements).style.display =='inline-block' ){
+		document.getElementById('publi'+elements).style.display = 'none';
+		document.getElementById(elements).innerHTML = '[En voir plus]';
+	}else{
+		document.getElementById(elements).innerHTML = '[En voir moins]';
+		document.getElementById('publi'+elements).style.display = 'inline-block';
+	}
+}
+</script>
+

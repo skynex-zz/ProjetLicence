@@ -1,0 +1,67 @@
+<?php
+
+    //Importation script CKEditor   
+    echo $this->headScript()->prependFile($this->basePath('js/ckeditor/ckeditor.js'));
+
+    $this->headTitle('Création Rubrique');
+    
+    if($langue == 'fr') {
+        echo "<p class='info_form'><img src=".$this->basePath().'/img/icon_information.png'." alt='Information' width=20 height=20 />Les champs prÃ©cÃ©dÃ©s du signe * sont obligatoires.</p>";
+    }
+    elseif($langue == 'en') {
+        echo "<p class='info_form'><img src=".$this->basePath().'/img/icon_information.png'." alt='Information' width=20 height=20 />Fields preceded of the * symbol are mandatory.</p>";
+    }
+    
+    /*if(isset($exception) || isset($errorFiltre)) {
+        if($langue == 'fr') {
+            echo "<b class='erreur_form'><img src=".$this->basePath().'/img/icon_error.png'." alt='Error' width=20 height=20 />Erreur lors de la création de la rubrique. Veuillez réessayer.</b> <br />";
+            echo "<i class='erreur_form'>Rappel: La position doit être supérieure à 0.</i>";
+        }
+        elseif($langue == 'en') {
+            echo "<b class='erreur_form'><img src=".$this->basePath().'/img/icon_error.png'." alt='Error' width=20 height=20 />Error during rubric creation. Please retry.</b> <br />";
+            echo "<i class='erreur_form'>Reminder: The position must be greater than 0.</i>";
+        }
+    }*/
+    
+    $form->setAttribute('action', $this->url('createrubrique', array('action' => 'createRubrique', 'langue' => $langue)));
+    $form->prepare();
+    
+    echo $this->form()->openTag($form);
+    
+    //Création du formulaire
+    $titreFr = $form->get('titre_fr');
+    $titreEn = $form->get('titre_en');
+    $actifRadio = $form->get('actifradio');
+    $position = $form->get('position');
+    $textareaFr = $form->get('content_fr');
+    $textareaEn = $form->get('content_en');
+    $bouton = $form->get('submit');
+    
+    if($langue == 'en') {
+        $titreFr->setLabel('French title*');
+        $titreEn->setLabel('English title*');
+        $actifRadio->setLabel('Visible on the website ?*');
+        $position->setLabel('Position*');
+        $textareaFr->setLabel('French content*');
+        $textareaEn->setLabel('English content*');
+        $bouton->setValue('Submit');
+    }
+    
+    echo $this->formRow($titreFr)."<br /> <br />";
+    echo $this->formRow($titreEn)."<br /> <br />";
+    echo $this->formRow($actifRadio)."<br /> <br />";
+    echo $this->formRow($position)."<br /> <br />";
+    echo $this->formRow($textareaFr)."<br /> <br />";
+    echo $this->formRow($textareaEn)."<br /> <br />";
+    echo $this->formSubmit($bouton);
+    
+    echo $this->form()->closeTag();
+
+?>    
+    
+<script type="text/javascript">
+
+    CKEDITOR.replace('editor_fr');
+    CKEDITOR.replace('editor_en');
+
+</script>

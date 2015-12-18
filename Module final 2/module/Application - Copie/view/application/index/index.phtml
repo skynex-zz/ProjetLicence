@@ -1,0 +1,32 @@
+<?php
+if(isset($exception)) {
+	if($langue=='fr') {
+		echo "<h2>Pas de rubriques à part les publications.</h2>";
+	}elseif($langue=='en'){
+		
+	}
+}
+elseif(isset($erreur)){
+		if($langue=='fr'){
+			echo "<h2 style ='align:center;'> 404 ERREUR </h2>";
+			if($erreur==1){echo "<p>Le controleur demandé n'est pas capable de répondre à la requete.</p>";}
+			elseif($erreur==2){echo "<p>Le controleur demandé ne peut être rattacher à une classe de controleur.</p>";}
+			elseif($erreur==3){echo "<p>Le controleur demandé n'est pas dispatchable.</p>";}
+			elseif($erreur==4){echo "<p>L'URL demandée ne peut être trouvé par le routage.</p>";}
+		}
+		elseif($langue='en'){
+			echo "<h2 style ='align:center;'> 404 ERROR </h2>";
+			if($erreur==1){echo "<p>The requested controller was unable to dispatch the request .</p>";}
+			elseif($erreur==2){echo "<p>The requested controller could not be mapped to an existing controller class.</p>";}
+			elseif($erreur==3){echo "<p>The requested controller is not dispatchable.</p>";}
+			elseif($erreur==4){echo "<p>The requested URL could not be matched by routing.</p>";}
+		}
+}
+else {
+    if($langue=='fr') {
+        echo $rubrique['content_fr'];
+    }
+    else{
+        echo $rubrique['content_en'];
+    }
+}
