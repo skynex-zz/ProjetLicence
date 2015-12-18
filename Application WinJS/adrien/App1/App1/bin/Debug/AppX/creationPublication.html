@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+
+    <!-- Références WinJS -->
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <link href="WinJS/css/ui-dark.css" rel="stylesheet" />
+    <script src="WinJS/js/base.js"></script>
+    <script src="WinJS/js/ui.js"></script>
+
+    <!-- Références App1 -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/default.js"></script>
+</head>
+
+<body class="win-type-body">
+    <h1 class="win-header">Creer une publication </h1>
+    
+    <div id="sample">
+        <!-- Simple template for the ListView instantiation  -->
+        <label>Categorie_id : </label>
+        <div class="smallListIconTextTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+            <div class="smallListIconTextItem">
+                <div class="smallListIconTextItem-Detail">
+                    <h4 data-win-bind="innerText: ID"></h4>
+                    <h4 data-win-bind="innerText: name_fr"></h4>
+                    <h4 data-win-bind="innerText: name_en"></h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- The declarative markup necesary for ListView instantiation -->
+        <!-- Call WinJS.UI.processAll() in your initialization code -->
+        <div class="listView win-selectionstylefilled"
+             data-win-control="WinJS.UI.ListView"
+             data-win-options="{
+                    itemDataSource: Sample.ListView.data.dataSource,
+                    itemTemplate: select('.smallListIconTextTemplate'),
+                    header: select('.header'),
+                    selectionMode: 'none',
+                    tapBehavior: 'none',
+                    layout: { type: WinJS.UI.ListLayout }
+            }">
+        </div>
+    </div>
+        <label>ID : </label><input class="win-input" /><br>
+        <label>Reference : </label><input class="win-input" /><br>
+        <label>Auteur : </label><input class="win-input" /><br>
+        <label>Titre : </label><input class="win-input" /><br>
+        <label>Booktitle : </label><input class="win-input" /><br>
+        <label>Editor : </label><input class="win-input" /><br>
+        <label>Series : </label><input class="win-input" /><br>
+        <label>Volume : </label><input class="win-input" /><br>
+        <label>Number : </label><input class="win-input" /><br>
+        <label>Pages : </label><input class="win-input" /><br>
+        <label>Chapter : </label><input class="win-input" /><br>
+        <label>Type : </label><input class="win-input" /><br>
+        <label>Publisher : </label><input class="win-input" /><br>
+        <label>Date_display : </label><input class="win-input" /><br>
+        <label>Localite : </label><input class="win-input" /><br>
+        <label>Institution : </label><input class="win-input" /><br>
+        <label>Isbn : </label><input class="win-input" /><br>
+        <label>Journal : </label><input class="win-input" /><br>
+        <label>Doi : </label><input class="win-input" /><br>
+        <label>Howpublished : </label><input class="win-input" /><br>
+        <label>Urldate : </label><input class="win-input" /><br>
+        <label>Url : </label><input class="win-input" /><br>
+        <label>Note : </label><input class="win-input" /><br>
+        <label>Abstract : </label><input class="win-input" /><br>
+        <label>Keywords : </label><input class="win-input" /><br>
+        <label>PDF : </label><input class="win-input" /><br>
+        <label>Date : </label><input class="win-input" /><br>
+    
+    <script src="/js/creationPublication.js"></script>    
+    </body>
+</html>

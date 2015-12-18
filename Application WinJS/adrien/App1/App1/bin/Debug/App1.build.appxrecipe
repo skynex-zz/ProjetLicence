@@ -21,6 +21,15 @@
     <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\default.html">
       <PackagePath>default.html</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\modificationPublication.html">
+      <PackagePath>modificationPublication.html</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\creationPublication.html">
+      <PackagePath>creationPublication.html</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\autre.html">
+      <PackagePath>autre.html</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\images\LockScreenLogo.scale-200.png">
       <PackagePath>images\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
@@ -51,8 +60,14 @@
     <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\js\default.js">
       <PackagePath>js\default.js</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\js\script.js">
-      <PackagePath>js\script.js</PackagePath>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\js\jquery-2.1.4.min.js">
+      <PackagePath>js\jquery-2.1.4.min.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\js\publication.js">
+      <PackagePath>js\publication.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\js\creationPublication.js">
+      <PackagePath>js\creationPublication.js</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\licenceweb\Documents\Visual Studio 2015\Projects\App1\App1\WinJS\js\en-US\ui.strings.js">
       <PackagePath>WinJS\js\en-US\ui.strings.js</PackagePath>

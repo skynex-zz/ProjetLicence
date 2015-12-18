@@ -6,6 +6,7 @@
     <title>App1</title>
 
     <!-- Références WinJS -->
+    <script src="/js/jquery-2.1.4.min.js"></script>
     <link href="WinJS/css/ui-dark.css" rel="stylesheet" />
     <script src="WinJS/js/base.js"></script>
     <script src="WinJS/js/ui.js"></script>
@@ -16,15 +17,43 @@
     
 </head>
 <body class="win-type-body">
-    
+    <h1 class="win-header">Liste des publications <button id="CreatePubli">Crée une publication</button> </h1>
     <div class="smallListIconTextTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
-        <div class="smallListIconTextItem">
+        <div id="list" class="smallListIconTextItem">
             <div class="smallListIconTextItem-Detail">
-                <h4 data-win-bind="textContent: ID"></h4>
+                <h6>[<span class="win-span" data-win-bind="textContent: ID"></span>]  
+                <span class="win-span" data-win-bind="textContent: reference"></span>
+                <span class="win-span" data-win-bind="textContent: auteurs"></span>
+                <span class="win-span" data-win-bind="textContent: titre"></span>
+                <span class="win-span" data-win-bind="textContent: booktitle"></span>
+                <span class="win-span" data-win-bind="textContent: editor"></span>
+                <span class="win-span" data-win-bind="textContent: series"></span>
+                <span class="win-span" data-win-bind="textContent: volume"></span>
+                <span class="win-span" data-win-bind="textContent: number"></span>
+                <span class="win-span" data-win-bind="textContent: pages"></span>
+                <span class="win-span" data-win-bind="textContent: chapter"></span>
+                <span class="win-span" data-win-bind="textContent: type"></span>
+                <span class="win-span" data-win-bind="textContent: publisher"></span>
+                <span class="win-span" data-win-bind="textContent: date_display"></span>
+                <span class="win-span" data-win-bind="textContent: localite"></span>
+                <span class="win-span" data-win-bind="textContent: institution"></span>
+                <span class="win-span" data-win-bind="textContent: isbn"></span>
+                <span class="win-span" data-win-bind="textContent: journal"></span>
+                <span class="win-span" data-win-bind="textContent: doi"></span>
+                <span class="win-span" data-win-bind="textContent: howpublished"></span>
+                <span class="win-span" data-win-bind="textContent: urldate"></span>
+                <span class="win-span" data-win-bind="textContent: url"></span>
+                <span class="win-span" data-win-bind="textContent: note"></span>
+                <span class="win-span" data-win-bind="textContent: abstract"></span>
+                <span class="win-span" data-win-bind="textContent: keywords"></span>
+                <span class="win-span" data-win-bind="textContent: pdf"></span>
+                <span class="win-span" data-win-bind="textContent: categorie_id"></span>
+                <span class="win-span" data-win-bind="textContent: date"></span></h6>
+                <h4><button  class="win-interactive" data-win-bind="alt:title; onclick: modif">Modifier</button>
+                <button class="win-interactive" data-win-bind="alt:title; onclick: supp;">Supprimer</button></h4>
             </div>
         </div>
     </div>
-
 
     <div id="listView"
          class="win-selectionstylefilled"
@@ -34,21 +63,9 @@
          selectionMode: 'none',
          tapBehavior: 'none',
          layout:{type: WinJS.UI.ListLayout}
-}"></div>
-    <!--
-    <div id="listView"
-         class="win-selectionstylefilled"
-         data-win-control="WinJS.UI.ListView"
-         data-win-options="{
-        itemDataSource: itemDataSource :Sample.ListView.data.dataSource,
-        itemTemplate: select('.smallListIconTextTemplate'),
-        selectionMode: 'none',
-        tapBehavior: 'none',
-        layout: { type: WinJS.UI.ListLayout }
-}"></div>
-        -->
-        
-        
+    }"></div> 
+
+        <script src="/js/publication.js"></script>    
         
         </body>
 </html>
