@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" />
+        <title>App1</title>
+
+        <!-- R�f�rences WinJS -->
+        <link href="WinJS/css/ui-dark.css" rel="stylesheet" />
+        <script src="WinJS/js/base.js"></script>
+        <script src="WinJS/js/ui.js"></script>
+
+        <!-- R�f�rences App1 -->
+        <link href="/css/default.css" rel="stylesheet" />
+        <script src="/js/default.js"></script>
+        <script src="/js/navigator.js"></script>
+        <!--<script src="/js/rubriques.js"></script>-->
+        <script src="/js/adminModel.js"></script>
+        <!--<script src="/js/listView.js"></script>-->
+    </head>
+
+    <body>
+        <div id="navBar" class="win-navbar">
+            <a id="cmd1" class="win-command" href="form_create_rubrique.html"></a>
+            <a id="cmd2" class="win-command" href="publications.html"></a>
+            <!--<a id="cmd3" class="win-command" href="upload_bibtex.html"></a>-->
+        </div>
+
+        <div id="dialog_no_rubriques" data-win-control="WinJS.UI.ContentDialog" data-win-options="{
+                        title: 'Pas de rubriques',
+                        primaryCommandText: 'Fermer'
+                    }">
+            Aucune rubrique dans la base de donn�es.
+        </div>
+
+        <!-- Success delete rubrique -->
+        <div id="dialog_supp_rubrique_ok" data-win-control="WinJS.UI.ContentDialog" data-win-options="{
+                        title: 'Succes suppression rubrique',
+                        primaryCommandText: 'Fermer'
+                   }">
+            Suppression valid�e !
+        </div>
+
+        <!-- Error delete rubrique -->
+        <div id="dialog_supp_rubrique_error" data-win-control="WinJS.UI.ContentDialog" data-win-options="{
+                        title: 'Erreur suppression rubrique',
+                        primaryCommandText: 'Fermer'
+                   }">
+            Erreur lors de la suppression de cette rubrique.
+        </div>
+
+        <!--<a href="form_modif_rubrique.html">Modifier cette rubrique</a>-->
+
+        <!--ListView-->
+        <div id="content_general">
+            <p class="win-type-header">Gestion des rubriques</p>
+            <div class="smallListIconTextTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+                <div class="smallListIconTextItem">
+                    <div class="smallListIconTextItem-Detail">
+                        <h2 data-win-bind="textContent: titre_fr"></h2>
+                        <h4>Titre anglais: <span data-win-bind="textContent: titre_en"></span></h4>
+                        <h4>Date création: <span data-win-bind="textContent: date_creation"></span></h4>
+                        <h4>Visible: <span data-win-bind="textContent: actif"></span></h4>
+                        <h4>Position: <span data-win-bind="textContent: position"></span></h4>
+                        <button class="win-interactive"  data-win-bind="alt:title; onclick: modif;">Modifier</button>
+                        <button class="win-interactive"  data-win-bind="alt:title; onclick: supp;">Supprimer</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="listView"
+                 class="win-selectionstylefilled"
+                 data-win-control="WinJS.UI.ListView"
+                 data-win-options="{
+                     itemTemplate: select('.smallListIconTextTemplate'),
+                     selectionMode: 'none',
+                     tapBehavior: 'none',
+                     layout:{type: WinJS.UI.ListLayout}
+                }"></div>
+
+            <!--Fin ListView-->
+
+        </div>
+
+        <script src="js/gest_rubriques.js"></script>
+
+</body>
+</html>

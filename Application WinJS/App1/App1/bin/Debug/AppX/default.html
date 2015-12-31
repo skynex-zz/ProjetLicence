@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <title>App1</title>
+
+    <!-- Références WinJS -->
+    <link href="WinJS/css/ui-dark.css" rel="stylesheet" />
+    <script src="WinJS/js/base.js"></script>
+    <script src="WinJS/js/ui.js"></script>
+
+    <!-- Références App1 -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/default.js"></script>
+</head>
+<body class="win-type-body">
+    <div class="smallListIconTextTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+        <div class="smallListIconTextItem">
+            <img src="#" class="smallListIconTextItem-Image" data-win-bind="src: picture" />
+            <div class="smallListIconTextItem-Detail">
+                <h4 class="win-h4" data-win-bind="textContent: title"></h4>
+                <h6 class="win-h6" data-win-bind="textContent: text"></h6>
+            </div>
+        </div>
+    </div>
+
+    <!-- The declarative markup necesary for ListView instantiation -->
+    <!-- Call WinJS.UI.processAll() in your initialization code -->
+    <div class="listView win-selectionstylefilled"
+         data-win-control="WinJS.UI.ListView"
+         data-win-options="{
+                itemDataSource: Sample.ListView.data.dataSource,
+                itemTemplate: select('.smallListIconTextTemplate'),
+                selectionMode: 'none',
+                tapBehavior: 'none',
+                layout: { type: WinJS.UI.ListLayout }
+        }">
+    </div>
+
+</body>
+</html>

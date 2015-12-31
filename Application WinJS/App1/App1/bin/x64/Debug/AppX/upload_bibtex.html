@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" />
+        <title>App1</title>
+
+        <!-- R�f�rences WinJS -->
+        <link href="WinJS/css/ui-dark.css" rel="stylesheet" />
+        <script src="WinJS/js/base.js"></script>
+        <script src="WinJS/js/ui.js"></script>
+
+        <!-- R�f�rences App1 -->
+        <link href="/css/default.css" rel="stylesheet" />
+        <script src="/js/adminModel.js"></script>
+        <script src="/js/default.js"></script>
+        <script src="/js/BibTex.js"></script>
+    </head>
+    <body>
+        <div id="content_general">
+            <p class="win-type-header">Upload de fichier BibTex</p>
+            <form enctype="multipart/form-data">
+                <label>Fichier BibTex</label> <input type="file" id="fichier" name="fichier" required> <br /> <br />
+                <input type="button" id='bouton_upload_bibtex' class='win-button' name='btn_upload_bibtex' value="Valider">
+                <a href="/publications.html" class="win-button">Annuler</a>
+            </form>
+        </div>
+
+        <!--Pour les DialogContent-->
+        <div id="error_bibtex_extension"></div>
+        <div id="error_bibtex_publications"></div>
+        <div id="error_bibtex_file"></div>
+        <div id="succes_bibtex"></div>
+
+        <script src="/js/traite_bibtex.js"></script>
+    </body>
+</html>

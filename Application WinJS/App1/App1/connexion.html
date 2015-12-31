@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>App1</title>
+
+    <!-- Références WinJS -->
+    <link href="WinJS/css/ui-dark.css" rel="stylesheet" />
+    <script src="WinJS/js/base.js"></script>
+    <script src="WinJS/js/ui.js"></script>
+
+    <!-- Références App1 -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/navigator.js"></script>
+    <script src="/js/default.js"></script>
+
+    <!-- JS Dialogue avec WebServices-->
+    <script src="/js/adminModel.js"></script>
+</head>
+<body>
+    <center>
+        <p class="win-type-header">Connexion</p>
+
+        <div id='formulaire'>
+            <label class='win-label'>Login</label> <input type='text' id='login' name='login' /> <br /> <br />
+            <label class='win-label'>Password</label> <input type='password' id='password' name='password' /> <br /> <br />
+            <a href="#" id='bouton_connexion' class='win-button'>Se connecter</a>
+        </div>
+
+        <div id="dialog_error_connexion" data-win-control="WinJS.UI.ContentDialog" data-win-options="{
+                        title: 'Erreur',
+                        primaryCommandText: 'Fermer'
+                   }">
+            Données invalides. Veuillez réessayer.
+        </div>
+    </center>
+
+    <div id="contenthost" data-win-control="Application.PageControlNavigator" data-win-options="{
+         home: '/connexion.html'}"></div>
+
+    <script src="/js/gest_connexion.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" />
+        <title>App1</title>
+
+        <!-- R�f�rences WinJS -->
+        <link href="WinJS/css/ui-dark.css" rel="stylesheet" />
+        <script src="WinJS/js/base.js"></script>
+        <script src="WinJS/js/ui.js"></script>
+
+        <!-- R�f�rences App1 -->
+        <link href="/css/default.css" rel="stylesheet" />
+        <script src="/js/ckeditor/ckeditor.js"></script>
+        <script src="/js/adminModel.js"></script>
+        <script src="/js/default.js"></script>
+        <script src="/js/formRubrique.js"></script>
+    </head>
+
+    <body>
+
+        <div id="content_general">
+            <p class="win-type-header">Créer une rubrique</p>
+            <div id="formulaire_rubrique">
+                <label>Titre francais</label> <input type="text" id="titre_fr" name="titre_fr" required> <br /> <br />
+                <label>Titre anglais</label> <input type="text" id="titre_en" name="titre_en" required> <br /> <br />
+                <label>Visible</label>
+                <input type="radio" name="actif" value="1" checked>Oui
+                <input type="radio" name="actif" value="0">Non <br /> <br /> <br />
+                <label>Position</label> <input type="number" min="1" id="position" name="position"> <br /> <br />
+                <label>Contenu francais</label> <textarea id="content_fr" name="content_fr" rows="5" cols="45"></textarea> <br /> <br />
+                <label>Contenu anglais</label> <textarea id="content_en" name="content_en" rows="5" cols="45"></textarea> <br /> <br /> <br />
+                <input type="button" id='bouton_create_rubrique' class='win-button' name='btn_create_rub' value="Valider">
+                <a href="/rubriques.html" class="win-button">Annuler</a>
+            </div>
+        </div>
+
+        <!-- Error create rubrique -->
+        <div id="dialog_create_rubrique_error"></div>
+
+        <script src="/js/gest_creation_rubrique.js"></script>
+
+    </body>
+</html>

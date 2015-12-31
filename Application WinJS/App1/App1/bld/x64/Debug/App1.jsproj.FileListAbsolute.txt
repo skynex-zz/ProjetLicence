@@ -1,0 +1,16 @@
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bin\x64\Debug\ReverseMap\resources.pri
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bin\x64\Debug\AppxManifest.xml
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bin\x64\Debug\App1.build.appxrecipe
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\ResourceHandlingTask.state
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\priconfig.xml
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\priconfig.xml.intermediate
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\layout.resfiles
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\layout.resfiles.intermediate
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\resources.resfiles
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\resources.resfiles.intermediate
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\pri.resfiles
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\pri.resfiles.intermediate
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\qualifiers.txt
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\qualifiers.txt.intermediate
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\MultipleQualifiersPerDimensionFound.txt
+C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\ProjectArchitectures.txt

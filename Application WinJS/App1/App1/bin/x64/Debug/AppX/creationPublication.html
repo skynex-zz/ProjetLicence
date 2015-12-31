@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+
+    <!-- Références WinJS -->
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <link href="WinJS/css/ui-dark.css" rel="stylesheet" />
+    <script src="WinJS/js/base.js"></script>
+    <script src="WinJS/js/ui.js"></script>
+
+    <!-- Références App1 -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/adminModel.js"></script>
+    <script src="/js/default.js"></script>
+</head>
+
+<body class="win-type-body">
+    <div id="content_general">
+        <h1 class="win-type-header" style="padding-bottom:15px;">Créer une publication </h1>
+        <div>
+            
+                <label id="id-select_categories" class="label_publi">Categorie : </label> <select name="select" id="select_categories"></select><br /><br />
+                <label id="id-reference" class="label_publi">Reference : </label><input class="win-input" id="reference" name="titre_fr" /><br>
+                <label id="id-auteurs" class="label_publi">Auteur : </label><input class="win-input" id="auteurs" name="titre_fr" /><br>
+                <label id="id-titre" class="label_publi">Titre : </label><input class="win-input" id="titre" name="titre_fr" /><br>
+                <label id="id-booktitle" class="label_publi">Booktitle : </label><input class="win-input" id="booktitle" name="titre_fr" /><br>
+                <label id="id-editor" class="label_publi">Editor : </label><input class="win-input" id="editor" name="titre_fr" /><br>
+                <label id="id-series" class="label_publi">Series : </label><input class="win-input" id="series" name="titre_fr" /><br>
+                <label id="id-volume" class="label_publi">Volume : </label><input class="win-input" id="volume" name="titre_fr" /><br>
+                <label id="id-number" class="label_publi">Number : </label><input class="win-input" id="number" name="titre_fr" /><br>
+                <label id="id-pages" class="label_publi">Pages : </label><input class="win-input" id="pages" name="titre_fr" /><br>
+                <label id="id-chapter" class="label_publi">Chapter : </label><input class="win-input" id="chapter" name="titre_fr" /><br>
+                <label id="id-type" class="label_publi">Type : </label><input class="win-input" id="type" name="titre_fr" /><br>
+                <label id="id-publisher" class="label_publi">Publisher : </label><input class="win-input" id="publisher" name="titre_fr" /><br>
+                <label id="id-date_display" class="label_publi">Date_display : </label><input class="win-input" id="date_display" name="titre_fr" /><br>
+                <label id="id-localite" class="label_publi">Localite : </label><input class="win-input" id="localite" name="titre_fr" /><br>
+                <label id="id-institution" class="label_publi">Institution : </label><input class="win-input" id="institution" name="titre_fr" /><br>
+                <label id="id-isbn" class="label_publi">Isbn : </label><input class="win-input" id="isbn" name="titre_fr" /><br>
+                <label id="id-journal" class="label_publi">Journal : </label><input class="win-input" id="journal" name="titre_fr" /><br>
+                <label id="id-doi" class="label_publi">Doi : </label><input class="win-input" id="doi" name="titre_fr" /><br>
+                <label id="id-howpublished" class="label_publi">Howpublished : </label><input class="win-input" id="howpublished" name="titre_fr" /><br>
+                <label id="id-urldate" class="label_publi">Urldate : </label><input class="win-input" id="urldate" name="titre_fr" /><br>
+                <label id="id-url" class="label_publi">Url : </label><input class="win-input" id="url" name="titre_fr" /><br>
+                <label id="id-note" class="label_publi">Note : </label><input class="win-input" id="note" name="titre_fr" /><br>
+                <label id="id-abstract" class="label_publi">Abstract : </label><input class="win-input" id="abstract" name="titre_fr" /><br>
+                <label id="id-keywords" class="label_publi">Keywords : </label><input class="win-input" id="keywords" name="titre_fr" /><br>
+                <label id="id-pdf" class="label_publi">PDF : </label><input class="win-input" id="pdf" name="titre_fr" /><br>
+                <label id="id-date" class="label_publi">Date : </label><input class="win-input" id="date" name="titre_fr" /><br><br />
+                <input type="button" id='bouton_create_publication' class='win-button' name='btn_create_publi' value="Valider">
+            
+            <a href="/publications.html" class="win-button">Annuler</a> <br /><br />
+        </div>
+    </div>
+
+    <h2 id="res_create_publication" style="margin:20px;color:#32C846;"></h2>
+
+    <script src="/js/creationPublication.js"></script>
+    <script src="/js/gest_creation_publication.js"></script>
+     
+    </body>
+</html>

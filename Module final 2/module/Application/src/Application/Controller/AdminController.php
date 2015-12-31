@@ -49,32 +49,31 @@ class AdminController extends AbstractActionController
         if($token != null) $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue));
         
         $listeRubrique = SendLayout::fetchAllRubriques($this, 'login', $langue, $token);
+        $langue = $this->getEvent()->getRouteMatch()->getParam('langue');
         
         $form = new AdminForm(); //formulaire de connexion
         $adminModel = new AdminModel();
 
         $request = $this->getRequest();
-        if ($request->isPost()) {
+        if ($request->isPost()) { //Si le formulaire est soumis
             $admin = new Admin();
             $form->setInputFilter($admin->getInputFilter());
             $form->setData($request->getPost());
 
-            if ($form->isValid()) {
+            if ($form->isValid()) { //Si le formulaire est valide
                 $admin->exchangeArray($form->getData());
                 try {
-                    $token = $adminModel->verifyUser($admin->login, $admin->password);
+                    $token = $adminModel->verifyUser($admin->login, $admin->password); //Appel fonction qui enverra les données au Web service
                 }
                 catch(\Exception $e) {
                     $token = null;
                     SendLayout::sendGeneral($this, $listeRubrique, 'login', $langue, $token);
-                    return new ViewModel(array('form' => $form, 'listeRubrique' => $listeRubrique, 
-                        'langue' => $this->getEvent()->getRouteMatch()->getParam('langue'), 'exception' => $e->getMessage()));
+                    return new ViewModel(array('form' => $form, 'listeRubrique' => $listeRubrique, 'langue' => $langue, 'exception' => $e->getMessage()));
                 }
                 $session = new Container('user');
                 $session->token = $token;
                 //Redirection vers l'interface d'administration
                 $this->redirect()->toRoute('admin', array('action' => 'index', 'langue' => $langue));
-                //echo $token;
             }
         }
         SendLayout::sendGeneral($this, $listeRubrique, 'login', $langue, $token);
@@ -86,7 +85,7 @@ class AdminController extends AbstractActionController
         VerifUser::setTokenToDisconnect();
         $token = VerifUser::tokenAction();
         if($token == null) $this->redirect()->toRoute('home');
-        
+		
         $rubriqueModel = new RubriqueModel();
         $listeRubrique = null;
         

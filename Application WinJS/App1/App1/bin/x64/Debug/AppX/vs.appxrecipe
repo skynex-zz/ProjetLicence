@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>MIKOU-ASUS</Machine>
+    <WindowsUser>Mikou</WindowsUser>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetOsVersion>10.0</TargetOsVersion>
+    <TargetOsDescription>Windows 10.0</TargetOsDescription>
+    <SolutionConfiguration>Debug|x64</SolutionConfiguration>
+    <PackageArchitecture>x64</PackageArchitecture>
+    <PackageIdentityName>272b1321-855e-4452-ac31-3aac3a569226</PackageIdentityName>
+    <IntermediateOutputPath>C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bld\x64\Debug\</IntermediateOutputPath>
+    <RegisteredManifestChecksum>A10F22AA08FC4058EAC93727D0DB3FC616C19F67B2986198756C33D37AEF9255</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>272b1321-855e-4452-ac31-3aac3a569226_1.0.0.0_x64__qhvhqcestafz8</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>272b1321-855e-4452-ac31-3aac3a569226_qhvhqcestafz8!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>272b1321-855e-4452-ac31-3aac3a569226</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=licenceweb</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+    <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bin\x64\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-12-18T15:24:35.207</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\connexion.html">
+      <PackagePath>connexion.html</PackagePath>
+      <Modified>2015-12-30T14:52:41.419</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\creationPublication.html">
+      <PackagePath>creationPublication.html</PackagePath>
+      <Modified>2015-12-18T15:38:14.105</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\default.html">
+      <PackagePath>default.html</PackagePath>
+      <Modified>2015-12-09T08:36:38.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\form_create_rubrique.html">
+      <PackagePath>form_create_rubrique.html</PackagePath>
+      <Modified>2015-12-18T14:17:12.740</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\form_modif_rubrique.html">
+      <PackagePath>form_modif_rubrique.html</PackagePath>
+      <Modified>2015-12-16T10:29:52.115</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\publications.html">
+      <PackagePath>publications.html</PackagePath>
+      <Modified>2015-12-18T11:12:59.225</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\rubriques.html">
+      <PackagePath>rubriques.html</PackagePath>
+      <Modified>2015-12-18T09:42:00.100</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\upload_bibtex.html">
+      <PackagePath>upload_bibtex.html</PackagePath>
+      <Modified>2015-12-18T09:59:15.064</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\images\LockScreenLogo.scale-200.png">
+      <PackagePath>images\LockScreenLogo.scale-200.png</PackagePath>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\images\SplashScreen.scale-200.png">
+      <PackagePath>images\SplashScreen.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\images\Square150x150Logo.scale-200.png">
+      <PackagePath>images\Square150x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\images\Square44x44Logo.scale-200.png">
+      <PackagePath>images\Square44x44Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\images\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <PackagePath>images\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\images\StoreLogo.png">
+      <PackagePath>images\StoreLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\images\Wide310x150Logo.scale-200.png">
+      <PackagePath>images\Wide310x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-10T20:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\BibTex.js">
+      <PackagePath>js\BibTex.js</PackagePath>
+      <Modified>2015-12-17T08:06:10.689</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\creationPublication.js">
+      <PackagePath>js\creationPublication.js</PackagePath>
+      <Modified>2015-12-18T13:27:51.654</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\default.js">
+      <PackagePath>js\default.js</PackagePath>
+      <Modified>2015-12-16T10:34:17.164</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\adminModel.js">
+      <PackagePath>js\adminModel.js</PackagePath>
+      <Modified>2015-12-18T14:11:31.992</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\formRubrique.js">
+      <PackagePath>js\formRubrique.js</PackagePath>
+      <Modified>2015-12-14T12:27:51.343</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\gest_connexion.js">
+      <PackagePath>js\gest_connexion.js</PackagePath>
+      <Modified>2015-12-16T08:53:58.656</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\gest_creation_publication.js">
+      <PackagePath>js\gest_creation_publication.js</PackagePath>
+      <Modified>2015-12-18T16:55:48.953</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\gest_creation_rubrique.js">
+      <PackagePath>js\gest_creation_rubrique.js</PackagePath>
+      <Modified>2015-12-14T13:25:33.396</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\gest_modif_rubriques.js">
+      <PackagePath>js\gest_modif_rubriques.js</PackagePath>
+      <Modified>2015-12-14T13:32:16.145</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\gest_publications.js">
+      <PackagePath>js\gest_publications.js</PackagePath>
+      <Modified>2015-12-18T09:49:34.033</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\gest_rubriques.js">
+      <PackagePath>js\gest_rubriques.js</PackagePath>
+      <Modified>2015-12-18T09:40:11.421</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\home_rubriques.js">
+      <PackagePath>js\home_rubriques.js</PackagePath>
+      <Modified>2015-12-15T17:16:57.076</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\listView.js">
+      <PackagePath>js\listView.js</PackagePath>
+      <Modified>2015-12-12T14:46:46.602</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\navigator.js">
+      <PackagePath>js\navigator.js</PackagePath>
+      <Modified>2014-06-17T05:17:12.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\nicEdit.js">
+      <PackagePath>js\nicEdit.js</PackagePath>
+      <Modified>2015-12-16T12:40:42.592</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\publication.js">
+      <PackagePath>js\publication.js</PackagePath>
+      <Modified>2015-12-18T14:13:43.104</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\rubriques.js">
+      <PackagePath>js\rubriques.js</PackagePath>
+      <Modified>2015-12-12T15:43:04.766</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\js\traite_bibtex.js">
+      <PackagePath>js\traite_bibtex.js</PackagePath>
+      <Modified>2015-12-17T12:40:55.886</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\WinJS\js\en-US\ui.strings.js">
+      <PackagePath>WinJS\js\en-US\ui.strings.js</PackagePath>
+      <Modified>2015-10-10T20:09:40.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\WinJS\js\base.js">
+      <PackagePath>WinJS\js\base.js</PackagePath>
+      <Modified>2015-12-17T10:22:04.133</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\WinJS\js\ui.js">
+      <PackagePath>WinJS\js\ui.js</PackagePath>
+      <Modified>2015-10-10T20:09:40.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\css\default.css">
+      <PackagePath>css\default.css</PackagePath>
+      <Modified>2015-12-18T13:05:38.939</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\WinJS\css\ui-dark.css">
+      <PackagePath>WinJS\css\ui-dark.css</PackagePath>
+      <Modified>2015-10-10T20:09:40.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\WinJS\css\ui-light.css">
+      <PackagePath>WinJS\css\ui-light.css</PackagePath>
+      <Modified>2015-12-11T13:04:13.129</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\WinJS\fonts\Symbols.ttf">
+      <PackagePath>WinJS\fonts\Symbols.ttf</PackagePath>
+      <Modified>2015-10-10T20:09:40.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Mikou\Documents\Visual Studio 2015\Projects\App1\App1\bin\x64\Debug\ReverseMap\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2015-12-18T15:24:34.983</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>
